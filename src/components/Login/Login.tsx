@@ -1,5 +1,5 @@
-import axios from "axios";
 import React from "react";
+import instance from "../../services/instance";
 
 const Login: React.FC = () => {
   const redirectUri =
@@ -20,7 +20,7 @@ const Login: React.FC = () => {
       code: code,
     };
     try {
-      const res = await axios.get("https://server.bageasy.net/auth/login", {
+      const res = await instance.get('/api/users', {
         params: { data: data },
       });
       // 토큰 localstorage에 저장
