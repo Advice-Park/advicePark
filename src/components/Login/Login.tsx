@@ -6,7 +6,7 @@ const Login: React.FC = () => {
 
   const handleLogin = () => {
     const RedirectUri =
-      "https://advice-park.vercel.app";
+      "https://advice-park.vercel.app/home";
     const LoginUrl = `https://mooooonmin.site/oauth2/authorization/google?redirect_uri=${RedirectUri}&mode=login`;
 
     window.location.href = LoginUrl;
