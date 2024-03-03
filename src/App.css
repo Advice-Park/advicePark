@@ -1,5 +1,11 @@
 #root {
-  max-width: 1280px;
+  max-width: 1200px;
   margin: 0 auto;
-  text-align: center;
+}
+
+body {
+  -ms-overflow-style: none;
+}
+::-webkit-scrollbar {
+  display: none;
 }
