@@ -1,15 +1,15 @@
 // import React from 'react'
 import { Routes, Route } from 'react-router-dom'
 import "./App.css";
-import LoginPage from './pages/LoginPage';
+import Login from './pages/Login';
 import NotFound from './pages/NotFound';
-import Home from './components/Home/Home';
+import Home from './pages/Home';
 
 const App = () => {
   return (
       <Routes>
-        <Route path="/" element={<LoginPage />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
   );
