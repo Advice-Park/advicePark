@@ -37,7 +37,7 @@ const LoginModal = ({ setModalOpen }: Props) => {
   }, [setModalOpen]);
 
   const handleLogin = () => {
-    const RedirectUri = "https://advice-park.vercel.app/home";
+    const RedirectUri = "https://advice-park.vercel.app";
     const LoginUrl = `https://mooooonmin.site/oauth2/authorization/google?redirect_uri=${RedirectUri}&mode=login`;
     window.location.href = LoginUrl;
   };
@@ -47,9 +47,10 @@ const LoginModal = ({ setModalOpen }: Props) => {
       ref={modalRef}
       className="w-full h-screen fixed top-0 left-0 bg-neutral-700 bg-opacity-50"
     >
-      
-      <div className="w-360 h-330 z-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-yellow-400 rounded-10 shadow-2 shadow-transparent-black">
-      <button className="p-5" onClick={closeModal}>X</button>
+      <div className="w-360 h-330 z-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-lime-400 rounded-10 shadow-2 shadow-transparent-black">
+        <button className="p-10 m-100" onClick={closeModal}>
+          X
+        </button>
         <button
           className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
           onClick={handleLogin}
