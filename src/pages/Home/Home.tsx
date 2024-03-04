@@ -1,16 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import HotPost from "./HotPost";
 import Login from "../Login/LoginModal";
+import { useCookies } from "react-cookie";
+import { authState } from "../../contexts/state";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 
 const Home: React.FC = () => {
+  //recoil 사용 선언
+  const setAuth = useSetRecoilState(authState);
+  const auth = useRecoilValue(authState);
 
   // 로그인 모달
   const [modalOpen, setModalOpen] = useState(false);
+
+  const [cookies, setCookie] = useCookies(["token"]);
 
   // 모달창 열기
   const showModal = () => {
     setModalOpen(true);
   };
+
+  const params = new URLSearchParams(window.location.search);
+  if (params.get("access_token")) {
+    useEffect(() => {
+      const access_token = params.get("access_token");
+      setCookie("token", access_token);
+      console.log(cookies.token);
+
+      setAuth({ isLoggedIn: true });
+    }, [cookies, setCookie]);
+  }
 
   return (
     <div className="w-full flex justify-center h-screen mx-auto bg-slate-400">
@@ -30,12 +49,10 @@ const Home: React.FC = () => {
             // onClick={handleLogin}
             onClick={showModal}
           >
-            로그인
+            {auth.isLoggedIn ? "로그아웃" : "로그인"}
           </button>
         </div>
-        
         <HotPost />
-
       </div>
     </div>
   );
