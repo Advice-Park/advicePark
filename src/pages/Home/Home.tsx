@@ -28,7 +28,7 @@ const Home: React.FC = () => {
       console.log(cookies.token);
 
       setAuth({ isLoggedIn: true });
-    }, [cookies, setCookie]);
+    }, []);
   }
 
   // 로그아웃
@@ -46,7 +46,7 @@ const Home: React.FC = () => {
       {/* ---웹앱 창--- */}
       <div className="max-w-390 h-screen overflow-y-scroll bg-yellow-400 mx-5">
         오른쪽 상자
-        <div className="sticky top-0 left-0 w-full z-50 flex flex-row justify-between items-center p-2 px-4 bg-blue-400">
+        <div className="sticky top-0 left-0 w-full z-50 flex flex-row justify-between items-center py-2 px-4 bg-blue-400">
           <div>박훈수 훈수두기 서비스 </div>
           {modalOpen && <Login setModalOpen={setModalOpen} />}
           {auth.isLoggedIn ? <button
