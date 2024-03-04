@@ -31,6 +31,11 @@ const Home: React.FC = () => {
     }, [cookies, setCookie]);
   }
 
+  // 로그아웃
+  const handleLogout = () => {
+    setAuth({ isLoggedIn: false });
+  }
+
   return (
     <div className="w-full flex justify-center h-screen mx-auto bg-slate-400">
       {/* ---큰화면용 이미지--- */}
@@ -44,13 +49,20 @@ const Home: React.FC = () => {
         <div className="sticky top-0 left-0 w-full z-50 flex flex-row justify-between items-center p-2 px-4 bg-blue-400">
           <div>박훈수 훈수두기 서비스 </div>
           {modalOpen && <Login setModalOpen={setModalOpen} />}
-          <button
+          {auth.isLoggedIn ? <button
+            className="py-2 px-4 rounded-lg shadow-md text-black bg-green-300 hover:bg-lime-300"
+            // onClick={handleLogin}
+            onClick={handleLogout}
+          >
+            로그아웃
+          </button> : <button
             className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
             // onClick={handleLogin}
             onClick={showModal}
           >
-            {auth.isLoggedIn ? "로그아웃" : "로그인"}
-          </button>
+            로그인
+          </button>}
+          
         </div>
         <HotPost />
       </div>
