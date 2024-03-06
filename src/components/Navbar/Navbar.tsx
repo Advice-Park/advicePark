@@ -14,7 +14,7 @@ const Navbar: React.FC = () => {
   // 로그인 모달
   const [modalOpen, setModalOpen] = useState(false);
 
-  const [cookies, setCookie] = useCookies(["token"]);
+  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
 
   // 모달창 열기
   const showModal = () => {
@@ -23,9 +23,9 @@ const Navbar: React.FC = () => {
 
   // 토큰 추출
   const params = new URLSearchParams(window.location.search);
-  if (params.get("access_token")) {
+  const access_token = params.get("access_token");
+  if (access_token) {
     useEffect(() => {
-      const access_token = params.get("access_token");
       setCookie("token", access_token);
       console.log(cookies.token);
 
@@ -36,6 +36,7 @@ const Navbar: React.FC = () => {
   // 로그아웃
   const handleLogout = () => {
     setAuth({ isLoggedIn: false });
+    removeCookie("token", { path: "/" });
   };
 
   return (
