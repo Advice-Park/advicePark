@@ -4,7 +4,7 @@ import { getCookie } from "../components/cookie/reactCookie";
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_APP_SERVER_URL,
   timeout: 1000,
-  headers: { Authorization: `Bearer${getCookie("token")}` },
+  headers: { Authorization: `Bearer ${getCookie("token")}` },
 });
 
 // instance.interceptors.request.use(

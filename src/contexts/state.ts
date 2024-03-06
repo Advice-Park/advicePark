@@ -4,7 +4,7 @@ export interface IAuthTypes {
     isLoggedIn: boolean;
 }
 
-// recoil state
+// 로그인 상태
 export const authState = atom<IAuthTypes>({
     key: 'auth',
     default: {
