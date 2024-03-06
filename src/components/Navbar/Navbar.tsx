@@ -46,7 +46,7 @@ const Navbar: React.FC = () => {
         {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
         {auth.isLoggedIn ? (
           <>
-            <ul>
+            <ul className="flex gap-4">
               <li onClick={() => navigate("/post")}>글쓰기</li>
               <li onClick={() => navigate("/posts")}>글목록</li>
               <li onClick={() => navigate("/my")}>마이페이지</li>
