@@ -76,12 +76,14 @@ const PostPage: React.FC = () => {
     setIsCategoryModalOpen(false);
   };
 
-  return (
-    <form>
+  return (<>
+    <form onSubmit={submitHandler}>
+
       <div>
         <p onClick={handleCanc}>취소</p>
-        <p onClick={submitHandler}>등록</p>
+        <button type="submit">등록</button>
       </div>
+
       <div>
         <div className="flex flex-col">
           <p onClick={categoryOpen}>{category}</p>
@@ -102,8 +104,7 @@ const PostPage: React.FC = () => {
             autoFocus
             placeholder="제목"
           />
-          <input
-            type="text"
+          <textarea
             value={contents}
             onChange={(e) => {
               setContents(e.target.value);
@@ -121,6 +122,7 @@ const PostPage: React.FC = () => {
         {/* )} */}
       </div>
     </form>
+    </>
   );
 };
 
