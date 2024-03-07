@@ -21,20 +21,20 @@ const CategoryModal: React.FC<Props> = ({ open, close, parentFunction }) => {
     }
     handleCategorySetUp();
 
-    // function handleClickOutside(event: React.MouseEvent<Document>) {
-    //   if (
-    //     modalRef.current &&
-    //     !modalRef.current.contains(event.target as Node)
-    //   ) {
-    //     closeModal();
-    //   }
-    // }
+    function handleClickOutside(event: React.MouseEvent<Document>) {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        closeModal();
+      }
+    }
 
-    // document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
 
-    // return () => {
-    //   document.removeEventListener("mousedown", handleClickOutside);
-    // };
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
   }, [modalRef, isActive]);
 
   const [category, setCategory] = useState("카테고리");
