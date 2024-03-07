@@ -38,7 +38,7 @@ const CategoryModal: React.FC<Props> = ({ open, close, parentFunction }) => {
   }, [modalRef, isActive]);
 
   const [category, setCategory] = useState("카테고리");
-  const Categories = ["일상(잡답)", "연애", "운동", "음식", "기타"];
+  const Categories = ["일상(잡담)", "연애", "운동", "음식", "기타"];
 
   parentFunction(category);
 
