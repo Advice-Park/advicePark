@@ -3,8 +3,10 @@ import { useCookies } from "react-cookie";
 import { authState } from "../../contexts/state";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import LoginModal from "../../pages/Login/LoginModal";
+import { useNavigate } from "react-router-dom";
 
 const Navbar: React.FC = () => {
+  const navigate = useNavigate();
   //recoil 사용 선언
   const setAuth = useSetRecoilState(authState);
   const auth = useRecoilValue(authState);
@@ -37,10 +39,6 @@ const Navbar: React.FC = () => {
     removeCookie("token", { path: "/" });
   };
 
-  const navHandler = (menu: string) => {
-    location.href=`https://advice-park.vercel.app/${menu}`
-  }
-
   return (
     <header>
       <div className="sticky top-0 left-0 w-full z-50 flex flex-row justify-between items-center py-2 px-4 bg-blue-400">
@@ -49,9 +47,9 @@ const Navbar: React.FC = () => {
         {auth.isLoggedIn ? (
           <>
             <ul className="flex gap-4">
-              <li onClick={() => navHandler("post")}>글쓰기</li>
-              <li onClick={() => navHandler("posts")}>글목록</li>
-              <li onClick={() => navHandler("my")}>마이페이지</li>
+              <li onClick={() => navigate("/post")}>글쓰기</li>
+              <li onClick={() => navigate("/posts")}>글목록</li>
+              <li onClick={() => navigate("/my")}>마이페이지</li>
             </ul>
             <button
               className="py-2 px-4 rounded-lg shadow-md text-black bg-green-300 hover:bg-lime-300"
