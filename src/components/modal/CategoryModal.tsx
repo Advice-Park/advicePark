@@ -21,7 +21,7 @@ const CategoryModal: React.FC<Props> = ({ open, close, parentFunction }) => {
     }
     handleCategorySetUp();
 
-    function handleClickOutside(event: React.MouseEvent<Document>) {
+    function handleClickOutside(event: Event) {
       if (
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
