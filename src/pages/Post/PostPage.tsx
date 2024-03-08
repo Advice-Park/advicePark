@@ -14,7 +14,7 @@ const PostPage: React.FC = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [category, setCategory] = useState("카테고리");
-  const [voting, setVoting] = useState<string>("no");
+  const [voting, setVoting] = useState<string>("NORMAL");
   const [imgs, setImgs] = useState<File[]>([]);
 
   // 전송용 카테고리 키워드
@@ -104,7 +104,7 @@ const PostPage: React.FC = () => {
             <label>
               <input
                 type="checkbox"
-                checked={voting === "yes"}
+                checked={voting === "YES_NO"}
                 onChange={votingHandler}
               />
               <span>찬반</span>
