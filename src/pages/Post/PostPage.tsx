@@ -14,18 +14,22 @@ const PostPage: React.FC = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [category, setCategory] = useState("카테고리");
-  const [voting, setVoting] = useState(false);
+  const [voting, setVoting] = useState<string>("no");
   const [imgs, setImgs] = useState<File[]>([]);
 
   // 전송용 카테고리 키워드
   const postingCategory: { [key: string]: string } = {
     "일상(잡담)": "DAILY",
-    "연애": "LOVE",
-    "운동": "EXERCISE",
-    "음식": "FOOD",
-    "기타": "ETC",
+    연애: "LOVE",
+    운동: "EXERCISE",
+    음식: "FOOD",
+    기타: "ETC",
   };
   const selectCat = postingCategory[category];
+
+  const votingHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setVoting(e.target.checked ? "yes" : "no");
+  };
 
   // 게시글 등록
   const submitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -100,8 +104,8 @@ const PostPage: React.FC = () => {
             <label>
               <input
                 type="checkbox"
-                checked={voting}
-                onChange={() => setVoting(!voting)}
+                checked={voting === "yes"}
+                onChange={votingHandler}
               />
               <span>찬반</span>
             </label>
