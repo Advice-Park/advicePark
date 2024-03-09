@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { instance } from "../../services/instance";
 import PostFooter from "../../components/footer/PostFooter";
 import CategoryModal from "../../components/modal/CategoryModal";
+import MobileLayout from "../../layout/MobileLayout";
 
 const PostPage: React.FC = () => {
   const navigate = useNavigate();
@@ -95,7 +96,7 @@ const PostPage: React.FC = () => {
   };
 
   return (
-    <>
+    <MobileLayout>
       <form onSubmit={submitHandler}>
         <div>
           <p onClick={handleCanc}>취소</p>
@@ -140,7 +141,7 @@ const PostPage: React.FC = () => {
           {/* )} */}
         </div>
       </form>
-    </>
+    </MobileLayout>
   );
 };
 
