@@ -63,7 +63,11 @@ const PostPage: React.FC = () => {
     // setLoading(true);
 
     try {
-      await instance.post("/api/post", formData);
+      await instance.post("/api/post", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       // setLoading(false);
       alert("글 작성에 성공하였습니다.");
       console.log(formData);
@@ -71,7 +75,7 @@ const PostPage: React.FC = () => {
     } catch (e: any) {
       // const errorMsg = e.response.data.message;
       // alert(`${errorMsg}`);
-      console.log(e);
+      console.log('글 작성 에러 :', e);
     }
   };
 
