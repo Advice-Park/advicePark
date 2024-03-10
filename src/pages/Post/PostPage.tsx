@@ -29,7 +29,7 @@ const PostPage: React.FC = () => {
   const selectCat = postingCategory[category];
 
   const votingHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setVoting(e.target.checked ? "yes" : "no");
+    setVoting(e.target.checked ? "YES_NO" : "NORMAL");
   };
 
   // 게시글 등록
