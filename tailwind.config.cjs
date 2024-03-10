@@ -2,7 +2,10 @@
 export default {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {screens: {
+      sm: { min: "390px", max: "819px" },
+      md: { min: "820px" },
+    },},
   },
   plugins: [],
 }
