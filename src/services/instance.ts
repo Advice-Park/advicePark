@@ -6,7 +6,6 @@ export const instance = axios.create({
   // timeout: 1000,
   headers: {
     Authorization: `Bearer ${getCookie("token")}`,
-    Cookie: `token=${getCookie("token")}`,
   },
 });
 
