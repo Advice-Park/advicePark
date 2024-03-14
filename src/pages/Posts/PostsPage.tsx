@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Posts, getPosts } from "../../services/api/posts";
+import { useNavigate } from "react-router-dom";
 
 const PostsPage: React.FC = () => {
+  const navi = useNavigate();
   const [posts, setPosts] = useState<Posts[]>([]);
 
   useEffect(() => {
@@ -13,14 +15,14 @@ const PostsPage: React.FC = () => {
   return (
     <div>
       {posts.map((post) => (
-        <ul>
-          <li>{post.title}</li>
+        <ul className="p-5" key={post.postId} onClick={()=>navi(`/posts/${post.postId}`)}>
+          <li>제목: {post.title}</li>
           <li>{post.contents}</li>
           <li>{post.category}</li>
           <li>{post.imageUrls}</li>
           <li>{post.votingEnabled}</li>
-          <li>{post.viewCount}</li>
-          <li>{post.commentCount}</li>
+          <li>뷰: {post.viewCount}</li>
+          <li>댓글: {post.commentCount}</li>
         </ul>
       ))}
     </div>
