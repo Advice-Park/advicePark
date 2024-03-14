@@ -13,6 +13,7 @@ import Home from "./pages/Home/Home.tsx";
 import PostPage from "./pages/Post/PostPage.tsx";
 import PostsPage from "./pages/Posts/PostsPage.tsx";
 import My from "./pages/MyPage/My.tsx";
+import DetailPost from "./pages/Detail/DetailPost.tsx";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
       { index: true, path: "/", element: <Home /> },
       { path: "/post", element: <PostPage /> },
       { path: "/posts", element: <PostsPage /> },
+      { path: "/posts/:postId", element: <DetailPost /> },
       { path: "/my", element: <My /> },
     ],
   },

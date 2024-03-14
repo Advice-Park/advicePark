@@ -1,6 +1,8 @@
 import { instance } from "../instance"
 
 export interface Posts {
+    postId: number
+    userId: number
     title: string
     contents: string
     category: "DAILY" | "LOVE" | "EXERCISE" | "FOOD" | "ETC"
