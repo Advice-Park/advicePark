@@ -45,7 +45,7 @@ const PostFooter: React.FC<SetImgsProps> = ({ setImgs }) => {
   };
 
   return (
-    <>
+    <div className="fixed bottom-0 w-full">
       {prevImgs.length !== 0 && (
         <div>
           <span onClick={CancleHandler}>이미지 업로드 취소</span>
@@ -61,25 +61,22 @@ const PostFooter: React.FC<SetImgsProps> = ({ setImgs }) => {
       )}
 
       <div>
-        
-        <div>
-          <nav>
-            &nbsp;
-            <label>
-              <span>이미지는 4장까지 업로드 가능합니다.</span>
-              <input
-                type="file"
-                accept="image/*"
-                multiple
-                onChange={imgOnchangeHandler}
-                className="hidden"
-              />
-              <div>첨부</div>
-            </label>
-          </nav>
-        </div>
+        <nav>
+          &nbsp;
+          <label>
+            <span>이미지는 4장까지 업로드 가능합니다.</span>
+            <input
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={imgOnchangeHandler}
+              className="hidden"
+            />
+            <div>첨부</div>
+          </label>
+        </nav>
       </div>
-    </>
+    </div>
   );
 };
 

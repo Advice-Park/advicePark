@@ -76,7 +76,7 @@ const PostPage: React.FC = () => {
     } catch (e: any) {
       // const errorMsg = e.response.data.message;
       // alert(`${errorMsg}`);
-      console.log('글 작성 에러 :', e);
+      console.log("글 작성 에러 :", e);
     }
   };
 
@@ -103,7 +103,7 @@ const PostPage: React.FC = () => {
           <button type="submit">등록</button>
         </div>
 
-        <div>
+        <div className="relative">
           <div className="flex flex-col">
             <p onClick={categoryOpen}>{category}</p>
             <label>
