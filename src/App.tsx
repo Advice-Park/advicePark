@@ -14,10 +14,10 @@ const App: React.FC = () => {
 
         {/* ---웹앱 창--- */}
         <div
-          className="max-w-390 h-screen overflow-y-scroll bg-yellow-400 mx-5"
+          className="max-w-md w-full h-screen overflow-y-scroll bg-yellow-400 mx-5"
           suppressHydrationWarning={true}
         >
-          오른쪽 상자 여기에 실제 웹앱 내용이 들어가는 중 최대 넓이 테스트 중
+          오른쪽 상자
           <Navbar />
           <Outlet />
         </div>
