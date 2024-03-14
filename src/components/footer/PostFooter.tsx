@@ -45,11 +45,11 @@ const PostFooter: React.FC<SetImgsProps> = ({ setImgs }) => {
   };
 
   return (
-    <div className="fixed bottom-0 w-full">
+    <div className="max-w-md w-full fixed bottom-0 border-t-2 border-gray-300">
       {prevImgs.length !== 0 && (
         <div>
           <span onClick={CancleHandler}>이미지 업로드 취소</span>
-          <div>
+          <div className="flex">
             {[...Array(4)].map((_, i) => (
               <PostImg
                 key={i}
@@ -62,7 +62,6 @@ const PostFooter: React.FC<SetImgsProps> = ({ setImgs }) => {
 
       <div>
         <nav>
-          &nbsp;
           <label>
             <span>이미지는 4장까지 업로드 가능합니다.</span>
             <input

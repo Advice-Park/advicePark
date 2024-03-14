@@ -5,7 +5,7 @@ interface PrevImgprop {
 }
 
 const PostImg: React.FC<PrevImgprop> = ({ prevImg }) => {
-  return <img className="w-72 h-72" src={prevImg} />;
+  return <img className="w-20 h-20 m-2" src={prevImg} />;
 };
 
 export default PostImg;
