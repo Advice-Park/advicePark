@@ -3,6 +3,10 @@ import { useCookies } from "react-cookie";
 import { authState } from "../../contexts/state";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import LoginModal from "../../pages/Login/LoginModal";
+import SearchIcon from "../../assets/icons/search.svg?react";
+import MyPageIcon from "../../assets/icons/myPage.svg?react";
+import WriteIcon from "../../assets/icons/write.svg?react";
+import BoardIcon from "../../assets/icons/postsBoard.svg?react";
 
 const Navbar: React.FC = () => {
   //recoil 사용 선언
@@ -45,16 +49,24 @@ const Navbar: React.FC = () => {
     <header>
       <div className="sticky top-0 left-0 w-full z-50 flex flex-row justify-between items-center py-2 px-4 bg-blue-400">
         <div>박훈수 서비스</div>
-        {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
         {auth.isLoggedIn ? (
           <>
             <ul
               className="flex gap-3 flex-nowrap"
               suppressHydrationWarning={true}
             >
-              <li onClick={() => navHandler("post")}>글쓰기</li>
-              <li onClick={() => navHandler("posts")}>목록</li>
-              <li onClick={() => navHandler("my")}>MY</li>
+              <li onClick={() => navHandler("search")}>
+                <SearchIcon />
+              </li>
+              <li onClick={() => navHandler("post")}>
+                <WriteIcon />
+              </li>
+              <li onClick={() => navHandler("posts")}>
+                <BoardIcon />
+              </li>
+              <li onClick={() => navHandler("my")}>
+                <MyPageIcon />
+              </li>
             </ul>
             <button
               className="py-2 px-4 rounded-lg shadow-md text-black bg-green-300 hover:bg-lime-300"
@@ -73,6 +85,7 @@ const Navbar: React.FC = () => {
             로그인
           </button>
         )}
+        {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
       </div>
     </header>
   );

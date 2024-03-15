@@ -14,10 +14,9 @@ const App: React.FC = () => {
 
         {/* ---웹앱 창--- */}
         <div
-          className="max-w-md w-full h-screen overflow-y-scroll bg-yellow-400 mx-5"
+          className="max-w-md w-full h-screen overflow-y-scroll bg-gray-100 mx-5"
           suppressHydrationWarning={true}
         >
-          오른쪽 상자
           <Navbar />
           <Outlet />
         </div>
