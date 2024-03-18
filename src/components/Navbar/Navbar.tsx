@@ -26,14 +26,17 @@ const Navbar: React.FC = () => {
   // 토큰 추출
   const params = new URLSearchParams(window.location.search);
   const access_token = params.get("access_token");
-  if (access_token) {
-    useEffect(() => {
+  useEffect(() => {
+    if (access_token) {
       setCookie("token", access_token);
       console.log(cookies.token);
+    }
 
+    if (cookies.token) {
       setAuth({ isLoggedIn: true });
-    }, []);
-  }
+      return;
+    }
+  }, []);
 
   // 로그아웃
   const handleLogout = () => {
@@ -48,7 +51,7 @@ const Navbar: React.FC = () => {
   return (
     <header>
       <div className="sticky top-0 left-0 w-full z-50 flex flex-row justify-between items-center py-2 px-4 bg-blue-400">
-        <div>박훈수 서비스</div>
+        <div onClick={() => navHandler("")}>박훈수 서비스</div>
         {auth.isLoggedIn ? (
           <>
             <ul
