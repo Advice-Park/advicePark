@@ -34,6 +34,8 @@ const Navbar: React.FC = () => {
 
     if (cookies.token) {
       setAuth({ isLoggedIn: true });
+      window.location.reload();
+
       return;
     }
   }, []);
@@ -43,13 +45,6 @@ const Navbar: React.FC = () => {
     setAuth({ isLoggedIn: false });
     removeCookie("token", { path: "/" });
   };
-
-  // 첫 렌더링 시 인증 상태 확인
-  useEffect(() => {
-    if (cookies.token) {
-      setAuth({ isLoggedIn: true });
-    }
-  }, []);
 
   const navHandler = (menu: string) => {
     location.href = `https://advice-park.vercel.app/${menu}`;
@@ -95,7 +90,9 @@ const Navbar: React.FC = () => {
             로그인
           </button>
         )}
-        {modalOpen && <LoginModal setModalOpen={setModalOpen} setAuth={setAuth} />}
+        {modalOpen && (
+          <LoginModal setModalOpen={setModalOpen} setAuth={setAuth} />
+        )}
       </div>
     </header>
   );
