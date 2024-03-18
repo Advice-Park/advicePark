@@ -10,7 +10,7 @@ export interface Posts {
     commentCount: number
     createdTime: string
     imageUrls: string[]
-    voteOption: boolean
+    voteOption: "YES_NO" | "NORMAL"
 }
 
 export const getPosts = async () => {

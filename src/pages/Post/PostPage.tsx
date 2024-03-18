@@ -45,7 +45,7 @@ const PostPage: React.FC = () => {
     formData.append("title", title);
     formData.append("contents", contents);
     formData.append("category", selectCat);
-    formData.append("votingEnabled", voting.toString());
+    formData.append("votingEnabled", voting);
 
     for (let i = 0; i < imgs.length; i++) {
       formData.append("imageFiles", imgs[i]);
