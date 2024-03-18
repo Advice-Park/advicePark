@@ -58,7 +58,7 @@ const DetailPost: React.FC = () => {
         삭제
       </button>
       <div>
-        <WriteComment />
+        <WriteComment postId={parseInt(postId || "0")} />
         <CommentList postId={parseInt(postId || "0")} />
       </div>
     </div>
