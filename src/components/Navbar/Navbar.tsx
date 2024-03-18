@@ -26,23 +26,23 @@ const Navbar: React.FC = () => {
   // 토큰 추출
   const params = new URLSearchParams(window.location.search);
   const access_token = params.get("access_token");
-  
+
   useEffect(() => {
     // 이미 로그인되어 있는지 확인
     if (cookies.token) {
       setAuth({ isLoggedIn: true });
       return;
     }
-  
+
     // 로그인 성공 시에만 새로고침
     if (access_token) {
       setCookie("token", access_token);
       console.log(cookies.token);
       setAuth({ isLoggedIn: true });
-  
+
       // 새로고침
       window.location.reload();
-  
+
       return;
     }
   }, []);
@@ -66,45 +66,47 @@ const Navbar: React.FC = () => {
     <header>
       <div className="sticky top-0 left-0 w-full z-50 flex flex-row justify-between items-center py-2 px-4 bg-blue-400">
         <div onClick={() => navHandler("")}>박훈수</div>
-        {auth.isLoggedIn ? (
-          <>
-            <ul
-              className="flex gap-3 flex-nowrap"
-              suppressHydrationWarning={true}
-            >
-              <li onClick={() => navHandler("search")}>
-                <SearchIcon />
-              </li>
-              <li onClick={() => navHandler("post")}>
-                <WriteIcon />
-              </li>
-              <li onClick={() => navHandler("posts")}>
-                <BoardIcon />
-              </li>
-              <li onClick={() => navHandler("my")}>
-                <MyPageIcon />
-              </li>
-            </ul>
+        <nav>
+          {auth.isLoggedIn ? (
+            <>
+              <ul
+                className="flex gap-3 flex-nowrap"
+                suppressHydrationWarning={true}
+              >
+                <li onClick={() => navHandler("search")}>
+                  <SearchIcon />
+                </li>
+                <li onClick={() => navHandler("post")}>
+                  <WriteIcon />
+                </li>
+                <li onClick={() => navHandler("posts")}>
+                  <BoardIcon />
+                </li>
+                <li onClick={() => navHandler("my")}>
+                  <MyPageIcon />
+                </li>
+              </ul>
+              <button
+                className="py-2 px-4 rounded-lg shadow-md text-black bg-green-300 hover:bg-lime-300"
+                // onClick={handleLogin}
+                onClick={handleLogout}
+              >
+                로그아웃
+              </button>
+            </>
+          ) : (
             <button
-              className="py-2 px-4 rounded-lg shadow-md text-black bg-green-300 hover:bg-lime-300"
+              className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
               // onClick={handleLogin}
-              onClick={handleLogout}
+              onClick={showModal}
             >
-              로그아웃
+              로그인
             </button>
-          </>
-        ) : (
-          <button
-            className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
-            // onClick={handleLogin}
-            onClick={showModal}
-          >
-            로그인
-          </button>
-        )}
-        {modalOpen && (
-          <LoginModal setModalOpen={setModalOpen} setAuth={setAuth} />
-        )}
+          )}
+          {modalOpen && (
+            <LoginModal setModalOpen={setModalOpen} setAuth={setAuth} />
+          )}
+        </nav>
       </div>
     </header>
   );
