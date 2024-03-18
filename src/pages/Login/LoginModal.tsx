@@ -1,11 +1,11 @@
 import { useEffect, useRef } from "react";
 
-type Props = {
+type AuthProps = {
   setModalOpen: (isOpen: boolean) => void;
   setAuth: (auth: { isLoggedIn: boolean }) => void;
 };
 
-const LoginModal = ({ setModalOpen, setAuth }: Props) => {
+const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
   const closeModal = () => {
     setModalOpen(false);
   };
