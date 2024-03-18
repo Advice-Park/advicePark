@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Comment, getComments } from "../../services/api/comment";
-import FormattingTime from "../format/FormattingTime";
 
 type CommentProps = {
   postId: number;
@@ -27,7 +26,7 @@ const CommentList = ({ postId } : CommentProps) => {
             <li>{post.content}</li>
             <li>{post.likeCount}</li>
             <li>{post.createdTime}</li>
-            <li><FormattingTime createdTime={post.createdTime} /></li>
+            {/* <li><FormattingTime createdTime={post.createdTime} /></li> */}
           </ul>
         ))}
       </div>
