@@ -1,5 +1,5 @@
 import React from "react";
-import HotPost from "./HotPost";
+import HotPost from "../../components/Home/HotPost";
 
 const Home: React.FC = () => {
   return (
