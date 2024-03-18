@@ -16,10 +16,12 @@ const DetailPost: React.FC = () => {
         const { data } = await instance.get(`/api/post/${postId}`);
         setDetailPost(data.result);
 
-        const formattingTime = data.result.createdAt?.replace(
-          /(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2}):(\d{2})/,
+        const formattingTime = data.result.createdTime?.replace(
+          /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).*/,
           "$1.$2.$3 $4:$5"
         );
+
+        console.log(formattingTime);
 
         setCreatedDate(formattingTime);
       } catch (e) {}
@@ -36,13 +38,15 @@ const DetailPost: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col p-5 gap-5">
+      <div>글쓴이 {detailPost?.userId}</div>
+      <div className="text-xs text-gray-500">{createdDate}</div>
+
       <div>제목: {detailPost?.title}</div>
       <div>{detailPost?.contents}</div>
       <div>{detailPost?.voteOption}</div>
       <div>{detailPost?.viewCount}</div>
       <div>{detailPost?.commentCount}</div>
-      <div>{createdDate}</div>
 
       <button
         className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
