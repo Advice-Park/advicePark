@@ -3,9 +3,15 @@ import { useNavigate } from "react-router-dom";
 import { instance } from "../../services/instance";
 import PostFooter from "../../components/footer/PostFooter";
 import CategoryModal from "../../components/modal/CategoryModal";
+import { useSetRecoilState } from "recoil";
+import { authState } from "../../contexts/state";
+import { Posts } from "../../services/api/posts";
 
 const PostPage: React.FC = () => {
   const navigate = useNavigate();
+
+  //recoil 사용 선언
+  const setAuth = useSetRecoilState(authState);
 
   const WriteCallback = (x: any) => {
     setCategory(x);
@@ -63,7 +69,7 @@ const PostPage: React.FC = () => {
     // setLoading(true);
 
     try {
-      await instance.post("/api/post", formData, {
+      const res = await instance.post("/api/post", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -71,6 +77,8 @@ const PostPage: React.FC = () => {
       // setLoading(false);
       alert("글 작성에 성공하였습니다.");
       console.log(formData);
+      const post : Posts = res.data.result
+      setAuth({ userId: post.userId });
       navigate("/posts");
     } catch (e: any) {
       // const errorMsg = e.response.data.message;
@@ -96,14 +104,16 @@ const PostPage: React.FC = () => {
 
   return (
     <form onSubmit={submitHandler}>
-      <div>
-        <p onClick={handleCanc}>취소</p>
+      <div className="flex justify-between">
+        <button onClick={handleCanc}>취소</button>
         <button type="submit">등록</button>
       </div>
 
       <div className="relative">
         <div className="flex flex-col">
-          <p onClick={categoryOpen}>{category}</p>
+          <p onClick={categoryOpen} className="m-auto cursor-pointer">
+            {category}
+          </p>
           <label>
             <input
               type="checkbox"
@@ -130,13 +140,11 @@ const PostPage: React.FC = () => {
           />
         </div>
         <PostFooter setImgs={setImgs} />
-        {/* {isCategoryModalOpen && ( */}
         <CategoryModal
           open={isCategoryModalOpen}
           close={categoryClose}
           parentFunction={WriteCallback}
         />
-        {/* )} */}
       </div>
     </form>
   );
