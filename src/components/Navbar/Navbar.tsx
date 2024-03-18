@@ -32,10 +32,10 @@ const Navbar: React.FC = () => {
       console.log(cookies.token);
     }
 
-    // if (cookies.token) {
-    //   setAuth({ isLoggedIn: true });
-    //   return;
-    // }
+    if (cookies.token) {
+      setAuth({ isLoggedIn: true });
+      return;
+    }
   }, []);
 
   // 로그아웃
