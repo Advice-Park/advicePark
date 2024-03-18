@@ -40,6 +40,7 @@ const LoginModal = ({ setModalOpen }: Props) => {
     const RedirectUri = "https://advice-park.vercel.app";
     const LoginUrl = `https://mooooonmin.site/oauth2/authorization/google?redirect_uri=${RedirectUri}&mode=login`;
     window.location.href = LoginUrl;
+    window.location.reload();
   };
 
   return (
@@ -47,7 +48,7 @@ const LoginModal = ({ setModalOpen }: Props) => {
       ref={modalRef}
       className="w-full h-screen fixed top-0 left-0 bg-neutral-700 bg-opacity-50"
     >
-      <div className="w-360 h-330 z-100 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-lime-400 rounded-10 shadow-2 shadow-transparent-black">
+      <div className="z-100 p-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-lime-400 rounded-10 shadow-2 shadow-transparent-black">
         <button className="p-10 m-100" onClick={closeModal}>
           X
         </button>
@@ -55,6 +56,13 @@ const LoginModal = ({ setModalOpen }: Props) => {
           className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
           onClick={handleLogin}
         >
+          {/* <div
+            className="w-10 h-10"
+            style={{
+              backgroundImage: `url('../../assets/icons/google-icon.png')`,
+            }}
+          ></div>
+          <img src="../../assets/icons/google-icon.png" /> */}
           구글로 계속하기
         </button>
       </div>
