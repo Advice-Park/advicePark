@@ -26,16 +26,23 @@ const Navbar: React.FC = () => {
   // 토큰 추출
   const params = new URLSearchParams(window.location.search);
   const access_token = params.get("access_token");
+  
   useEffect(() => {
+    // 이미 로그인되어 있는지 확인
+    if (cookies.token) {
+      setAuth({ isLoggedIn: true });
+      return;
+    }
+  
+    // 로그인 성공 시에만 새로고침
     if (access_token) {
       setCookie("token", access_token);
       console.log(cookies.token);
-    }
-
-    if (cookies.token) {
       setAuth({ isLoggedIn: true });
+  
+      // 새로고침
       window.location.reload();
-
+  
       return;
     }
   }, []);
@@ -46,6 +53,11 @@ const Navbar: React.FC = () => {
     removeCookie("token", { path: "/" });
   };
 
+  // 로그인 상태 변화 시 새로고침
+  useEffect(() => {
+    // window.location.reload();
+  }, [setAuth]);
+
   const navHandler = (menu: string) => {
     location.href = `https://advice-park.vercel.app/${menu}`;
   };
@@ -53,7 +65,7 @@ const Navbar: React.FC = () => {
   return (
     <header>
       <div className="sticky top-0 left-0 w-full z-50 flex flex-row justify-between items-center py-2 px-4 bg-blue-400">
-        <div onClick={() => navHandler("")}>박훈수 서비스</div>
+        <div onClick={() => navHandler("")}>박훈수</div>
         {auth.isLoggedIn ? (
           <>
             <ul
