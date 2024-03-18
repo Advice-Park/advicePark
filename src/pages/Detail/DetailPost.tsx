@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { instance } from "../../services/instance";
 import { Posts } from "../../services/api/posts";
+import CommentList from "../../components/comment/CommentList";
+import WriteComment from "../../components/comment/WriteComment";
 
 const DetailPost: React.FC = () => {
   const { postId } = useParams();
@@ -55,6 +57,10 @@ const DetailPost: React.FC = () => {
       >
         삭제
       </button>
+      <div>
+        <WriteComment />
+        <CommentList postId={parseInt(postId || "0")} />
+      </div>
     </div>
   );
 };

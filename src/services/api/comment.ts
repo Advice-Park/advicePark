@@ -9,9 +9,9 @@ export interface Comment {
   createdTime: string;
 }
 
-export const getComments = async () => {
+export const getComments = async (postId : number) => {
   try {
-    const res = await instance.get("/api/comment/{postId}");
+    const res = await instance.get(`/api/comment/${postId}`);
     const comments = res.data.result;
     return comments;
   } catch (err) {

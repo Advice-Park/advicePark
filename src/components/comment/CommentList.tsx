@@ -1,12 +1,16 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Comment, getComments } from "../../services/api/comment";
 import FormattingTime from "../format/FormattingTime";
 
-const CommentList: React.FC = () => {
+type CommentProps = {
+  postId: number;
+};
+
+const CommentList = ({ postId } : CommentProps) => {
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
-    getComments().then((res) => {
+    getComments(postId).then((res) => {
       res ? setComments(res) : console.log("댓글이 없습니다");
     });
   }, []);
