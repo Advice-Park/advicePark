@@ -44,6 +44,13 @@ const Navbar: React.FC = () => {
     removeCookie("token", { path: "/" });
   };
 
+  // 첫 렌더링 시 인증 상태 확인
+  useEffect(() => {
+    if (cookies.token) {
+      setAuth({ isLoggedIn: true });
+    }
+  }, []);
+
   const navHandler = (menu: string) => {
     location.href = `https://advice-park.vercel.app/${menu}`;
   };
