@@ -8,7 +8,7 @@ import { authState } from "../../contexts/state";
 import { Posts } from "../../services/api/posts";
 
 const PostPage: React.FC = () => {
-  const navigate = useNavigate();
+  const navi = useNavigate();
 
   //recoil 사용 선언
   const setAuth = useSetRecoilState(authState);
@@ -79,7 +79,7 @@ const PostPage: React.FC = () => {
       console.log(formData);
       const post : Posts = res.data.result
       setAuth({ userId: post.userId });
-      navigate("/posts");
+      navi("/posts");
     } catch (e: any) {
       // const errorMsg = e.response.data.message;
       // alert(`${errorMsg}`);
@@ -89,7 +89,7 @@ const PostPage: React.FC = () => {
 
   // 취소 버튼
   const handleCanc = () => {
-    navigate(-1);
+    navi(-1);
   };
 
   const [isCategoryModalOpen, setIsCategoryModalOpen] = useState(false);
