@@ -8,8 +8,9 @@ export interface Posts {
     category: "DAILY" | "LOVE" | "EXERCISE" | "FOOD" | "ETC"
     viewCount: number
     commentCount: number
+    createdTime: string
     imageUrls: string[]
-    votingEnabled: boolean
+    voteOption: boolean
 }
 
 export const getPosts = async () => {

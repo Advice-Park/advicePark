@@ -20,7 +20,7 @@ const PostsPage: React.FC = () => {
           <li>{post.contents}</li>
           <li>{post.category}</li>
           <li>{post.imageUrls}</li>
-          <li>{post.votingEnabled}</li>
+          <li>{post.voteOption}</li>
           <li>뷰: {post.viewCount}</li>
           <li>댓글: {post.commentCount}</li>
         </ul>

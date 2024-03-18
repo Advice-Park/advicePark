@@ -39,7 +39,7 @@ const DetailPost: React.FC = () => {
     <div>
       <div>제목: {detailPost?.title}</div>
       <div>{detailPost?.contents}</div>
-      <div>{detailPost?.votingEnabled}</div>
+      <div>{detailPost?.voteOption}</div>
       <div>{detailPost?.viewCount}</div>
       <div>{detailPost?.commentCount}</div>
       <div>{createdDate}</div>
