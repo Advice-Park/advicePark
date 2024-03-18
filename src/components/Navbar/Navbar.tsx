@@ -32,10 +32,10 @@ const Navbar: React.FC = () => {
       console.log(cookies.token);
     }
 
-    if (cookies.token) {
-      setAuth({ isLoggedIn: true });
-      return;
-    }
+    // if (cookies.token) {
+    //   setAuth({ isLoggedIn: true });
+    //   return;
+    // }
   }, []);
 
   // 로그아웃
@@ -95,7 +95,7 @@ const Navbar: React.FC = () => {
             로그인
           </button>
         )}
-        {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
+        {modalOpen && <LoginModal setModalOpen={setModalOpen} setAuth={setAuth} />}
       </div>
     </header>
   );

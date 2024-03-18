@@ -2,21 +2,21 @@ import { useEffect, useRef } from "react";
 
 type Props = {
   setModalOpen: (isOpen: boolean) => void;
+  setAuth: (auth: { isLoggedIn: boolean }) => void;
 };
 
-const LoginModal = ({ setModalOpen }: Props) => {
+const LoginModal = ({ setModalOpen, setAuth }: Props) => {
   const closeModal = () => {
     setModalOpen(false);
   };
 
-  // 모달 외부 클릭시 끄기 처리
-  // Modal 창을 useRef로 취득
+  // 모달 외부 클릭 시 닫기
   const modalRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     // 이벤트 핸들러 함수
     const handler = (event: MouseEvent) => {
-      // mousedown 이벤트가 발생한 영역이 모달창이 아닐 때, 모달창 제거 처리
+      // mousedown 이벤트 발생 영역이 모달창이 아닐 때, 모달창 닫기
       if (
         modalRef.current &&
         !modalRef.current.contains(event.target as Node)
@@ -40,8 +40,17 @@ const LoginModal = ({ setModalOpen }: Props) => {
     const RedirectUri = "https://advice-park.vercel.app";
     const LoginUrl = `https://mooooonmin.site/oauth2/authorization/google?redirect_uri=${RedirectUri}&mode=login`;
     window.location.href = LoginUrl;
-    window.location.reload();
   };
+
+  useEffect(() => {
+    // URL에서 토큰을 추출하여 인증 상태 확인
+    const urlParams = new URLSearchParams(window.location.search);
+    const access_token = urlParams.get("access_token");
+    if (access_token) {
+      setAuth({ isLoggedIn: true });
+      setModalOpen(false);
+    }
+  }, [setAuth, setModalOpen]);
 
   return (
     <div
