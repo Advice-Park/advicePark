@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { instance } from "../../services/instance";
 import PostFooter from "../../components/footer/PostFooter";
 import CategoryModal from "../../components/modal/CategoryModal";
-import MobileLayout from "../../layout/MobileLayout";
 
 const PostPage: React.FC = () => {
   const navigate = useNavigate();
@@ -15,7 +14,7 @@ const PostPage: React.FC = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [category, setCategory] = useState("카테고리");
-  const [voting, setVoting] = useState<string>("NORMAL");
+  const [voting, setVoting] = useState<"YES_NO" | "NORMAL">("NORMAL");
   const [imgs, setImgs] = useState<File[]>([]);
 
   // 전송용 카테고리 키워드
@@ -96,52 +95,50 @@ const PostPage: React.FC = () => {
   };
 
   return (
-    <MobileLayout>
-      <form onSubmit={submitHandler}>
-        <div>
-          <p onClick={handleCanc}>취소</p>
-          <button type="submit">등록</button>
-        </div>
+    <form onSubmit={submitHandler}>
+      <div>
+        <p onClick={handleCanc}>취소</p>
+        <button type="submit">등록</button>
+      </div>
 
-        <div className="relative">
-          <div className="flex flex-col">
-            <p onClick={categoryOpen}>{category}</p>
-            <label>
-              <input
-                type="checkbox"
-                checked={voting === "YES_NO"}
-                onChange={votingHandler}
-              />
-              <span>찬반</span>
-            </label>
+      <div className="relative">
+        <div className="flex flex-col">
+          <p onClick={categoryOpen}>{category}</p>
+          <label>
             <input
-              type="text"
-              value={title}
-              onChange={(e) => {
-                setTitle(e.target.value);
-              }}
-              autoFocus
-              placeholder="제목"
+              type="checkbox"
+              checked={voting === "YES_NO"}
+              onChange={votingHandler}
             />
-            <textarea
-              value={contents}
-              onChange={(e) => {
-                setContents(e.target.value);
-              }}
-              placeholder="훈수 받고 싶은 내용을 입력하세요."
-            />
-          </div>
-          <PostFooter setImgs={setImgs} />
-          {/* {isCategoryModalOpen && ( */}
-          <CategoryModal
-            open={isCategoryModalOpen}
-            close={categoryClose}
-            parentFunction={WriteCallback}
+            <span>찬반</span>
+          </label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => {
+              setTitle(e.target.value);
+            }}
+            autoFocus
+            placeholder="제목"
           />
-          {/* )} */}
+          <textarea
+            value={contents}
+            onChange={(e) => {
+              setContents(e.target.value);
+            }}
+            placeholder="훈수 받고 싶은 내용을 입력하세요."
+          />
         </div>
-      </form>
-    </MobileLayout>
+        <PostFooter setImgs={setImgs} />
+        {/* {isCategoryModalOpen && ( */}
+        <CategoryModal
+          open={isCategoryModalOpen}
+          close={categoryClose}
+          parentFunction={WriteCallback}
+        />
+        {/* )} */}
+      </div>
+    </form>
   );
 };
 
