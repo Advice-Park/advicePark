@@ -10,6 +10,7 @@ const DetailPost: React.FC = () => {
 
   const [detailPost, setDetailPost] = useState<Posts>();
   const [createdDate, setCreatedDate] = useState("");
+  const [favorite, setFavorite] = useState<boolean>();
 
   // 게시글 상세 정보 불러오기
   useEffect(() => {
@@ -46,9 +47,11 @@ const DetailPost: React.FC = () => {
 
       <div>제목: {detailPost?.title}</div>
       <div>{detailPost?.contents}</div>
-      <div>{detailPost?.voteOption}</div>
+      <div onClick={() => setFavorite(!favorite)}>{favorite ? "❤️" : "♡"}</div>
       <div>{detailPost?.viewCount}</div>
       <div>{detailPost?.commentCount}</div>
+      <div>{detailPost?.voteOption}</div>
+
 
       <button
         className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
