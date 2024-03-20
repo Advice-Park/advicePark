@@ -1,15 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { instance } from "../../services/instance";
-import { Posts } from "../../services/api/posts";
+import { Posts, favoritePost, getIsFavorite } from "../../services/api/posts";
 import CommentList from "../../components/comment/CommentList";
 import WriteComment from "../../components/comment/WriteComment";
+import LikeIcon from "../../assets/icons/like.svg?react";
+import VeiwIcon from "../../assets/icons/eye.svg?react";
+import CommentIcon from "../../assets/icons/comment.svg?react";
+import { useRecoilValue } from "recoil";
+import { authState } from "../../contexts/state";
 
 const DetailPost: React.FC = () => {
   const { postId } = useParams();
 
+  // 로그인 확인
+  const auth = useRecoilValue(authState);
+  const isLogin = auth.isLoggedIn ? true : false;
+
   const [detailPost, setDetailPost] = useState<Posts>();
   const [createdDate, setCreatedDate] = useState("");
+
+  // 좋아요 관리 state
+  const [favoriteCount, setFavoriteCount] = useState<number>();
   const [favorite, setFavorite] = useState<boolean>();
 
   // 게시글 상세 정보 불러오기
@@ -26,11 +38,30 @@ const DetailPost: React.FC = () => {
 
         console.log(formattingTime);
 
+        setFavoriteCount(data.result.favoriteCount);
+
         setCreatedDate(formattingTime);
       } catch (e) {}
     };
+
     getDetailPost();
+
+    const getFavoriteData = async () => {
+      const isFavorite = await getIsFavorite(parseInt(postId || ""));
+      setFavorite(isFavorite);
+    };
+
+    getFavoriteData();
   }, []);
+
+  const favoriteHandler = async () => {
+    if (!isLogin) {
+      favoritePost(parseInt(postId || ""));
+      setFavorite(!favorite);
+    } else {
+      alert("로그인 후 이용해주세요");
+    }
+  };
 
   const deletePost = async () => {
     try {
@@ -47,11 +78,13 @@ const DetailPost: React.FC = () => {
 
       <div>제목: {detailPost?.title}</div>
       <div>{detailPost?.contents}</div>
-      <div onClick={() => setFavorite(!favorite)}>{favorite ? "❤️" : "♡"}</div>
-      <div>{detailPost?.viewCount}</div>
-      <div>{detailPost?.commentCount}</div>
+      <div onClick={favoriteHandler}>
+        {favorite ? "❤️" : <LikeIcon />}
+        {favoriteCount}
+      </div>
+      <div><VeiwIcon /> {detailPost?.viewCount}</div>
+      <div><CommentIcon /> {detailPost?.commentCount}</div>
       <div>{detailPost?.voteOption}</div>
-
 
       <button
         className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
