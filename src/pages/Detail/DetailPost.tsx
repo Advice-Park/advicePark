@@ -55,7 +55,7 @@ const DetailPost: React.FC = () => {
   }, []);
 
   const favoriteHandler = async () => {
-    if (!isLogin) {
+    if (isLogin) {
       favoritePost(parseInt(postId || ""));
       setFavorite(!favorite);
     } else {
