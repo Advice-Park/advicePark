@@ -2,6 +2,7 @@ import React from "react";
 import HotPost from "../../components/Home/HotPost";
 import { useRecoilValue } from "recoil";
 import { authState } from "../../contexts/state";
+import LatestPost from "../../components/Home/LatestPost";
 
 const Home: React.FC = () => {
   //recoil 사용 선언
@@ -14,7 +15,10 @@ const Home: React.FC = () => {
           ? `userId: ${auth.userId} 님 안녕하세요`
           : "로그인하고 훈수를 받아보세요!"}
       </div>
-      <HotPost />
+      <div className="w-full mt-5">
+        <LatestPost />
+        <HotPost />
+      </div>
     </div>
   );
 };
