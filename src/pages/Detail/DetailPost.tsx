@@ -97,14 +97,13 @@ const DetailPost: React.FC = () => {
       <div>{detailPost?.contents}</div>
 
       {/* 첨부된 이미지 */}
-      {detailPost?.imageUrls.map((post, idx) => (
-        <img
-          src={post}
-          key={idx}
-          alt={detailPost?.title}
-          className="w-20 h-20 rounded-md"
-        />
-      ))}
+      <ul className="flex gap-3">
+        {detailPost?.imageUrls.map((post, idx) => (
+          <li className="w-20 h-20 rounded-md overflow-hidden">
+            <img src={post} key={idx} alt={detailPost?.title} />
+          </li>
+        ))}
+      </ul>
 
       {/* 글 즐겨찾기 */}
       <div onClick={favoriteHandler} className="flex">
