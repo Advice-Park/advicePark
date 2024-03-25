@@ -3,6 +3,8 @@ import { Posts, getMyPosts } from "../../services/api/posts";
 import { useNavigate } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { authState } from "../../contexts/state";
+import VeiwIcon from "../../assets/icons/eye.svg?react";
+import CommentIcon from "../../assets/icons/comment.svg?react";
 
 const My: React.FC = () => {
   const navi = useNavigate();
@@ -32,13 +34,12 @@ const My: React.FC = () => {
             key={post.postId}
             onClick={() => navi(`/posts/${post.postId}`)}
           >
-            <li>제목: {post.title}</li>
+            <li className="font-bold">{post.title}</li>
             <li>{post.contents}</li>
-            <li>{post.category}</li>
-            <li>{post.imageUrls}</li>
+            <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
             <li>{post.voteOption}</li>
-            <li>뷰: {post.viewCount}</li>
-            <li>댓글: {post.commentCount}</li>
+            <li className="flex"><VeiwIcon /> {post.viewCount}</li>
+            <li className="flex"><CommentIcon /> {post.commentCount}</li>
           </ul>
         ))}
       </div>

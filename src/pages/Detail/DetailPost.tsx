@@ -76,14 +76,14 @@ const DetailPost: React.FC = () => {
       <div>글쓴이 {detailPost?.userId}</div>
       <div className="text-xs text-gray-500">{createdDate}</div>
 
-      <div>제목: {detailPost?.title}</div>
+      <div className="text-2xl font-bold">{detailPost?.title}</div>
       <div>{detailPost?.contents}</div>
-      <div onClick={favoriteHandler}>
+      <div onClick={favoriteHandler} className="flex">
         {favorite ? "❤️" : <LikeIcon />}
         {favoriteCount}
       </div>
-      <div><VeiwIcon /> {detailPost?.viewCount}</div>
-      <div><CommentIcon /> {detailPost?.commentCount}</div>
+      <div className="flex"><VeiwIcon /> {detailPost?.viewCount}</div>
+      <div className="flex"><CommentIcon /> {detailPost?.commentCount}</div>
       <div>{detailPost?.voteOption}</div>
 
       <button
