@@ -73,17 +73,42 @@ const DetailPost: React.FC = () => {
 
   return (
     <div className="flex flex-col p-5 gap-5">
-      <div>글쓴이 {detailPost?.userId}</div>
+      <div>
+        <img src={auth.image} className="w-16 h-16 rounded-full" />
+        {detailPost?.userId}
+      </div>
       <div className="text-xs text-gray-500">{createdDate}</div>
 
+      {/* 제목 */}
       <div className="text-2xl font-bold">{detailPost?.title}</div>
+      {/* 내용 */}
       <div>{detailPost?.contents}</div>
+
+      {/* 첨부된 이미지 */}
+      {detailPost?.imageUrls.map((post, idx) => (
+        <img
+          src={post}
+          key={idx}
+          alt={detailPost?.title}
+          className="w-30 h-30 rounded-md"
+        />
+      ))}
+
+      {/* 글 즐겨찾기 */}
       <div onClick={favoriteHandler} className="flex">
         {favorite ? "❤️" : <LikeIcon />}
         {favoriteCount}
       </div>
-      <div className="flex"><VeiwIcon /> {detailPost?.viewCount}</div>
-      <div className="flex"><CommentIcon /> {detailPost?.commentCount}</div>
+
+      {/* 조회수 */}
+      <div className="flex">
+        <VeiwIcon /> {detailPost?.viewCount}
+      </div>
+      {/* 댓글수 */}
+      <div className="flex">
+        <CommentIcon /> {detailPost?.commentCount}
+      </div>
+
       <div>{detailPost?.voteOption}</div>
 
       <button
