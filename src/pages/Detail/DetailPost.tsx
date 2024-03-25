@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { instance } from "../../services/instance";
-import { Posts, favoritePost, getIsFavorite } from "../../services/api/posts";
+import { Posts, deleteFavoritePost, favoritePost, getIsFavorite } from "../../services/api/posts";
 import CommentList from "../../components/comment/CommentList";
 import WriteComment from "../../components/comment/WriteComment";
 import LikeIcon from "../../assets/icons/like.svg?react";
@@ -69,7 +69,13 @@ const DetailPost: React.FC = () => {
 
   const favoriteHandler = async () => {
     if (isLogin) {
+      if (!favorite) {
+        setFavoriteCount(favoriteCount! + 1);
       favoritePost(parseInt(postId || ""));
+      } else {
+        setFavoriteCount(favoriteCount! - 1);
+        deleteFavoritePost(parseInt(postId || ""));
+      }
       setFavorite(!favorite);
     } else {
       alert("로그인 후 이용해주세요");
@@ -85,63 +91,65 @@ const DetailPost: React.FC = () => {
   };
 
   return (
-    <div className="flex flex-col p-5 gap-5">
-      <div>
-        <img src={detailPost?.image} className="w-20 h-20 rounded-full" />
-        {detailPost?.name}
-      </div>
-      <div className="text-xs text-gray-500">{createdDate}</div>
+    <>
+      <div className="w-full flex flex-col p-5 gap-5">
+        <div>
+          {/* 작성자 정보 */}
+          <img src={detailPost?.image} className="w-xs h-xs rounded-full" />
+          작성자 {detailPost?.name}
+        </div>
+        <div className="text-xs text-gray-500">{createdDate}</div>
 
-      {/* 제목 */}
-      <div className="text-2xl font-bold">{detailPost?.title}</div>
-      {/* 내용 */}
-      <div>{detailPost?.contents}</div>
+        {/* 제목 */}
+        <div className="text-2xl font-bold">{detailPost?.title}</div>
+        {/* 내용 */}
+        <div>{detailPost?.contents}</div>
 
-      {/* 첨부된 이미지 */}
-      <ul className="flex gap-3 items-center">
-        {detailPost?.imageUrls.map((post, idx) => (
-          <li className="w-20 h-20 rounded-md overflow-hidden">
-            <img src={post} key={idx} alt={detailPost?.title} />
+        {/* 첨부된 이미지 */}
+        <ul className="flex gap-3">
+          {detailPost?.imageUrls.map((post, idx) => (
+            <li className="flex items-center w-20 h-20 rounded-md overflow-hidden">
+              <img src={post} key={idx} alt={detailPost?.title} />
+            </li>
+          ))}
+        </ul>
+
+        <ul className="flex gap-3 flex-row-reverse">
+          {/* 글 즐겨찾기 */}
+          <li onClick={favoriteHandler} className="flex">
+            {favorite ? "❤️" : <LikeIcon />}
+            {favoriteCount}
           </li>
-        ))}
-      </ul>
 
-      <ul className="flex gap-3 flex-row-reverse">
-        {/* 글 즐겨찾기 */}
-        <li onClick={favoriteHandler} className="flex">
-          {favorite ? "❤️" : <LikeIcon />}
-          {favoriteCount}
-        </li>
+          {/* 댓글수 */}
+          <li className="flex">
+            <CommentIcon /> {detailPost?.commentCount}
+          </li>
 
-        {/* 댓글수 */}
-        <li className="flex">
-          <CommentIcon /> {detailPost?.commentCount}
-        </li>
+          {/* 조회수 */}
+          <li className="flex">
+            <VeiwIcon /> {detailPost?.viewCount}
+          </li>
+        </ul>
 
-        {/* 조회수 */}
-        <li className="flex">
-          <VeiwIcon /> {detailPost?.viewCount}
-        </li>
-      </ul>
+        <div>{detailPost?.voteOption}</div>
 
-      <div>{detailPost?.voteOption}</div>
-
-      {/* 작성자에게만 삭제버튼 노출 */}
-      {auth.userId === detailPost?.userId && (
-        <button
-          className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
-          // onClick={handleLogin}
-          onClick={deletePost}
-        >
-          삭제
-        </button>
-      )}
-
+        {/* 작성자에게만 삭제버튼 노출 */}
+        {auth.userId === detailPost?.userId && (
+          <button
+            className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
+            // onClick={handleLogin}
+            onClick={deletePost}
+          >
+            삭제
+          </button>
+        )}
+      </div>
       <div>
         <WriteComment postId={parseInt(postId || "0")} />
         <CommentList postId={parseInt(postId || "0")} />
       </div>
-    </div>
+    </>
   );
 };
 

@@ -45,6 +45,16 @@ export const favoritePost = async (postId: number) => {
   }
 };
 
+export const deleteFavoritePost = async (postId: number) => {
+  try {
+    await instance.delete(`/api/favorite/add`, {
+      params: { postId: postId },
+    });
+  } catch (err) {
+    console.log("post 즐겨찾기 삭제 에러 :", err);
+  }
+};
+
 export const getIsFavorite = async (postId: number) => {
   try {
     const res = await instance.get(`/api/favorite`, {
@@ -53,6 +63,6 @@ export const getIsFavorite = async (postId: number) => {
     const IsFavorite = res.data.result as boolean;
     return IsFavorite;
   } catch (err) {
-    console.log("post 즐겨찾기 에러 :", err);
+    console.log("post 즐겨찾기 내역확인 에러 :", err);
   }
 };
