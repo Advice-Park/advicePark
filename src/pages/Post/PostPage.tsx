@@ -3,15 +3,9 @@ import { useNavigate } from "react-router-dom";
 import { instance } from "../../services/instance";
 import PostFooter from "../../components/footer/PostFooter";
 import CategoryModal from "../../components/modal/CategoryModal";
-import { useSetRecoilState } from "recoil";
-import { authState } from "../../contexts/state";
-import { Posts } from "../../services/api/posts";
 
 const PostPage: React.FC = () => {
   const navi = useNavigate();
-
-  //recoil 사용 선언
-  const setAuth = useSetRecoilState(authState);
 
   const WriteCallback = (x: any) => {
     setCategory(x);
@@ -33,6 +27,7 @@ const PostPage: React.FC = () => {
   };
   const selectCat = postingCategory[category];
 
+  // 찬반 옵션 체크 (찬반 or 일반)
   const votingHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setVoting(e.target.checked ? "YES_NO" : "NORMAL");
   };
@@ -69,7 +64,7 @@ const PostPage: React.FC = () => {
     // setLoading(true);
 
     try {
-      const res = await instance.post("/api/post", formData, {
+      await instance.post("/api/post", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -77,12 +72,8 @@ const PostPage: React.FC = () => {
       // setLoading(false);
       alert("글 작성에 성공하였습니다.");
       console.log(formData);
-      const post : Posts = res.data.result
-      setAuth({ userId: post.userId });
       navi("/posts");
     } catch (e: any) {
-      // const errorMsg = e.response.data.message;
-      // alert(`${errorMsg}`);
       console.log("글 작성 에러 :", e);
     }
   };
@@ -130,6 +121,7 @@ const PostPage: React.FC = () => {
             }}
             autoFocus
             placeholder="제목"
+            
           />
           <textarea
             value={contents}
