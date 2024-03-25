@@ -16,10 +16,16 @@ const LatestPost: React.FC = () => {
         <h3 className="text-xl font-bold">최신 질문</h3>
         <span>더보기</span>
       </div>
-      <div className="flex">
+      <div className="flex gap-3">
         {posts.map((post) => (
-          <ul className="p-3 w-5/12 h-40 overflow-hidden" key={post.postId}>
-            <li className="rounded-full px-3 pb-1 bg-gray-300 text-sm">{post.category}</li>
+          <ul
+            className="p-3 w-40 h-40 overflow-hidden bg-white cursor-pointer"
+            key={post.postId}
+            onClick={() => (window.location.href = `/posts/${post.postId}`)}
+          >
+            <li className="rounded-full px-3 pb-1 bg-gray-300 text-sm">
+              {post.category}
+            </li>
             <li className="font-bold">{post.title}</li>
             <li>{post.contents}</li>
             <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
