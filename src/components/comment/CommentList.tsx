@@ -15,7 +15,7 @@ const CommentList = ({ postId }: CommentProps) => {
   }, []);
 
   return (
-    <div className="mb-80 pb-32">
+    <div className="pb-24">
       {comments.map((post) => (
         <ul className="p-5" key={post.postId}>
           <li>댓쓴이: {post.userId}</li>
