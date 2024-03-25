@@ -15,8 +15,7 @@ const CommentList = ({ postId } : CommentProps) => {
   }, []);
 
   return (
-    <div>
-      <div>
+    <div className="mb-448">
         {comments.map((post) => (
           <ul
             className="p-5"
@@ -29,7 +28,6 @@ const CommentList = ({ postId } : CommentProps) => {
             {/* <li><FormattingTime createdTime={post.createdTime} /></li> */}
           </ul>
         ))}
-      </div>
     </div>
   );
 };
