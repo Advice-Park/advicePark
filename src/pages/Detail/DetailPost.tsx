@@ -55,6 +55,7 @@ const DetailPost: React.FC = () => {
           name: data.name,
           image: data.image,
         });
+        console.log(data.name, "getUserInfoWithId: data.name");
       });
     }
 
@@ -97,7 +98,7 @@ const DetailPost: React.FC = () => {
       <div>{detailPost?.contents}</div>
 
       {/* 첨부된 이미지 */}
-      <ul className="flex gap-3 justify-center">
+      <ul className="flex gap-3 items-center">
         {detailPost?.imageUrls.map((post, idx) => (
           <li className="w-20 h-20 rounded-md overflow-hidden">
             <img src={post} key={idx} alt={detailPost?.title} />
@@ -105,19 +106,21 @@ const DetailPost: React.FC = () => {
         ))}
       </ul>
 
-      <ul className="flex gap-3 justify-center">
+      <ul className="flex gap-3 flex-row-reverse">
         {/* 글 즐겨찾기 */}
         <li onClick={favoriteHandler} className="flex">
           {favorite ? "❤️" : <LikeIcon />}
           {favoriteCount}
         </li>
-        {/* 조회수 */}
-        <li className="flex">
-          <VeiwIcon /> {detailPost?.viewCount}
-        </li>
+
         {/* 댓글수 */}
         <li className="flex">
           <CommentIcon /> {detailPost?.commentCount}
+        </li>
+
+        {/* 조회수 */}
+        <li className="flex">
+          <VeiwIcon /> {detailPost?.viewCount}
         </li>
       </ul>
 
