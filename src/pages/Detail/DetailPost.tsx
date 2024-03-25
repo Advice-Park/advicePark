@@ -74,7 +74,7 @@ const DetailPost: React.FC = () => {
   return (
     <div className="flex flex-col p-5 gap-5">
       <div>
-        <img src={auth.image} className="w-16 h-16 rounded-full" />
+        <img src={auth.image} className="w-20 h-20 rounded-full" />
         {detailPost?.userId}
       </div>
       <div className="text-xs text-gray-500">{createdDate}</div>
