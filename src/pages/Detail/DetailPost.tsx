@@ -9,6 +9,7 @@ import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
 import { useRecoilValue } from "recoil";
 import { authState } from "../../contexts/state";
+import { getUserInfoWithId } from "../../services/api/user";
 
 const DetailPost: React.FC = () => {
   const { postId } = useParams();
@@ -46,6 +47,17 @@ const DetailPost: React.FC = () => {
 
     getDetailPost();
 
+    if (detailPost?.userId) {
+      // 글 정보의 유저아이디로 작성자 정보 불러오기
+      getUserInfoWithId(detailPost?.userId).then((data) => {
+        setDetailPost({
+          ...detailPost,
+          name: data.name,
+          image: data.image,
+        });
+      });
+    }
+
     const getFavoriteData = async () => {
       const isFavorite = await getIsFavorite(parseInt(postId || ""));
       setFavorite(isFavorite);
@@ -74,8 +86,8 @@ const DetailPost: React.FC = () => {
   return (
     <div className="flex flex-col p-5 gap-5">
       <div>
-        <img src={auth.image} className="w-20 h-20 rounded-full" />
-        {detailPost?.userId}
+        <img src={detailPost?.image} className="w-20 h-20 rounded-full" />
+        {detailPost?.name}
       </div>
       <div className="text-xs text-gray-500">{createdDate}</div>
 
@@ -111,13 +123,17 @@ const DetailPost: React.FC = () => {
 
       <div>{detailPost?.voteOption}</div>
 
-      <button
-        className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
-        // onClick={handleLogin}
-        onClick={deletePost}
-      >
-        삭제
-      </button>
+      {/* 작성자에게만 삭제버튼 노출 */}
+      {auth.userId === detailPost?.userId && (
+        <button
+          className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
+          // onClick={handleLogin}
+          onClick={deletePost}
+        >
+          삭제
+        </button>
+      )}
+
       <div>
         <WriteComment postId={parseInt(postId || "0")} />
         <CommentList postId={parseInt(postId || "0")} />

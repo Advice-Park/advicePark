@@ -11,6 +11,8 @@ export interface Posts {
   createdTime: string;
   imageUrls: string[];
   voteOption: "YES_NO" | "NORMAL";
+  name: string;
+  image: string;
 }
 
 export const getPosts = async () => {
