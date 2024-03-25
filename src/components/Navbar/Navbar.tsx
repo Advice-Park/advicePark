@@ -84,7 +84,7 @@ const Navbar: React.FC = () => {
 
   return (
     <header>
-      <div className="sticky top-0 left-0 w-full z-50 flex flex-row justify-between items-center py-2 px-4 bg-blue-400">
+      <div className="sticky top-0 left-0 w-full z-50 flex flex-row justify-between items-center py-2 px-4 bg-dark-blue">
         <h1 onClick={() => navHandler("")}>박훈수</h1>
         <nav className="flex items-center gap-3">
           {auth.isLoggedIn ? (
