@@ -102,7 +102,7 @@ const DetailPost: React.FC = () => {
           src={post}
           key={idx}
           alt={detailPost?.title}
-          className="w-30 h-30 rounded-md"
+          className="w-20 h-20 rounded-md"
         />
       ))}
 
