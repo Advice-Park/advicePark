@@ -5,7 +5,7 @@ type CommentProps = {
   postId: number;
 };
 
-const CommentList = ({ postId } : CommentProps) => {
+const CommentList = ({ postId }: CommentProps) => {
   const [comments, setComments] = useState<Comment[]>([]);
 
   useEffect(() => {
@@ -15,19 +15,16 @@ const CommentList = ({ postId } : CommentProps) => {
   }, []);
 
   return (
-    <div className="mb-448">
-        {comments.map((post) => (
-          <ul
-            className="p-5"
-            key={post.postId}
-          >
-            <li>댓쓴이: {post.userId}</li>
-            <li>{post.content}</li>
-            <li>{post.likeCount}</li>
-            <li>{post.createdTime}</li>
-            {/* <li><FormattingTime createdTime={post.createdTime} /></li> */}
-          </ul>
-        ))}
+    <div className="mb-80 pb-32">
+      {comments.map((post) => (
+        <ul className="p-5" key={post.postId}>
+          <li>댓쓴이: {post.userId}</li>
+          <li>{post.content}</li>
+          <li>{post.likeCount}</li>
+          <li>{post.createdTime}</li>
+          {/* <li><FormattingTime createdTime={post.createdTime} /></li> */}
+        </ul>
+      ))}
     </div>
   );
 };
