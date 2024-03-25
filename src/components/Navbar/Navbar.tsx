@@ -31,7 +31,7 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     // 이미 로그인되어 있는지 확인
     if (cookies.token) {
-      
+
       // 유저 정보 저장
       getUserInfo().then((res) => {
         setAuth({
@@ -70,6 +70,7 @@ const Navbar: React.FC = () => {
   const handleLogout = () => {
     setAuth({ isLoggedIn: false });
     removeCookie("token", { path: "/" });
+    location.href = "https://advice-park.vercel.app/";
   };
 
   // 로그인 상태 변화 시 새로고침
