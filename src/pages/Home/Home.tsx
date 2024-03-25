@@ -12,7 +12,7 @@ const Home: React.FC = () => {
     <div>
       <div className="w-full p-5 bg-blue-400 rounded-br-full">
         {auth.isLoggedIn
-          ? `userId: ${auth.userId} 님 안녕하세요`
+          ? `userId: ${auth.name} 님 안녕하세요`
           : "로그인하고 훈수를 받아보세요!"}
       </div>
       <div className="w-full mt-5">
