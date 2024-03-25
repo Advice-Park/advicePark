@@ -47,7 +47,7 @@ export const favoritePost = async (postId: number) => {
 
 export const deleteFavoritePost = async (postId: number) => {
   try {
-    await instance.delete(`/api/favorite/add`, {
+    await instance.delete(`/api/favorite/remove`, {
       params: { postId: postId },
     });
   } catch (err) {
