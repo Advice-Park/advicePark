@@ -30,10 +30,10 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     // 이미 로그인되어 있는지 확인
-    // if (cookies.token) {
-    //   setAuth({ isLoggedIn: true });
-    //   return;
-    // }
+    if (cookies.token) {
+      setAuth({ isLoggedIn: true });
+      return;
+    }
 
     // 로그인 성공 시에만 새로고침
     if (access_token) {
