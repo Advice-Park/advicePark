@@ -97,7 +97,7 @@ const DetailPost: React.FC = () => {
       <div>{detailPost?.contents}</div>
 
       {/* 첨부된 이미지 */}
-      <ul className="flex gap-3">
+      <ul className="flex gap-3 justify-center">
         {detailPost?.imageUrls.map((post, idx) => (
           <li className="w-20 h-20 rounded-md overflow-hidden">
             <img src={post} key={idx} alt={detailPost?.title} />
@@ -105,20 +105,21 @@ const DetailPost: React.FC = () => {
         ))}
       </ul>
 
-      {/* 글 즐겨찾기 */}
-      <div onClick={favoriteHandler} className="flex">
-        {favorite ? "❤️" : <LikeIcon />}
-        {favoriteCount}
-      </div>
-
-      {/* 조회수 */}
-      <div className="flex">
-        <VeiwIcon /> {detailPost?.viewCount}
-      </div>
-      {/* 댓글수 */}
-      <div className="flex">
-        <CommentIcon /> {detailPost?.commentCount}
-      </div>
+      <ul className="flex gap-3 justify-center">
+        {/* 글 즐겨찾기 */}
+        <li onClick={favoriteHandler} className="flex">
+          {favorite ? "❤️" : <LikeIcon />}
+          {favoriteCount}
+        </li>
+        {/* 조회수 */}
+        <li className="flex">
+          <VeiwIcon /> {detailPost?.viewCount}
+        </li>
+        {/* 댓글수 */}
+        <li className="flex">
+          <CommentIcon /> {detailPost?.commentCount}
+        </li>
+      </ul>
 
       <div>{detailPost?.voteOption}</div>
 
