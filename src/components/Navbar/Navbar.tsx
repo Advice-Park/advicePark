@@ -7,6 +7,7 @@ import SearchIcon from "../../assets/icons/search.svg?react";
 import MyPageIcon from "../../assets/icons/myPage.svg?react";
 import WriteIcon from "../../assets/icons/write.svg?react";
 import BoardIcon from "../../assets/icons/postsBoard.svg?react";
+import { getUserInfo } from "../../services/api/user";
 
 const Navbar: React.FC = () => {
   //recoil 사용 선언
@@ -29,16 +30,25 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     // 이미 로그인되어 있는지 확인
-    if (cookies.token) {
-      setAuth({ isLoggedIn: true });
-      return;
-    }
+    // if (cookies.token) {
+    //   setAuth({ isLoggedIn: true });
+    //   return;
+    // }
 
     // 로그인 성공 시에만 새로고침
     if (access_token) {
       setCookie("token", access_token);
       console.log(cookies.token);
-      setAuth({ isLoggedIn: true });
+
+      // 유저 정보 저장
+      getUserInfo().then((res) => {
+        setAuth({
+          isLoggedIn: true,
+          userId: res.userId,
+          name: res.name,
+          image: res.image,
+        });
+      })
 
       // 새로고침
       window.location.reload();
