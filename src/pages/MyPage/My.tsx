@@ -19,9 +19,12 @@ const My: React.FC = () => {
   }, []);
 
   return (
-    <div>
-      <div>My 페이지</div>
-      <div><img src={auth.image} className="w-20 h-20 rounded-full" />{auth.name}</div>
+    <div className="w-full mt-5">
+      <h3 className="text-xl font-bold">My 페이지</h3>
+      <div>
+        <img src={auth.image} className="w-20 h-20 rounded-full" />
+        {auth.name}
+      </div>
       <div>
         {myPosts.map((post) => (
           <ul
