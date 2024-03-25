@@ -31,7 +31,16 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     // 이미 로그인되어 있는지 확인
     if (cookies.token) {
-      setAuth({ isLoggedIn: true });
+      
+      // 유저 정보 저장
+      getUserInfo().then((res) => {
+        setAuth({
+          isLoggedIn: true,
+          userId: res.userId,
+          name: res.name,
+          image: res.image,
+        });
+      })
       return;
     }
 
