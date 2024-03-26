@@ -1,9 +1,15 @@
 import { useEffect, useRef } from "react";
 import googleIcon from "/iconImgs/google-icon.png";
+import { getUserInfo } from "../../services/api/user";
 
 type AuthProps = {
   setModalOpen: (isOpen: boolean) => void;
-  setAuth: (auth: { isLoggedIn: boolean }) => void;
+  setAuth: (auth: {
+    isLoggedIn?: boolean;
+    userId?: number;
+    name?: string;
+    image?: string;
+  }) => void;
 };
 
 const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
@@ -48,7 +54,15 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
     const urlParams = new URLSearchParams(window.location.search);
     const access_token = urlParams.get("access_token");
     if (access_token) {
-      setAuth({ isLoggedIn: true });
+      // 유저 정보 저장
+      getUserInfo().then((res) => {
+        setAuth({
+          isLoggedIn: true,
+          userId: res.userId,
+          name: res.name,
+          image: res.image,
+        });
+      });
       setModalOpen(false);
     }
   }, [setAuth, setModalOpen]);
