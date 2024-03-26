@@ -35,7 +35,7 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
       document.removeEventListener("mousedown", handler);
       // document.removeEventListener('touchstart', handler); // 모바일 대응
     };
-  }, [setModalOpen]);
+  }, [setAuth, setModalOpen]);
 
   const handleLogin = () => {
     const RedirectUri = "https://advice-park.vercel.app";
