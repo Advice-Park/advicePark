@@ -68,7 +68,7 @@ const Navbar: React.FC = () => {
 
   // 로그아웃
   const handleLogout = () => {
-    setAuth({ isLoggedIn: false });
+    setAuth({ isLoggedIn: false, userId: 0, name: "비회원", image: "" });
     removeCookie("token", { path: "/" });
     location.href = "https://advice-park.vercel.app/";
   };
@@ -124,7 +124,7 @@ const Navbar: React.FC = () => {
             </button>
           )}
           {modalOpen && (
-            <LoginModal setModalOpen={setModalOpen} setAuth={setAuth} />
+            <LoginModal setModalOpen={setModalOpen} />
           )}
         </nav>
       </div>
