@@ -2,8 +2,8 @@ import { atom } from "recoil";
 
 export interface IAuthTypes {
     isLoggedIn?: boolean;
-    userId: number;
-    name: string;
+    userId?: number;
+    name?: string;
     image?: string;
 }
 

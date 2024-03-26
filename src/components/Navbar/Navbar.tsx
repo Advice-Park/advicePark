@@ -108,7 +108,6 @@ const Navbar: React.FC = () => {
               </ul>
               <button
                 className="py-2 px-4 rounded-lg shadow-md text-black bg-green-300 hover:bg-lime-300"
-                // onClick={handleLogin}
                 onClick={handleLogout}
               >
                 로그아웃
@@ -117,14 +116,13 @@ const Navbar: React.FC = () => {
           ) : (
             <button
               className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
-              // onClick={handleLogin}
               onClick={showModal}
             >
               로그인
             </button>
           )}
           {modalOpen && (
-            <LoginModal setModalOpen={setModalOpen} />
+            <LoginModal setModalOpen={setModalOpen} setAuth={setAuth} />
           )}
         </nav>
       </div>
