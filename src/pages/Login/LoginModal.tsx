@@ -53,6 +53,7 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
     // URL에서 토큰을 추출하여 인증 상태 확인
     const urlParams = new URLSearchParams(window.location.search);
     const access_token = urlParams.get("access_token");
+    console.log("로그인 모달", access_token);
     if (access_token) {
       // 유저 정보 저장
       getUserInfo().then((res) => {

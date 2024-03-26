@@ -29,9 +29,10 @@ const Navbar: React.FC = () => {
   const access_token = params.get("access_token");
 
   useEffect(() => {
+    console.log("로그인 모달", access_token);
+
     // 이미 로그인되어 있는지 확인
     if (cookies.token) {
-
       // 유저 정보 저장
       getUserInfo().then((res) => {
         setAuth({
@@ -40,7 +41,7 @@ const Navbar: React.FC = () => {
           name: res.name,
           image: res.image,
         });
-      })
+      });
       return;
     }
 
@@ -57,7 +58,7 @@ const Navbar: React.FC = () => {
           name: res.name,
           image: res.image,
         });
-      })
+      });
 
       // 새로고침
       window.location.reload();
