@@ -3,7 +3,7 @@ import { Comment, getComments } from "../../services/api/comment";
 import { instance } from "../../services/instance";
 import { useRecoilValue } from "recoil";
 import { authState } from "../../contexts/state";
-import ideaIcon from "../../assets/icons/idea-icon.png";
+import ideaIcon from "/iconImgs/idea-icon.png";
 
 type CommentProps = {
   postId: number;
