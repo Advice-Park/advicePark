@@ -3,6 +3,7 @@ import { Comment, getComments } from "../../services/api/comment";
 import { instance } from "../../services/instance";
 import { useRecoilValue } from "recoil";
 import { authState } from "../../contexts/state";
+import ideaIcon from "../../assets/icons/idea-icon.png";
 
 type CommentProps = {
   postId: number;
@@ -31,18 +32,30 @@ const CommentList = ({ postId }: CommentProps) => {
     <div className="pb-24">
       {comments.map((post) => (
         <>
-          <ul className="p-5" key={post.postId}>
-            <li>댓쓴이: {post.userId}</li>
-            <li>{post.content}</li>
-            <li>{post.likeCount}</li>
-            <li>{post.createdTime}</li>
+          <div className="pb-1 p-8" key={post.postId}>
+            <div className="flex gap-3 pb-2">
+              <img className="w-8 h-8" src={ideaIcon} />
+              <div>
+                <p className="font-bold leading-5">{post.userId}</p>
+                <p className="text-xs">{post.createdTime}</p>
+              </div>
+            </div>
+            <div className="flex gap-3">
+              <div className="max-w-64 ml-10 px-2 py-1 text-sm bg-white rounded-lg">
+                {post.content}
+              </div>
+              <div>{post.likeCount}</div>
+            </div>
             {/* <li><FormattingTime createdTime={post.createdTime} /></li> */}
-          </ul>
-          {auth.userId === post.userId && (
-            <button onClick={() => deleteComment(postId, post.commentId)}>
-              삭제
-            </button>
-          )}
+            {auth.userId === post.userId && (
+              <button
+                className="ml-10 text-xs mt-2"
+                onClick={() => deleteComment(postId, post.commentId)}
+              >
+                삭제
+              </button>
+            )}
+          </div>
         </>
       ))}
     </div>
