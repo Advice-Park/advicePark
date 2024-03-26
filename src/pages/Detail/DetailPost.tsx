@@ -86,13 +86,13 @@ const DetailPost: React.FC = () => {
     try {
       await instance.delete(`/api/post/${postId}`);
     } catch (e) {
-      alert("삭제 에러(작성자인지 확인)");
+      alert("글 삭제 에러");
     }
   };
 
   return (
     <>
-      <div className="w-full flex flex-col p-5 gap-5">
+      <div className="w-full flex flex-col p-8 gap-5 bg-white">
         <div>
           {/* 작성자 정보 */}
           <img src={detailPost?.image} className="w-xs h-xs rounded-full" />
@@ -101,14 +101,14 @@ const DetailPost: React.FC = () => {
         <div className="text-xs text-gray-500">{createdDate}</div>
 
         {/* 제목 */}
-        <div className="text-2xl font-bold">{detailPost?.title}</div>
+        <div className="w-full text-2xl font-bold pb-5 border-b">{detailPost?.title}</div>
         {/* 내용 */}
         <div>{detailPost?.contents}</div>
 
         {/* 첨부된 이미지 */}
         <ul className="flex gap-3">
           {detailPost?.imageUrls.map((post, idx) => (
-            <li className="flex items-center w-20 h-20 rounded-md overflow-hidden">
+            <li className="flex items-center w-20 h-20 rounded-md border overflow-hidden">
               <img src={post} key={idx} alt={detailPost?.title} />
             </li>
           ))}
