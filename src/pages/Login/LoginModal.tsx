@@ -51,7 +51,7 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
       setAuth({ isLoggedIn: true });
       setModalOpen(false);
     }
-  }, [setModalOpen]);
+  }, [setAuth, setModalOpen]);
 
   return (
     <div
