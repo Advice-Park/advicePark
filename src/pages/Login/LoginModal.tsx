@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import googleIcon from "/iconImgs/google-icon.png";
 
 type AuthProps = {
   setModalOpen: (isOpen: boolean) => void;
@@ -57,22 +58,16 @@ const LoginModal = ({ setModalOpen }: AuthProps) => {
       ref={modalRef}
       className="w-full h-screen fixed top-0 left-0 bg-neutral-700 bg-opacity-50"
     >
-      <div className="z-100 p-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-lime-400 rounded-10 shadow-2 shadow-transparent-black">
-        <button className="p-10 m-100" onClick={closeModal}>
-          X
-        </button>
+      <div className="flex items-center z-100 p-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-lime-400 rounded-lg shadow-2 shadow-transparent-black">
         <button
-          className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
+          className="flex justify-center items-center py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
           onClick={handleLogin}
         >
-          {/* <div
-            className="w-10 h-10"
-            style={{
-              backgroundImage: `url('../../assets/icons/google-icon.png')`,
-            }}
-          ></div>
-          <img src="../../assets/icons/google-icon.png" /> */}
-          구글로 계속하기
+          <img src={googleIcon} className="w-8 h-8" />
+          <span>구글로 계속하기</span>
+        </button>
+        <button className="m-10" onClick={closeModal}>
+          X
         </button>
       </div>
     </div>
