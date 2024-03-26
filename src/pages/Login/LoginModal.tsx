@@ -2,10 +2,10 @@ import { useEffect, useRef } from "react";
 
 type AuthProps = {
   setModalOpen: (isOpen: boolean) => void;
-  setAuth: (auth: { isLoggedIn: boolean }) => void;
+  // setAuth: (auth: { isLoggedIn: boolean }) => void;
 };
 
-const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
+const LoginModal = ({ setModalOpen }: AuthProps) => {
   const closeModal = () => {
     setModalOpen(false);
   };
@@ -47,10 +47,10 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
     const urlParams = new URLSearchParams(window.location.search);
     const access_token = urlParams.get("access_token");
     if (access_token) {
-      setAuth({ isLoggedIn: true });
+      // setAuth({ isLoggedIn: true });
       setModalOpen(false);
     }
-  }, [setAuth, setModalOpen]);
+  }, [setModalOpen]);
 
   return (
     <div
