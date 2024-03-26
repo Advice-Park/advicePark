@@ -59,9 +59,9 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
       getUserInfo().then((res) => {
         setAuth({
           isLoggedIn: true,
-          userId: res.userId,
-          name: res.name,
-          image: res.image,
+          userId: res?.userId,
+          name: res?.name,
+          image: res?.image,
         });
       });
       setModalOpen(false);

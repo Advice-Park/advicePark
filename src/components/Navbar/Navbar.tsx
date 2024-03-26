@@ -37,9 +37,9 @@ const Navbar: React.FC = () => {
       getUserInfo().then((res) => {
         setAuth({
           isLoggedIn: true,
-          userId: res.userId,
-          name: res.name,
-          image: res.image,
+          userId: res?.userId,
+          name: res?.name,
+          image: res?.image,
         });
       });
       return;
@@ -54,9 +54,9 @@ const Navbar: React.FC = () => {
       getUserInfo().then((res) => {
         setAuth({
           isLoggedIn: true,
-          userId: res.userId,
-          name: res.name,
-          image: res.image,
+          userId: res?.userId,
+          name: res?.name,
+          image: res?.image,
         });
       });
 
