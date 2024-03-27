@@ -8,6 +8,7 @@ export interface Posts {
   category: "DAILY" | "LOVE" | "EXERCISE" | "FOOD" | "ETC";
   viewCount: number;
   commentCount: number;
+  favoriteCount: number;
   createdTime: string;
   imageUrls: string[];
   voteOption: "YES_NO" | "NORMAL";
@@ -57,7 +58,7 @@ export const deleteFavoritePost = async (postId: number) => {
 
 export const getIsFavorite = async (postId: number) => {
   try {
-    const res = await instance.get(`/api/favorite`, {
+    const res = await instance.get("/api/favorite", {
       params: { postId: postId },
     });
     const IsFavorite = res.data.result as boolean;
@@ -66,3 +67,12 @@ export const getIsFavorite = async (postId: number) => {
     console.log("post 즐겨찾기 내역확인 에러 :", err);
   }
 };
+
+export const getFavoritePosts = async () => {
+  try {
+    const res = await instance.get("/api/mypage/favorite");
+    return res.data.result;
+  } catch (err) {
+    console.log("내 favoritePosts 불러오기 에러 :", err);
+  }
+}
