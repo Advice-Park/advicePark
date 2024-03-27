@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Posts, getPosts } from "../../services/api/posts";
 import { useNavigate } from "react-router-dom";
+import LikeIcon from "../../assets/icons/like.svg?react";
+import VeiwIcon from "../../assets/icons/eye.svg?react";
+import CommentIcon from "../../assets/icons/comment.svg?react";
 
 const PostsPage: React.FC = () => {
   const navi = useNavigate();
@@ -14,15 +17,31 @@ const PostsPage: React.FC = () => {
 
   return (
     <div>
+      <h2 className="text-lg font-bold text-center py-3 border-b bg-white">
+        훈수게시판
+      </h2>
       {posts.map((post) => (
-        <ul className="p-5" key={post.postId} onClick={()=>navi(`/posts/${post.postId}`)}>
-          <li>제목: {post.title}</li>
-          <li>{post.contents}</li>
-          <li>{post.category}</li>
-          <li>{post.imageUrls}</li>
+        <ul
+          className="py-5 px-8 border-b"
+          key={post.postId}
+          onClick={() => navi(`/posts/${post.postId}`)}
+        >
           <li>{post.voteOption}</li>
-          <li>뷰: {post.viewCount}</li>
-          <li>댓글: {post.commentCount}</li>
+          <li className="font-bold">{post.title}</li>
+          <li className="text-sm text-gray-500">{post.contents}</li>
+          <li>{post.category}</li>
+          <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
+          <li className="flex justify-between max-w-60 text-xs">
+            <span className="flex gap-1">
+              <LikeIcon /> {post.favoriteCount}
+            </span>
+            <span className="flex gap-1">
+              <VeiwIcon /> {post.viewCount}
+            </span>
+            <span className="flex gap-1">
+              <CommentIcon /> {post.commentCount}
+            </span>
+          </li>
         </ul>
       ))}
     </div>
