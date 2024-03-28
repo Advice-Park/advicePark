@@ -10,6 +10,14 @@ const LatestPost: React.FC = () => {
     });
   }, []);
 
+  const postingCategory: { [key: string]: string } = {
+    DAILY: "일상(잡담)",
+    LOVE: "연애",
+    EXERCISE: "운동",
+    FOOD: "음식",
+    ETC: "기타",
+  };
+
   return (
     <>
       <div className="mb-0 m-5 flex justify-between">
@@ -24,7 +32,7 @@ const LatestPost: React.FC = () => {
             onClick={() => (window.location.href = `/posts/${post.postId}`)}
           >
             <li className="rounded-full px-3 pb-1 bg-gray-300 text-sm">
-              {post.category}
+              {postingCategory[post.category]}
             </li>
             <li className="font-bold">{post.title}</li>
             <li>{post.contents}</li>
