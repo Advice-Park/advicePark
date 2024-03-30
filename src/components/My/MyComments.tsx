@@ -16,7 +16,7 @@ const MyComments: React.FC = () => {
   return (
     <div>
       <h3>내가 쓴 훈수댓글</h3>
-      <div className="flex gap-3">
+      <div className="flex gap-3 w-full">
         {myComments.map((comment) => (
           <ul
             className="p-5"
