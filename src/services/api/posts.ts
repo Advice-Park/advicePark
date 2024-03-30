@@ -68,10 +68,11 @@ export const getIsFavorite = async (postId: number) => {
   }
 };
 
+// 내가 즐겨찾기 한 글(마이페이지 즐겨찾기 목록 조회)
 export const getFavoritePosts = async () => {
   try {
     const res = await instance.get("/api/mypage/favorite");
-    return res.data.result;
+    return res.data.result.postId as number[];
   } catch (err) {
     console.log("내 favoritePosts 불러오기 에러 :", err);
   }

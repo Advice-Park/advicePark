@@ -6,6 +6,7 @@ import { authState } from "../../contexts/state";
 import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
 import MyComments from "../../components/My/MyComments";
+import MyFavorite from "../../components/My/MyFavorite";
 
 const My: React.FC = () => {
   const navi = useNavigate();
@@ -52,6 +53,8 @@ const My: React.FC = () => {
       </div>
 
       <MyComments />
+
+      <MyFavorite />
     </div>
   );
 };
