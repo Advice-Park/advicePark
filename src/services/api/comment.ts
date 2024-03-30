@@ -9,7 +9,7 @@ export interface Comment {
   createdTime: string;
 }
 
-export const getComments = async (postId : number) => {
+export const getComments = async (postId: number) => {
   try {
     const res = await instance.get(`/api/comment/${postId}`);
     const comments = res.data.result;
@@ -17,4 +17,12 @@ export const getComments = async (postId : number) => {
   } catch (err) {
     console.log("comments 불러오기 에러 :", err);
   }
+};
+
+export const getMyComments = async () => {
+  try {
+    const res = await instance.get("/api/mypage/comment");
+    const myComments: Comment[] = res.data.result;
+    return myComments;
+  } catch (err) {}
 };

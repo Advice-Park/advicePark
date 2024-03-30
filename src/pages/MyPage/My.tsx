@@ -5,6 +5,7 @@ import { useRecoilValue } from "recoil";
 import { authState } from "../../contexts/state";
 import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
+import MyComments from "../../components/My/MyComments";
 
 const My: React.FC = () => {
   const navi = useNavigate();
@@ -22,12 +23,14 @@ const My: React.FC = () => {
 
   return (
     <div className="w-full mt-5">
-      <h3 className="text-xl font-bold">My 페이지</h3>
+      <h2 className="text-xl font-bold">My 페이지</h2>
       <div>
         <img src={auth.image} className="w-20 h-20 rounded-full" />
         {auth.name}
       </div>
-      <div>
+
+      <h3>내가 쓴 글</h3>
+      <div className="flex gap-3">
         {myPosts.map((post) => (
           <ul
             className="p-5"
@@ -38,11 +41,17 @@ const My: React.FC = () => {
             <li>{post.contents}</li>
             <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
             <li>{post.voteOption}</li>
-            <li className="flex"><VeiwIcon /> {post.viewCount}</li>
-            <li className="flex"><CommentIcon /> {post.commentCount}</li>
+            <li className="flex">
+              <VeiwIcon /> {post.viewCount}
+            </li>
+            <li className="flex">
+              <CommentIcon /> {post.commentCount}
+            </li>
           </ul>
         ))}
       </div>
+
+      <MyComments />
     </div>
   );
 };
