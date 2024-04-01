@@ -10,7 +10,7 @@ const Home: React.FC = () => {
 
   return (
     <div>
-      <div className="w-full p-5 bg-dark-blue rounded-br-full">
+      <div className="w-full p-5 bg-dark-blue text-white rounded-br-full">
         {auth.isLoggedIn
           ? `${auth.name} 님 안녕하세요`
           : "로그인하고 훈수를 받아보세요!"}
