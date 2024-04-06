@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Posts, getFavoritePosts, getPosts } from "../../services/api/posts";
+import { Posts, getFavoritePosts } from "../../services/api/posts";
 import LikeIcon from "../../assets/icons/like.svg?react";
 import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
@@ -10,7 +10,7 @@ const MyFavorite: React.FC = () => {
   const [posts, setPosts] = useState<Posts[]>([]);
 
   useEffect(() => {
-    getPosts().then((res) => {
+    getFavoritePosts().then((res) => {
       res ? setPosts(res) : console.log("글이 없습니다");
     });
 

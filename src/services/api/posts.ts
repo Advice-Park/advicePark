@@ -72,7 +72,7 @@ export const getIsFavorite = async (postId: number) => {
 export const getFavoritePosts = async () => {
   try {
     const res = await instance.get("/api/mypage/favorite");
-    return res.data.result.postId as number[];
+    return res.data.result.post;
   } catch (err) {
     console.log("내 favoritePosts 불러오기 에러 :", err);
   }
