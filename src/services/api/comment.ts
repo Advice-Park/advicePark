@@ -9,6 +9,16 @@ export interface Comment {
   createdTime: string;
 }
 
+export const addComment = async (postId: number, comment: string) => {
+  try {
+    await instance.post(`/api/comment/${postId}`, {
+      content: comment,
+    });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
 export const getComments = async (postId: number) => {
   try {
     const res = await instance.get(`/api/comment/${postId}`);
@@ -25,4 +35,13 @@ export const getMyComments = async () => {
     const myComments: Comment[] = res.data.result;
     return myComments;
   } catch (err) {}
+};
+
+export const getChatGpt = async (prompt: string) => {
+  try {
+    const res = await instance.get("/api/chatgpt", {
+      params: { prompt },
+    });
+    return res.data as string;
+  } catch {}
 };

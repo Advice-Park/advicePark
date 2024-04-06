@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { instance } from "../../services/instance";
+import { addComment } from "../../services/api/comment";
 
 type CommentProps = {
   postId: number;
@@ -7,16 +7,6 @@ type CommentProps = {
 
 const WriteComment = ({ postId }: CommentProps) => {
   const [comment, setComment] = useState<string>("");
-
-  const addComment = async (postId: number) => {
-    try {
-      await instance.post(`/api/comment/${postId}`, {
-        content: comment,
-      });
-    } catch (err) {
-      console.log(err);
-    }
-  };
 
   return (
     <div className="max-w-md w-full fixed bottom-0 h-20 p-6 flex justify-between bg-white">
@@ -30,7 +20,7 @@ const WriteComment = ({ postId }: CommentProps) => {
         maxLength={300}
         className="max-w-xs w-full p-3 bg-gray-100 rounded"
       />
-      <button onClick={() => addComment(postId)}>등록</button>
+      <button onClick={() => addComment(postId, comment)}>등록</button>
     </div>
   );
 };

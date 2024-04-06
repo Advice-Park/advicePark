@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { instance } from "../../services/instance";
 import PostFooter from "../../components/footer/PostFooter";
 import CategoryModal from "../../components/modal/CategoryModal";
+import { addComment, getChatGpt } from "../../services/api/comment";
 
 const PostPage: React.FC = () => {
   const navi = useNavigate();
@@ -64,7 +65,7 @@ const PostPage: React.FC = () => {
     // setLoading(true);
 
     try {
-      await instance.post("/api/post", formData, {
+      const res = await instance.post("/api/post", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -73,6 +74,14 @@ const PostPage: React.FC = () => {
       alert("글 작성에 성공하였습니다.");
       console.log(formData);
       navi("/posts");
+
+      // ChatGPT 요청 API
+      getChatGpt(contents).then((resGPT) => {
+        if (resGPT) {
+          // 글작성 응답으로 받은 postId 활용
+          addComment(res.data.result.postId, resGPT);
+        }
+      });
     } catch (e: any) {
       console.log("글 작성 에러 :", e);
     }
@@ -121,7 +130,6 @@ const PostPage: React.FC = () => {
             }}
             autoFocus
             placeholder="제목"
-            
           />
           <textarea
             value={contents}
