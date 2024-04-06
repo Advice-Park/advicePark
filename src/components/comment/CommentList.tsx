@@ -88,7 +88,7 @@ const CommentList = ({ postId }: CommentProps) => {
               {/* 댓글 좋아요 부분 */}
               <div className="flex gap-1">
                 <p onClick={likeCommentHandler(post.commentId)}>
-                  {likeComment ? "❤️" : <LikeIcon />}
+                  {likeComment[post.commentId] ? "❤️" : <LikeIcon />}
                 </p>
                 {post.likeCount}
               </div>
