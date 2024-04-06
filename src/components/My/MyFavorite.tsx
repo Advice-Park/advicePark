@@ -8,29 +8,19 @@ import CommentIcon from "../../assets/icons/comment.svg?react";
 const MyFavorite: React.FC = () => {
   const navi = useNavigate();
   const [posts, setPosts] = useState<Posts[]>([]);
-  const [myFavoritePosts, setMyFavoritePosts] = useState<Posts[]>([]);
 
   useEffect(() => {
     getPosts().then((res) => {
       res ? setPosts(res) : console.log("글이 없습니다");
     });
 
-    const getFavoritePostIds = async () => {
-      const myFavoritePostIds = await getFavoritePosts();
-      const filteredPosts = posts.filter((post) =>
-        myFavoritePostIds?.includes(post.postId)
-      );
-      setMyFavoritePosts(filteredPosts);
-    };
-
-    getFavoritePostIds();
   }, []);
 
   return (
     <div>
       <h3>내가 즐겨찾기 한 글</h3>
       <div className="flex gap-3 w-full">
-        {myFavoritePosts.map((post) => (
+        {posts.map((post) => (
           <ul
             className="py-5 px-8 border-b cursor-pointer"
             key={post.postId}
