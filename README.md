@@ -28,3 +28,6 @@ export default {
 - Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
 - Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
 - Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+
+일러스트 이미지 출처
+<a href="https://kr.freepik.com/free-vector/90s-collection-with-kimchi-the-hamster_54170079.htm#fromView=search&page=1&position=8&uuid=46b39f81-1572-4cd9-8bfb-096806b0a917">출처 freepik</a>
