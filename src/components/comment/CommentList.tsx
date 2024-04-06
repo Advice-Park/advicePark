@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { MouseEventHandler, useEffect, useState } from "react";
 import {
   Comment,
   delLikeComment,
@@ -23,6 +23,7 @@ const CommentList = ({ postId }: CommentProps) => {
   const [likeComment, setLikeComment] = useState<{ [key: number]: boolean }>(
     {}
   );
+  const [likeCount, setLikeCount] = useState<number>();
 
   useEffect(() => {
     getComments(postId).then((res) => {
@@ -43,14 +44,17 @@ const CommentList = ({ postId }: CommentProps) => {
   }, []);
 
   const likeCommentHandler =
-    (commentId: number) =>
-    async (_event: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
+    (commentId: number): MouseEventHandler<HTMLParagraphElement> =>
+    (_event: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
       if (auth.isLoggedIn) {
         if (!likeComment) {
-          await postLikeComment(commentId);
+          postLikeComment(commentId);
           setLikeComment({ [commentId]: true });
+          setLikeCount(likeCount! + 1);
         } else {
-          await delLikeComment(commentId);
+          delLikeComment(commentId);
+          setLikeComment({ [commentId]: false });
+          setLikeCount(likeCount! - 1);
         }
       } else {
         alert("로그인 후 이용해주세요!");
@@ -90,7 +94,7 @@ const CommentList = ({ postId }: CommentProps) => {
                 <p onClick={likeCommentHandler(post.commentId)}>
                   {likeComment[post.commentId] ? "❤️" : <LikeIcon />}
                 </p>
-                {post.likeCount}
+                {likeCount}
               </div>
             </div>
 
