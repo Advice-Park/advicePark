@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FavoritePosts, Posts, getFavoritePosts } from "../../services/api/posts";
+import { FavoritePosts, getFavoritePosts } from "../../services/api/posts";
 import LikeIcon from "../../assets/icons/like.svg?react";
 import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
