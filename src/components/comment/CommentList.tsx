@@ -23,6 +23,7 @@ const CommentList = ({ postId }: CommentProps) => {
   const deleteComment = async (postId: number, commentId: number) => {
     try {
       await instance.delete(`/api/comment/${postId}/${commentId}`);
+      setComments(comments.filter((comment) => comment.commentId !== commentId));
     } catch (err) {
       alert("훈수 삭제 에러");
     }
