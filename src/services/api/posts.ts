@@ -16,6 +16,10 @@ export interface Posts {
   image: string;
 }
 
+export interface FavoritePosts {
+  post : Posts;
+}
+
 export const getPosts = async () => {
   try {
     const res = await instance.get("/api/post");
@@ -72,7 +76,7 @@ export const getIsFavorite = async (postId: number) => {
 export const getFavoritePosts = async () => {
   try {
     const res = await instance.get("/api/mypage/favorite");
-    return res.data.result.post;
+    return res.data.result;
   } catch (err) {
     console.log("내 favoritePosts 불러오기 에러 :", err);
   }
