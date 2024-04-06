@@ -45,3 +45,28 @@ export const getChatGpt = async (prompt: string) => {
     return res.data as string;
   } catch {}
 };
+
+export const postLikeComment = async (commentId: number) => {
+  try {
+    await instance.post(`/api/comment/${commentId}/like`);
+  } catch (err){
+    console.log(`댓글 좋아요 실패: err`);
+  }
+}
+
+export const delLikeComment = async (commentId: number) => {
+  try {
+    await instance.delete(`/api/comment/${commentId}/like`);
+  } catch (err){
+    console.log(`댓글 좋아요 취소 실패: err`);
+  }
+}
+
+export const getLiked = async (commentId: number) => {
+  try {
+    const res = await instance.get(`/api/comment/${commentId}/like`);
+    return res.data.result;
+  } catch (err) {
+    console.log(err);
+  }
+}
