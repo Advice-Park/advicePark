@@ -23,7 +23,7 @@ const CommentList = ({ postId }: CommentProps) => {
   const [likeComment, setLikeComment] = useState<{ [key: number]: boolean }>(
     {}
   );
-  const [likeCount, setLikeCount] = useState<number>();
+  const [likeCount, setLikeCount] = useState<{ [key: number]: number }>();
 
   useEffect(() => {
     getComments(postId).then((res) => {
@@ -32,12 +32,17 @@ const CommentList = ({ postId }: CommentProps) => {
 
     const getLikes = async () => {
       const myLikedComments: { [key: number]: boolean } = {};
+      const commentLikeCount: { [key: number]: number } = {};
       if (Array.isArray(comments)) {
         for (const comment of comments) {
           const res = await getLiked(comment.commentId);
           myLikedComments[comment.commentId] = res;
+
+          const count = await getComments(postId);
+          commentLikeCount[comment.commentId] = count;
         }
         setLikeComment(myLikedComments);
+        setLikeCount(commentLikeCount);
       }
     };
     getLikes();
@@ -50,11 +55,11 @@ const CommentList = ({ postId }: CommentProps) => {
         if (!likeComment) {
           postLikeComment(commentId);
           setLikeComment({ [commentId]: true });
-          setLikeCount(likeCount! + 1);
+          setLikeCount((prev) => ({ ...prev, [commentId]: (prev?.[commentId] ?? 0) + 1 }));
         } else {
           delLikeComment(commentId);
           setLikeComment({ [commentId]: false });
-          setLikeCount(likeCount! - 1);
+          setLikeCount((prev) => ({ ...prev, [commentId]: (prev?.[commentId] ?? 0) - 1 }));
         }
       } else {
         alert("로그인 후 이용해주세요!");
@@ -94,7 +99,7 @@ const CommentList = ({ postId }: CommentProps) => {
                 <p onClick={likeCommentHandler(post.commentId)}>
                   {likeComment[post.commentId] ? "❤️" : <LikeIcon />}
                 </p>
-                {likeCount}
+                {likeCount?.[post.commentId]}
               </div>
             </div>
 
