@@ -20,70 +20,54 @@ const CommentList = ({ postId }: CommentProps) => {
   const auth = useRecoilValue(authState);
 
   const [comments, setComments] = useState<Comment[]>([]);
-  const [likeComment, setLikeComment] = useState<{ [key: number]: boolean }>(
-    {}
-  );
-  const [likeCount, setLikeCount] = useState<{ [key: number]: number }>({
-    [0]: 0,
-  });
+  const [likeComment, setLikeComment] = useState<{ [key: number]: boolean }>({});
+  const [likeCount, setLikeCount] = useState<{ [key: number]: number }>({});
 
   useEffect(() => {
-    getComments(postId).then((res) => {
-      res ? setComments(res) : console.log("댓글이 없습니다");
-    });
+    const fetchData = async () => {
+      const commentsData = await getComments(postId);
+      if (commentsData) {
+        setComments(commentsData);
 
-    const getLikes = async () => {
-      const myLikedComments: { [key: number]: boolean } = {};
-      const commentLikeCount: { [key: number]: number } = {};
-      if (Array.isArray(comments)) {
-        for (const comment of comments) {
-          const res = await getLiked(comment.commentId);
-          myLikedComments[comment.commentId] = res;
-
-          const count = await getComments(postId);
-          commentLikeCount[comment.commentId] = count.likeCount;
-          console.log("좋아요 기록",res);
-          console.log("좋아요 카운트",count);
+        // 댓글의 좋아요 기록 및 좋아요 수
+        const myLikedComments: { [key: number]: boolean } = {};
+        const commentLikeCount: { [key: number]: number } = {};
+        for (const comment of commentsData) {
+          const liked = await getLiked(comment.commentId);
+          myLikedComments[comment.commentId] = liked;
+          commentLikeCount[comment.commentId] = comment.likeCount;
         }
         setLikeComment(myLikedComments);
         setLikeCount(commentLikeCount);
       }
     };
-    getLikes();
-    console.log("likeComment",likeComment);
-    console.log("likeCount", likeCount);
+    fetchData();
   }, []);
 
-  const likeCommentHandler =
-    (commentId: number): MouseEventHandler<HTMLParagraphElement> =>
-    (_event: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
-      if (auth.isLoggedIn) {
-        if (!likeComment) {
-          postLikeComment(commentId);
-          setLikeComment({ [commentId]: true });
-          setLikeCount((prev) => ({
-            ...prev,
-            [commentId]: (prev?.[commentId] ?? 0) + 1,
-          }));
+  const likeCommentHandler = (commentId: number): MouseEventHandler<HTMLParagraphElement> => async (_event: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
+    if (auth.isLoggedIn) {
+      try {
+        if (!likeComment[commentId]) {
+          await postLikeComment(commentId);
+          setLikeComment({ ...likeComment, [commentId]: true });
+          setLikeCount({ ...likeCount, [commentId]: (likeCount[commentId] || 0) + 1 });
         } else {
-          delLikeComment(commentId);
-          setLikeComment({ [commentId]: false });
-          setLikeCount((prev) => ({
-            ...prev,
-            [commentId]: (prev?.[commentId] ?? 0) - 1,
-          }));
+          await delLikeComment(commentId);
+          setLikeComment({ ...likeComment, [commentId]: false });
+          setLikeCount({ ...likeCount, [commentId]: (likeCount[commentId] || 0) - 1 });
         }
-      } else {
-        alert("로그인 후 이용해주세요!");
+      } catch (error) {
+        console.error("Error:", error);
       }
-    };
+    } else {
+      alert("로그인 후 이용해주세요!");
+    }
+  };
 
   const deleteComment = async (postId: number, commentId: number) => {
     try {
       await instance.delete(`/api/comment/${postId}/${commentId}`);
-      setComments(
-        comments.filter((comment) => comment.commentId !== commentId)
-      );
+      setComments(comments.filter((comment) => comment.commentId !== commentId));
     } catch (err) {
       alert("훈수 삭제 에러");
     }
@@ -92,40 +76,36 @@ const CommentList = ({ postId }: CommentProps) => {
   return (
     <div className="pb-24">
       {comments.map((post) => (
-        <>
-          <div className="pb-1 p-8" key={post.postId}>
-            <div className="flex gap-3 pb-2">
-              <img className="w-8 h-8" src={ideaIcon} />
-              <div>
-                <p className="font-bold leading-5">{post.userId}</p>
-                <p className="text-xs">{post.createdTime}</p>
-              </div>
+        <div className="pb-1 p-8" key={post.postId}>
+          <div className="flex gap-3 pb-2">
+            <img className="w-8 h-8" src={ideaIcon} />
+            <div>
+              <p className="font-bold leading-5">{post.userId}</p>
+              <p className="text-xs">{post.createdTime}</p>
             </div>
-            <div className="flex gap-3">
-              <div className="max-w-64 ml-10 px-2 py-1 text-sm bg-white rounded-lg">
-                {post.content}
-              </div>
-
-              {/* 댓글 좋아요 부분 */}
-              <div className="flex gap-1">
-                <p onClick={likeCommentHandler(post.commentId)}>
-                  {likeComment[post.commentId] ? "❤️" : <LikeIcon />}
-                </p>
-                {likeCount?.[post.commentId]}
-              </div>
-            </div>
-
-            {/* <li><FormattingTime createdTime={post.createdTime} /></li> */}
-            {auth.userId === post.userId && (
-              <button
-                className="ml-10 text-xs mt-2"
-                onClick={() => deleteComment(postId, post.commentId)}
-              >
-                삭제
-              </button>
-            )}
           </div>
-        </>
+          <div className="flex gap-3">
+            <div className="max-w-64 ml-10 px-2 py-1 text-sm bg-white rounded-lg">
+              {post.content}
+            </div>
+
+            {/* 좋아요 부분 */}
+            <div className="flex gap-1">
+              <p onClick={likeCommentHandler(post.commentId)}>
+                {likeComment[post.commentId] ? "❤️" : <LikeIcon />}
+              </p>
+              {likeCount[post.commentId]}
+            </div>
+          </div>
+          {auth.userId === post.userId && (
+            <button
+              className="ml-10 text-xs mt-2"
+              onClick={() => deleteComment(postId, post.commentId)}
+            >
+              삭제
+            </button>
+          )}
+        </div>
       ))}
     </div>
   );
