@@ -23,7 +23,7 @@ const CommentList = ({ postId }: CommentProps) => {
   const [likeComment, setLikeComment] = useState<{ [key: number]: boolean }>(
     {}
   );
-  const [likeCount, setLikeCount] = useState<{ [key: number]: number }>();
+  const [likeCount, setLikeCount] = useState<{ [key: number]: number }>({[0]:0});
 
   useEffect(() => {
     getComments(postId).then((res) => {
@@ -39,7 +39,7 @@ const CommentList = ({ postId }: CommentProps) => {
           myLikedComments[comment.commentId] = res;
 
           const count = await getComments(postId);
-          commentLikeCount[comment.commentId] = count;
+          commentLikeCount[comment.commentId] = count.likeCount;
         }
         setLikeComment(myLikedComments);
         setLikeCount(commentLikeCount);
