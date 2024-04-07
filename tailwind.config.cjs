@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require("tailwindcss/defaultTheme");
 
 export default {
   content: ["./src/**/*.{js,ts,jsx,tsx}"],
@@ -11,12 +11,12 @@ export default {
         md: { min: "820px" },
       },
       colors: {
-        'dark-blue': '#002c58',
-        'mid-blue': '#0043f1',
-        'light-blue': '#80a1f8',
+        "dark-blue": "#002c58",
+        "mid-blue": "#0043f1",
+        "light-blue": "#80a1f8",
       },
       fontFamily: {
-        sans: ['"Pretendard-Regular"', ...defaultTheme.fontFamily.sans],
+        sans: ["Pretendard-Regular", "sans-serif"],
       },
     },
   },
