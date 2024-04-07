@@ -24,7 +24,7 @@ const CommentList = ({ postId }: CommentProps) => {
   const [likeCount, setLikeCount] = useState<{ [key: number]: number }>({});
 
   useEffect(() => {
-    const fetchData = async () => {
+    const getLikeData = async () => {
       const commentsData = await getComments(postId);
       if (commentsData) {
         setComments(commentsData);
@@ -41,7 +41,7 @@ const CommentList = ({ postId }: CommentProps) => {
         setLikeCount(commentLikeCount);
       }
     };
-    fetchData();
+    getLikeData();
   }, []);
 
   const likeCommentHandler = (commentId: number): MouseEventHandler<HTMLParagraphElement> => async (_event: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
