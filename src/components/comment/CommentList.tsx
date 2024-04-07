@@ -23,7 +23,9 @@ const CommentList = ({ postId }: CommentProps) => {
   const [likeComment, setLikeComment] = useState<{ [key: number]: boolean }>(
     {}
   );
-  const [likeCount, setLikeCount] = useState<{ [key: number]: number }>({[0]:0});
+  const [likeCount, setLikeCount] = useState<{ [key: number]: number }>({
+    [0]: 0,
+  });
 
   useEffect(() => {
     getComments(postId).then((res) => {
@@ -40,12 +42,16 @@ const CommentList = ({ postId }: CommentProps) => {
 
           const count = await getComments(postId);
           commentLikeCount[comment.commentId] = count.likeCount;
+          console.log("좋아요 기록",res);
+          console.log("좋아요 카운트",count);
         }
         setLikeComment(myLikedComments);
         setLikeCount(commentLikeCount);
       }
     };
     getLikes();
+    console.log("likeComment",likeComment);
+    console.log("likeCount", likeCount);
   }, []);
 
   const likeCommentHandler =
@@ -55,11 +61,17 @@ const CommentList = ({ postId }: CommentProps) => {
         if (!likeComment) {
           postLikeComment(commentId);
           setLikeComment({ [commentId]: true });
-          setLikeCount((prev) => ({ ...prev, [commentId]: (prev?.[commentId] ?? 0) + 1 }));
+          setLikeCount((prev) => ({
+            ...prev,
+            [commentId]: (prev?.[commentId] ?? 0) + 1,
+          }));
         } else {
           delLikeComment(commentId);
           setLikeComment({ [commentId]: false });
-          setLikeCount((prev) => ({ ...prev, [commentId]: (prev?.[commentId] ?? 0) - 1 }));
+          setLikeCount((prev) => ({
+            ...prev,
+            [commentId]: (prev?.[commentId] ?? 0) - 1,
+          }));
         }
       } else {
         alert("로그인 후 이용해주세요!");
