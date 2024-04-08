@@ -108,8 +108,8 @@ const DetailPost: React.FC = () => {
         {/* 첨부된 이미지 */}
         <ul className="flex gap-3">
           {detailPost?.imageUrls.map((post, idx) => (
-            <li className="flex items-center w-20 h-20 rounded-md border overflow-hidden">
-              <img src={post} key={idx} alt={detailPost?.title} />
+            <li key={idx} className="flex items-center w-20 h-20 rounded-md border overflow-hidden">
+              <img src={post} alt={detailPost?.title} />
             </li>
           ))}
         </ul>
