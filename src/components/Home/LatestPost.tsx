@@ -120,7 +120,7 @@ const Carousel = () => {
             const key = `${post}-${idx}`;
 
             return (
-              <li key={key} className="flex-none object-contain p-1 w-40 h-40">
+              <li key={key} className="flex-none object-contain p-1 w-40">
                 <ul
                   className="flex flex-col items-start shrink-0 p-3 h-40 rounded-xl overflow-hidden bg-white cursor-pointer"
                   key={post.postId}
