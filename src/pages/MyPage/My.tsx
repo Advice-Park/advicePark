@@ -24,7 +24,7 @@ const My: React.FC = () => {
 
   return (
     <div className="w-full mt-5">
-      <h2 className="text-xl font-bold">My 페이지</h2>
+      <h2 className="h2-primary">My 페이지</h2>
       <div>
         <img src={auth.image} className="w-20 h-20 rounded-full" />
         {auth.name}

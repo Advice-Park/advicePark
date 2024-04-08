@@ -16,9 +16,10 @@ const Home: React.FC = () => {
           : "로그인하고 훈수를 받아보세요!"}
       </div>
       <div className="w-full mt-5">
-        <h2>최신 질문글</h2>
+        <h2 className="h2-primary">최신 질문글</h2>
         <LatestPost />
 
+        <h2 className="h2-primary mt-5">HOT 질문글</h2>
         <HotPost />
       </div>
     </div>
