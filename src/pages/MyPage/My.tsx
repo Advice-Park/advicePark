@@ -34,20 +34,22 @@ const My: React.FC = () => {
       <div className="flex gap-3">
         {myPosts.map((post) => (
           <ul
-            className="p-5"
+            className="p-2 px-5 border-b"
             key={post.postId}
             onClick={() => navi(`/posts/${post.postId}`)}
           >
             <li className="font-bold">{post.title}</li>
-            <li>{post.contents}</li>
-            <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
-            <li>{post.voteOption}</li>
-            <li className="flex">
-              <VeiwIcon /> {post.viewCount}
-            </li>
-            <li className="flex">
-              <CommentIcon /> {post.commentCount}
-            </li>
+            <ul className="flex justify-between">
+              <li>{post.contents}</li>
+              <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
+              <li>{post.voteOption}</li>
+              <li className="flex">
+                <VeiwIcon /> {post.viewCount}
+              </li>
+              <li className="flex">
+                <CommentIcon /> {post.commentCount}
+              </li>
+            </ul>
           </ul>
         ))}
       </div>
