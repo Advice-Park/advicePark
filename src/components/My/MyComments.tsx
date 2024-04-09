@@ -14,16 +14,16 @@ const MyComments: React.FC = () => {
   }, []);
 
   return (
-    <div>
+    <div className="w-full my-5">
       <h3>내가 쓴 훈수댓글</h3>
-      <div className="flex gap-3 w-full">
+      <div className="w-full">
         {myComments.map((comment) => (
           <ul
-            className="p-5"
+            className="p-2 px-5 border-b"
             key={comment.commentId}
             onClick={() => navi(`/posts/${comment.postId}`)}
           >
-            <li>{comment.content}</li>
+            <li className="whitespace-nowrap text-ellipsis overflow-hidden">{comment.content}</li>
             <li>{comment.likeCount}</li>
             <li>{comment.createdTime}</li>
           </ul>
