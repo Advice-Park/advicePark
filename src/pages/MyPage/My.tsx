@@ -31,7 +31,7 @@ const My: React.FC = () => {
       </div>
 
       <h3>내가 쓴 글</h3>
-      <div className="flex gap-3">
+      <div className="">
         {myPosts.map((post) => (
           <ul
             className="p-2 px-5 border-b"
