@@ -33,7 +33,7 @@ const My: React.FC = () => {
       <h3>내가 쓴 글</h3>
         {myPosts.map((post) => (
           <ul
-            className="p-2 px-5 border-b"
+            className="p-2 px-5 border-b cursor-pointer"
             key={post.postId}
             onClick={() => navi(`/posts/${post.postId}`)}
           >

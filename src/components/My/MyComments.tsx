@@ -21,7 +21,7 @@ const MyComments: React.FC = () => {
       <div className="w-full">
         {myComments.map((comment) => (
           <ul
-            className="p-2 px-5 border-b"
+            className="p-2 px-5 border-b cursor-pointer"
             key={comment.commentId}
             onClick={() => navi(`/posts/${comment.postId}`)}
           >
