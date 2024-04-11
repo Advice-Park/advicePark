@@ -13,17 +13,24 @@ const Carousel = () => {
   const carouselRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    getPosts().then((res) => {
-      res ? setPosts(res) : console.log("글이 없습니다");
-    });
+    const getPostsList = async () => {
+      const res = await getPosts();
+      if (res) {
+        setPosts(res);
+      } else {
+        console.log("글이 없습니다");
+      }
+    };
+    getPostsList();
+  }, []);
 
+  useEffect(() => {
     if (posts.length !== 0) {
       // 맨앞, 뒤에 마지막, 첫번째 요소를 추가해 연결되어 보이는 효과
       const startData = posts[0];
       const endData = posts[posts.length - 1];
       const newList = [endData, ...posts, startData];
-
-      setCurrList(newList.reverse());
+      setCurrList(newList);
     }
   }, [posts]);
 

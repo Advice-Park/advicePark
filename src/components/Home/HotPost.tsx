@@ -18,7 +18,6 @@ const HotPost = () => {
   useEffect(() => {
     getPosts().then((res) => {
       if (res) {
-        // 댓글 많은 순 -> 즐겨찾기 많은 순 정렬
         const sortedPosts = res.sort((a, b) => {
           if (b.commentCount === a.commentCount) {
             return b.favoriteCount - a.favoriteCount;
@@ -30,13 +29,13 @@ const HotPost = () => {
         console.log("글이 없습니다");
       }
     });
+  }, []);
 
+  useEffect(() => {
     if (posts.length !== 0) {
-      // 맨앞, 뒤에 마지막, 첫번째 요소를 추가해 연결되어 보이는 효과
       const startData = posts[0];
       const endData = posts[posts.length - 1];
       const newList = [endData, ...posts, startData];
-
       setCurrList(newList);
     }
   }, [posts]);
@@ -45,7 +44,7 @@ const HotPost = () => {
     if (carouselRef.current !== null) {
       carouselRef.current.style.transform = `translateX(-${currIndex}00%)`;
     }
-  }, [currIndex]);
+  }, [currIndex, currList]);
 
   const moveToNthSlide = (index: number) => {
     setTimeout(() => {
