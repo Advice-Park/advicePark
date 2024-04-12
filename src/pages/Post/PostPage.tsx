@@ -9,15 +9,19 @@ import VoteIcon from "../../assets/icons/vote.svg?react";
 const PostPage: React.FC = () => {
   const navi = useNavigate();
 
-  const WriteCallback = (x: any) => {
+  const WriteCallback = (x: string) => {
     setCategory(x);
   };
 
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [category, setCategory] = useState("카테고리");
-  const [voting, setVoting] = useState<"YES_NO" | "NORMAL">("NORMAL");
+  const [voting, setVoting] = useState<string>("");
   const [imgs, setImgs] = useState<File[]>([]);
+
+  const [voteSt, setVoteSt] = useState<string>(
+    "border rounded-full py-1 px-2 w-32"
+  );
 
   // 전송용 카테고리 키워드
   const postingCategory: { [key: string]: string } = {
@@ -31,7 +35,12 @@ const PostPage: React.FC = () => {
 
   // 찬반 옵션 체크 (찬반 or 일반)
   const votingHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setVoting(e.target.checked ? "YES_NO" : "NORMAL");
+    setVoting(e.target.checked ? "SUPPORT" : "");
+    setVoteSt(
+      e.target.checked
+        ? "border rounded-full py-1 px-2 w-32 border-dark-blue"
+        : "border rounded-full py-1 px-2 w-32"
+    );
   };
 
   // 게시글 등록
@@ -111,18 +120,23 @@ const PostPage: React.FC = () => {
       </div>
 
       <div className="relative w-full px-8 py-3">
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-1">
           <p onClick={categoryOpen} className="m-auto cursor-pointer">
             {category}
           </p>
-          <label>
-            <input
-              type="checkbox"
-              checked={voting === "YES_NO"}
-              onChange={votingHandler}
-            />
-            <span className="flex gap-1"><VoteIcon />찬반투표 추가</span>
+          <label className={voteSt} htmlFor="vote">
+            <span className="flex gap-1 justify-evenly text-sm items-center">
+              <VoteIcon />
+              찬반투표 추가
+            </span>
           </label>
+          <input
+            id="vote"
+            type="checkbox"
+            checked={voting === "SUPPORT"}
+            onChange={votingHandler}
+            className="appearance-none"
+          />
           <input
             type="text"
             value={title}
@@ -139,7 +153,7 @@ const PostPage: React.FC = () => {
               setContents(e.target.value);
             }}
             placeholder="훈수 받고 싶은 내용을 입력하세요."
-            className="w-full px-3 py-1 resize-none min-h-72"
+            className="w-full px-3 resize-none min-h-72"
           />
         </div>
       </div>
