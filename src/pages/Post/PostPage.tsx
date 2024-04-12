@@ -4,6 +4,7 @@ import { instance } from "../../services/instance";
 import PostFooter from "../../components/footer/PostFooter";
 import CategoryModal from "../../components/modal/CategoryModal";
 import { addComment, getChatGpt } from "../../services/api/comment";
+import VoteIcon from "../../assets/icons/vote.svg?react";
 
 const PostPage: React.FC = () => {
   const navi = useNavigate();
@@ -73,7 +74,7 @@ const PostPage: React.FC = () => {
       // setLoading(false);
       alert("글 작성에 성공하였습니다.");
       console.log(formData);
-      navi("/posts");
+      navi(`/posts/${res.data.result.postId}`);
 
       // ChatGPT 요청 API
       getChatGpt(contents).then((resGPT) => {
@@ -103,13 +104,13 @@ const PostPage: React.FC = () => {
   };
 
   return (
-    <form onSubmit={submitHandler}>
-      <div className="flex justify-between">
+    <form onSubmit={submitHandler} className="w-full h-full bg-white">
+      <div className="flex justify-between w-full px-5 py-3 border-b">
         <button onClick={handleCanc}>취소</button>
         <button type="submit">등록</button>
       </div>
 
-      <div className="relative">
+      <div className="relative w-full px-8 py-3">
         <div className="flex flex-col">
           <p onClick={categoryOpen} className="m-auto cursor-pointer">
             {category}
@@ -120,7 +121,7 @@ const PostPage: React.FC = () => {
               checked={voting === "YES_NO"}
               onChange={votingHandler}
             />
-            <span>찬반</span>
+            <span className="flex gap-1"><VoteIcon />찬반투표 추가</span>
           </label>
           <input
             type="text"
@@ -130,6 +131,7 @@ const PostPage: React.FC = () => {
             }}
             autoFocus
             placeholder="제목"
+            className="w-full p-3 border-b"
           />
           <textarea
             value={contents}
@@ -137,15 +139,16 @@ const PostPage: React.FC = () => {
               setContents(e.target.value);
             }}
             placeholder="훈수 받고 싶은 내용을 입력하세요."
+            className="w-full px-3 py-1 resize-none min-h-72"
           />
         </div>
-        <PostFooter setImgs={setImgs} />
-        <CategoryModal
-          open={isCategoryModalOpen}
-          close={categoryClose}
-          parentFunction={WriteCallback}
-        />
       </div>
+      <PostFooter setImgs={setImgs} />
+      <CategoryModal
+        open={isCategoryModalOpen}
+        close={categoryClose}
+        parentFunction={WriteCallback}
+      />
     </form>
   );
 };
