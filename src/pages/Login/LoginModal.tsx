@@ -22,7 +22,7 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
 
   useEffect(() => {
     // 이벤트 핸들러 함수
-    const handler = (event: MouseEvent) => {
+    const handler = (event: MouseEvent | TouchEvent) => {
       // mousedown 이벤트 발생 영역이 모달창이 아닐 때, 모달창 닫기
       if (
         modalRef.current &&
@@ -34,12 +34,12 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
 
     // 이벤트 핸들러 등록
     document.addEventListener("mousedown", handler);
-    // document.addEventListener('touchstart', handler); // 모바일 대응
+    document.addEventListener("touchstart", handler); // 모바일 대응
 
     return () => {
       // 이벤트 핸들러 해제
       document.removeEventListener("mousedown", handler);
-      // document.removeEventListener('touchstart', handler); // 모바일 대응
+      document.removeEventListener("touchstart", handler); // 모바일 대응
     };
   }, [setAuth, setModalOpen]);
 
@@ -71,17 +71,18 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
   return (
     <div
       ref={modalRef}
-      className="w-full h-screen fixed top-0 left-0 bg-neutral-700 bg-opacity-50"
+      className="w-full h-screen fixed top-0 left-0 bg-neutral-700 bg-opacity-70"
     >
-      <div className="flex items-center z-100 p-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-lime-400 rounded-lg shadow-2 shadow-transparent-black">
+      <div className="flex flex-col items-center z-100 w-72 h-60 p-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-dark-blue rounded-lg shadow-2 shadow-transparent-black text-white">
+        <h2 className="text-2xl">박훈수</h2>
         <button
-          className="flex justify-center items-center py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
+          className="flex justify-center items-center py-2 pl-2 px-4 mt-16 rounded-lg shadow-md text-black bg-white hover:bg-light-blue hover:text-white"
           onClick={handleLogin}
         >
           <img src={googleIcon} className="w-8 h-8" />
           <span>구글로 계속하기</span>
         </button>
-        <button className="m-10" onClick={closeModal}>
+        <button className="absolute top-3 right-5" onClick={closeModal}>
           X
         </button>
       </div>
