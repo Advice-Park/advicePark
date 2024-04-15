@@ -11,6 +11,7 @@ import { useRecoilValue } from "recoil";
 import { authState } from "../../contexts/state";
 import ideaIcon from "/iconImgs/idea-icon.png";
 import LikeIcon from "../../assets/icons/like.svg?react";
+import WriteComment from "./WriteComment";
 
 type CommentProps = {
   postId: number;
@@ -23,25 +24,26 @@ const CommentList = ({ postId }: CommentProps) => {
   const [likeComment, setLikeComment] = useState<{ [key: number]: boolean }>({});
   const [likeCount, setLikeCount] = useState<{ [key: number]: number }>({});
 
-  useEffect(() => {
-    const getLikeData = async () => {
-      const commentsData = await getComments(postId);
-      if (commentsData) {
-        setComments(commentsData);
+  const getCommentData = async () => {
+    const commentsData = await getComments(postId);
+    if (commentsData) {
+      setComments(commentsData);
 
-        // 댓글의 좋아요 기록 및 좋아요 수
-        const myLikedComments: { [key: number]: boolean } = {};
-        const commentLikeCount: { [key: number]: number } = {};
-        for (const comment of commentsData) {
-          const liked = await getLiked(comment.commentId);
-          myLikedComments[comment.commentId] = liked;
-          commentLikeCount[comment.commentId] = comment.likeCount;
-        }
-        setLikeComment(myLikedComments);
-        setLikeCount(commentLikeCount);
+      // 댓글의 좋아요 기록 및 좋아요 수
+      const myLikedComments: { [key: number]: boolean } = {};
+      const commentLikeCount: { [key: number]: number } = {};
+      for (const comment of commentsData) {
+        const liked = await getLiked(comment.commentId);
+        myLikedComments[comment.commentId] = liked;
+        commentLikeCount[comment.commentId] = comment.likeCount;
       }
-    };
-    getLikeData();
+      setLikeComment(myLikedComments);
+      setLikeCount(commentLikeCount);
+    }
+  };
+  
+  useEffect(() => {
+    getCommentData();
   }, []);
 
   const likeCommentHandler = (commentId: number): MouseEventHandler<HTMLParagraphElement> => async (_event: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
@@ -107,6 +109,7 @@ const CommentList = ({ postId }: CommentProps) => {
           )}
         </div>
       ))}
+        <WriteComment postId={postId} getCommentData={getCommentData} />
     </div>
   );
 };
