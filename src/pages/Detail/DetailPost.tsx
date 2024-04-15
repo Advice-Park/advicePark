@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { instance } from "../../services/instance";
-import { Posts, deleteFavoritePost, favoritePost, getIsFavorite } from "../../services/api/posts";
+import {
+  Posts,
+  deleteFavoritePost,
+  favoritePost,
+  getIsFavorite,
+} from "../../services/api/posts";
 import CommentList from "../../components/comment/CommentList";
-import WriteComment from "../../components/comment/WriteComment";
 import LikeIcon from "../../assets/icons/like.svg?react";
 import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
@@ -42,7 +46,9 @@ const DetailPost: React.FC = () => {
         setFavoriteCount(data.result.favoriteCount);
 
         setCreatedDate(formattingTime);
-      } catch (e) {}
+      } catch (err) {
+        alert("글 상세 정보를 불러올 수 없습니다.");
+      }
     };
 
     getDetailPost();
@@ -55,7 +61,7 @@ const DetailPost: React.FC = () => {
           name: data.name,
           image: data.image,
         });
-        console.log(data.name, "getUserInfoWithId: data.name");
+        console.log("getUserInfoWithId: data.name", data.name);
       });
     }
 
@@ -71,7 +77,7 @@ const DetailPost: React.FC = () => {
     if (isLogin) {
       if (!favorite) {
         setFavoriteCount(favoriteCount! + 1);
-      favoritePost(parseInt(postId || ""));
+        favoritePost(parseInt(postId || ""));
       } else {
         setFavoriteCount(favoriteCount! - 1);
         deleteFavoritePost(parseInt(postId || ""));
@@ -101,14 +107,19 @@ const DetailPost: React.FC = () => {
         <div className="text-xs text-gray-500">{createdDate}</div>
 
         {/* 제목 */}
-        <div className="w-full text-2xl font-bold pb-5 border-b">{detailPost?.title}</div>
+        <div className="w-full text-2xl font-bold pb-5 border-b">
+          {detailPost?.title}
+        </div>
         {/* 내용 */}
         <div>{detailPost?.contents}</div>
 
         {/* 첨부된 이미지 */}
         <ul className="flex gap-3">
           {detailPost?.imageUrls.map((post, idx) => (
-            <li key={idx} className="flex items-center w-20 h-20 rounded-md border overflow-hidden">
+            <li
+              key={idx}
+              className="flex items-center w-20 h-20 rounded-md border overflow-hidden"
+            >
               <img src={post} alt={detailPost?.title} />
             </li>
           ))}
@@ -146,7 +157,6 @@ const DetailPost: React.FC = () => {
         )}
       </div>
       <div>
-        <WriteComment postId={parseInt(postId || "0")} />
         <CommentList postId={parseInt(postId || "0")} />
       </div>
     </>
