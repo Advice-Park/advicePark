@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import LikeIcon from "../../assets/icons/like.svg?react";
 import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
+import FormattingCat from "../../components/format/FormattingCat";
 
 const PostsPage: React.FC = () => {
   const navi = useNavigate();
@@ -36,12 +37,27 @@ const PostsPage: React.FC = () => {
         훈수게시판
       </h2>
       <ul className="flex gap-6 px-8 py-3 bg-white">
-        <li onClick={categoryResetHandler} className="cursor-pointer">전체</li>
-        <li onClick={() => categoryHandler("DAILY")} className="cursor-pointer">일상(잡담)</li>
-        <li onClick={() => categoryHandler("LOVE")} className="cursor-pointer">연애</li>
-        <li onClick={() => categoryHandler("EXERCISE")} className="cursor-pointer">운동</li>
-        <li onClick={() => categoryHandler("FOOD")} className="cursor-pointer">음식</li>
-        <li onClick={() => categoryHandler("ETC")} className="cursor-pointer">기타</li>
+        <li onClick={categoryResetHandler} className="cursor-pointer">
+          전체
+        </li>
+        <li onClick={() => categoryHandler("DAILY")} className="cursor-pointer">
+          일상(잡담)
+        </li>
+        <li onClick={() => categoryHandler("LOVE")} className="cursor-pointer">
+          연애
+        </li>
+        <li
+          onClick={() => categoryHandler("EXERCISE")}
+          className="cursor-pointer"
+        >
+          운동
+        </li>
+        <li onClick={() => categoryHandler("FOOD")} className="cursor-pointer">
+          음식
+        </li>
+        <li onClick={() => categoryHandler("ETC")} className="cursor-pointer">
+          기타
+        </li>
       </ul>
       {filteredPosts.map((post) => (
         <ul
@@ -52,7 +68,9 @@ const PostsPage: React.FC = () => {
           <li>{post.voteOption}</li>
           <li className="font-bold">{post.title}</li>
           <li className="text-sm text-gray-500">{post.contents}</li>
-          <li>{post.category}</li>
+          <li>
+            <FormattingCat category={post.category} />
+          </li>
           <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
           <li className="flex justify-between max-w-60 text-xs">
             <span className="flex gap-1">

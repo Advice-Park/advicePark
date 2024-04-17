@@ -3,6 +3,7 @@ import { Posts, getPosts } from "../../services/api/posts";
 import LikeIcon from "../../assets/icons/like.svg?react";
 import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
+import FormattingCat from "../format/FormattingCat";
 
 let touchStartX: number;
 let touchEndX: number;
@@ -96,14 +97,6 @@ const HotPost = () => {
     }
   };
 
-  const postingCategory: { [key: string]: string } = {
-    DAILY: "일상(잡담)",
-    LOVE: "연애",
-    EXERCISE: "운동",
-    FOOD: "음식",
-    ETC: "기타",
-  };
-
   return (
     <div className="flex align-center justify-center w-full">
       <div
@@ -140,7 +133,7 @@ const HotPost = () => {
                   }
                 >
                   <li className="rounded-full px-3 p-1 mb-1 text-white bg-light-blue text-sm">
-                    {postingCategory[post.category]}
+                    <FormattingCat category={post.category} />
                   </li>
                   <li className="font-bold">{post.title}</li>
                   <li>{post.contents}</li>

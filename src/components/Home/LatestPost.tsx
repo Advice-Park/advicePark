@@ -1,5 +1,6 @@
 import { TouchEventHandler, useEffect, useRef, useState } from "react";
 import { Posts, getPosts } from "../../services/api/posts";
+import FormattingCat from "../format/FormattingCat";
 
 let touchStartX: number;
 let touchEndX: number;
@@ -92,14 +93,6 @@ const Carousel = () => {
     }
   };
 
-  const postingCategory: { [key: string]: string } = {
-    DAILY: "일상(잡담)",
-    LOVE: "연애",
-    EXERCISE: "운동",
-    FOOD: "음식",
-    ETC: "기타",
-  };
-
   return (
     <div className="flex align-center justify-center w-full">
       <div
@@ -135,8 +128,8 @@ const Carousel = () => {
                     (window.location.href = `/posts/${post.postId}`)
                   }
                 >
-                  <li className="rounded-full px-3 p-1 mb-1 text-white bg-light-blue text-sm">
-                    {postingCategory[post.category]}
+                  <li className="rounded-full px-3 p-1 mb-1 text-white bg-light-blue">
+                    <FormattingCat category={post.category} />
                   </li>
                   <li className="font-bold">{post.title}</li>
                   <li>{post.contents}</li>
