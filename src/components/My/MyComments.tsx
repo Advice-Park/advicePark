@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Comment, getMyComments } from "../../services/api/comment";
 import { useNavigate } from "react-router-dom";
 import ThumIcon from "../../assets/icons/thumbsUp.svg?react";
-
+import FormattingTime from "../format/FormattingTime";
 
 const MyComments: React.FC = () => {
   const navi = useNavigate();
@@ -29,8 +29,13 @@ const MyComments: React.FC = () => {
               {comment.content}
             </li>
             <ul className="flex justify-between">
-              <li className="flex gap-1"><ThumIcon />{comment.likeCount}</li>
-              <li>{comment.createdTime}</li>
+              <li className="flex gap-1">
+                <ThumIcon />
+                {comment.likeCount}
+              </li>
+              <li>
+                <FormattingTime createdTime={comment.createdTime} />{" "}
+              </li>
             </ul>
           </ul>
         ))}

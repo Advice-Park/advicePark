@@ -12,6 +12,7 @@ import { authState } from "../../contexts/state";
 import ideaIcon from "/iconImgs/idea-icon.png";
 import LikeIcon from "../../assets/icons/like.svg?react";
 import WriteComment from "./WriteComment";
+import FormattingTime from "../format/FormattingTime";
 
 type CommentProps = {
   postId: number;
@@ -21,7 +22,9 @@ const CommentList = ({ postId }: CommentProps) => {
   const auth = useRecoilValue(authState);
 
   const [comments, setComments] = useState<Comment[]>([]);
-  const [likeComment, setLikeComment] = useState<{ [key: number]: boolean }>({});
+  const [likeComment, setLikeComment] = useState<{ [key: number]: boolean }>(
+    {}
+  );
   const [likeCount, setLikeCount] = useState<{ [key: number]: number }>({});
 
   const getCommentData = async () => {
@@ -41,35 +44,45 @@ const CommentList = ({ postId }: CommentProps) => {
       setLikeCount(commentLikeCount);
     }
   };
-  
+
   useEffect(() => {
     getCommentData();
   }, []);
 
-  const likeCommentHandler = (commentId: number): MouseEventHandler<HTMLParagraphElement> => async (_event: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
-    if (auth.isLoggedIn) {
-      try {
-        if (!likeComment[commentId]) {
-          await postLikeComment(commentId);
-          setLikeComment({ ...likeComment, [commentId]: true });
-          setLikeCount({ ...likeCount, [commentId]: (likeCount[commentId] || 0) + 1 });
-        } else {
-          await delLikeComment(commentId);
-          setLikeComment({ ...likeComment, [commentId]: false });
-          setLikeCount({ ...likeCount, [commentId]: (likeCount[commentId] || 0) - 1 });
+  const likeCommentHandler =
+    (commentId: number): MouseEventHandler<HTMLParagraphElement> =>
+    async (_event: React.MouseEvent<HTMLParagraphElement, MouseEvent>) => {
+      if (auth.isLoggedIn) {
+        try {
+          if (!likeComment[commentId]) {
+            await postLikeComment(commentId);
+            setLikeComment({ ...likeComment, [commentId]: true });
+            setLikeCount({
+              ...likeCount,
+              [commentId]: (likeCount[commentId] || 0) + 1,
+            });
+          } else {
+            await delLikeComment(commentId);
+            setLikeComment({ ...likeComment, [commentId]: false });
+            setLikeCount({
+              ...likeCount,
+              [commentId]: (likeCount[commentId] || 0) - 1,
+            });
+          }
+        } catch (error) {
+          console.error("Error:", error);
         }
-      } catch (error) {
-        console.error("Error:", error);
+      } else {
+        alert("로그인 후 이용해주세요!");
       }
-    } else {
-      alert("로그인 후 이용해주세요!");
-    }
-  };
+    };
 
   const deleteComment = async (postId: number, commentId: number) => {
     try {
       await instance.delete(`/api/comment/${postId}/${commentId}`);
-      setComments(comments.filter((comment) => comment.commentId !== commentId));
+      setComments(
+        comments.filter((comment) => comment.commentId !== commentId)
+      );
     } catch (err) {
       alert("훈수 삭제 에러");
     }
@@ -78,12 +91,12 @@ const CommentList = ({ postId }: CommentProps) => {
   return (
     <div className="pb-24">
       {comments.map((post) => (
-        <div className="pb-1 p-8" key={post.postId}>
+        <div className="pb-1 p-8" key={post.commentId}>
           <div className="flex gap-3 pb-2">
             <img className="w-8 h-8" src={ideaIcon} />
             <div>
               <p className="font-bold leading-5">{post.userId}</p>
-              <p className="text-xs">{post.createdTime}</p>
+              <p className="text-xs"><FormattingTime createdTime={post.createdTime} /></p>
             </div>
           </div>
           <div className="flex gap-3">
@@ -109,7 +122,7 @@ const CommentList = ({ postId }: CommentProps) => {
           )}
         </div>
       ))}
-        <WriteComment postId={postId} getCommentData={getCommentData} />
+      <WriteComment postId={postId} getCommentData={getCommentData} />
     </div>
   );
 };

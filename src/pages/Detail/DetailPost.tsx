@@ -14,6 +14,7 @@ import CommentIcon from "../../assets/icons/comment.svg?react";
 import { useRecoilValue } from "recoil";
 import { authState } from "../../contexts/state";
 import { getUserInfoWithId } from "../../services/api/user";
+import FormattingTime from "../../components/format/FormattingTime";
 
 const DetailPost: React.FC = () => {
   const { postId } = useParams();
@@ -23,7 +24,6 @@ const DetailPost: React.FC = () => {
   const isLogin = auth.isLoggedIn ? true : false;
 
   const [detailPost, setDetailPost] = useState<Posts>();
-  const [createdDate, setCreatedDate] = useState("");
 
   // 좋아요 관리 state
   const [favoriteCount, setFavoriteCount] = useState<number>();
@@ -35,17 +35,7 @@ const DetailPost: React.FC = () => {
       try {
         const { data } = await instance.get(`/api/post/${postId}`);
         setDetailPost(data.result);
-
-        const formattingTime = data.result.createdTime?.replace(
-          /(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2}).*/,
-          "$1.$2.$3 $4:$5"
-        );
-
-        console.log(formattingTime);
-
         setFavoriteCount(data.result.favoriteCount);
-
-        setCreatedDate(formattingTime);
       } catch (err) {
         alert("글 상세 정보를 불러올 수 없습니다.");
       }
@@ -104,7 +94,9 @@ const DetailPost: React.FC = () => {
           <img src={detailPost?.image} className="w-xs h-xs rounded-full" />
           작성자 {detailPost?.name}
         </div>
-        <div className="text-xs text-gray-500">{createdDate}</div>
+        <div className="text-xs text-gray-500">
+          <FormattingTime createdTime={detailPost?.createdTime || ""} />
+        </div>
 
         {/* 제목 */}
         <div className="w-full text-2xl font-bold pb-5 border-b">
