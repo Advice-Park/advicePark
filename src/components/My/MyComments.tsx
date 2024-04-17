@@ -17,7 +17,7 @@ const MyComments: React.FC = () => {
 
   return (
     <div className="w-full my-5">
-      <h3>내가 쓴 훈수댓글</h3>
+      <h3 className="h3-primary">내가 쓴 훈수댓글({myComments.length})</h3>
       <div className="w-full">
         {myComments.map((comment) => (
           <ul

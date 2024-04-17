@@ -12,4 +12,7 @@
   .h2-primary {
     @apply ml-5 text-xl font-bold;
   }
+  .h3-primary {
+    @apply ml-5 mt-1 font-bold;
+  }
 }

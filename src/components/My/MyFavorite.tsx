@@ -17,7 +17,7 @@ const MyFavorite: React.FC = () => {
 
   return (
     <div>
-      <h3>내가 즐겨찾기 한 글</h3>
+      <h3 className="h3-primary">내가 즐겨찾기 한 글({favPosts.length})</h3>
       <div className="w-full">
         {favPosts.map((posts) => (
           <ul

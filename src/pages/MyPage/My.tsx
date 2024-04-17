@@ -30,27 +30,27 @@ const My: React.FC = () => {
         {auth.name}
       </div>
 
-      <h3>내가 쓴 글</h3>
-        {myPosts.map((post) => (
-          <ul
-            className="p-2 px-5 border-b cursor-pointer"
-            key={post.postId}
-            onClick={() => navi(`/posts/${post.postId}`)}
-          >
-            <li className="font-bold">{post.title}</li>
-            <ul className="flex justify-between">
-              <li>{post.contents}</li>
-              <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
-              <li>{post.voteOption}</li>
-              <li className="flex">
-                <VeiwIcon /> {post.viewCount}
-              </li>
-              <li className="flex">
-                <CommentIcon /> {post.commentCount}
-              </li>
-            </ul>
+      <h3 className="h3-primary">내가 쓴 글({myPosts.length})</h3>
+      {myPosts.map((post) => (
+        <ul
+          className="p-2 px-5 border-b cursor-pointer"
+          key={post.postId}
+          onClick={() => navi(`/posts/${post.postId}`)}
+        >
+          <li className="font-bold">{post.title}</li>
+          <ul className="flex justify-between">
+            <li>{post.contents}</li>
+            <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
+            <li>{post.voteOption}</li>
+            <li className="flex">
+              <VeiwIcon /> {post.viewCount}
+            </li>
+            <li className="flex">
+              <CommentIcon /> {post.commentCount}
+            </li>
           </ul>
-        ))}
+        </ul>
+      ))}
 
       <MyComments />
 
