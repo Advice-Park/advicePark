@@ -4,6 +4,7 @@ import { FavoritePosts, getFavoritePosts } from "../../services/api/posts";
 import LikeIcon from "../../assets/icons/like.svg?react";
 import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
+import CameraIcon from "../../assets/icons/camera.svg?react";
 
 const MyFavorite: React.FC = () => {
   const navi = useNavigate();
@@ -28,7 +29,7 @@ const MyFavorite: React.FC = () => {
             <li>{posts.post.voteOption}</li>
             <li className="font-bold">{posts.post.title}</li>
             <li className="flex justify-between max-w-60 text-xs">
-              <span>{posts.post.imageUrls.length > 0 ? "사진" : ""}</span>
+              <span>{posts.post.imageUrls.length > 0 ? <CameraIcon /> : ""}</span>
 
               <span className="flex gap-1">
                 <LikeIcon /> {posts.post.favoriteCount}

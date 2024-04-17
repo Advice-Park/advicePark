@@ -3,6 +3,7 @@ import { Posts, getPosts } from "../../services/api/posts";
 import LikeIcon from "../../assets/icons/like.svg?react";
 import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
+import CameraIcon from "../../assets/icons/camera.svg?react";
 import FormattingCat from "../format/FormattingCat";
 
 let touchStartX: number;
@@ -137,7 +138,7 @@ const HotPost = () => {
                   </li>
                   <li className="font-bold">{post.title}</li>
                   <li>{post.contents}</li>
-                  <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
+                  <li>{post.imageUrls.length > 0 ? <CameraIcon /> : ""}</li>
                   <li>{post.voteOption}</li>
                   <ul className="flex gap-3">
                     {/* 글 즐겨찾기 */}

@@ -5,6 +5,7 @@ import { useRecoilValue } from "recoil";
 import { authState } from "../../contexts/state";
 import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
+import CameraIcon from "../../assets/icons/camera.svg?react";
 import MyComments from "../../components/My/MyComments";
 import MyFavorite from "../../components/My/MyFavorite";
 
@@ -40,7 +41,7 @@ const My: React.FC = () => {
           <li className="font-bold">{post.title}</li>
           <ul className="flex justify-between">
             <li>{post.contents}</li>
-            <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
+            <li>{post.imageUrls.length > 0 ? <CameraIcon /> : ""}</li>
             <li>{post.voteOption}</li>
             <li className="flex">
               <VeiwIcon /> {post.viewCount}

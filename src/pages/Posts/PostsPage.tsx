@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import LikeIcon from "../../assets/icons/like.svg?react";
 import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
+import CameraIcon from "../../assets/icons/camera.svg?react";
 import FormattingCat from "../../components/format/FormattingCat";
 
 const PostsPage: React.FC = () => {
@@ -71,7 +72,7 @@ const PostsPage: React.FC = () => {
           <li>
             <FormattingCat category={post.category} />
           </li>
-          <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
+          <li>{post.imageUrls.length > 0 ? <CameraIcon /> : ""}</li>
           <li className="flex justify-between max-w-60 text-xs">
             <span className="flex gap-1">
               <LikeIcon /> {post.favoriteCount}

@@ -1,5 +1,6 @@
 import { TouchEventHandler, useEffect, useRef, useState } from "react";
 import { Posts, getPosts } from "../../services/api/posts";
+import CameraIcon from "../../assets/icons/camera.svg?react";
 import FormattingCat from "../format/FormattingCat";
 
 let touchStartX: number;
@@ -133,7 +134,7 @@ const Carousel = () => {
                   </li>
                   <li className="font-bold">{post.title}</li>
                   <li>{post.contents}</li>
-                  <li>{post.imageUrls.length > 0 ? "사진" : ""}</li>
+                  <li>{post.imageUrls.length > 0 ? <CameraIcon /> : ""}</li>
                   <li>{post.voteOption}</li>
                 </ul>
               </li>
