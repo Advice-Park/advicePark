@@ -24,11 +24,11 @@ const WriteComment = ({ postId, getCommentData }: CommentProps) => {
       <input
         required
         autoFocus
-        placeholder="최대 300자 훈수를 남겨보세요"
+        placeholder="(최대 300자) 훈수를 남겨보세요"
         type="text"
         value={comment}
         onChange={(e) => setComment(e.target.value)}
-        maxLength={300}
+        // maxLength={300}
         className="max-w-xs w-full p-3 bg-gray-100 rounded"
       />
       <button onClick={addCommentHandler}>등록</button>
