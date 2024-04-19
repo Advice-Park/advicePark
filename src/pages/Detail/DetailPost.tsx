@@ -44,8 +44,6 @@ const DetailPost: React.FC = () => {
               name: userData.name,
               image: userData.image,
             });
-            console.log("getUserInfoWithId-name", userData.name);
-            console.log("data.result.userId", data.result.userId);
           });
         }
       } catch (err) {
@@ -54,18 +52,6 @@ const DetailPost: React.FC = () => {
     };
 
     getDetailPost();
-
-    // if (detailPost?.userId) {
-    //   // 글 정보의 유저아이디로 작성자 정보 불러오기
-    //   getUserInfoWithId(detailPost?.userId).then((data) => {
-    //     setDetailPost({
-    //       ...detailPost,
-    //       name: data.name,
-    //       image: data.image,
-    //     });
-    //     console.log("getUserInfoWithId: data.name", data.name);
-    //   });
-    // }
 
     const getFavoriteData = async () => {
       const isFavorite = await getIsFavorite(parseInt(postId || ""));
