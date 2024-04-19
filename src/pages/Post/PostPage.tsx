@@ -5,6 +5,7 @@ import PostFooter from "../../components/footer/PostFooter";
 import CategoryModal from "../../components/modal/CategoryModal";
 import { addComment, getChatGpt } from "../../services/api/comment";
 import VoteIcon from "../../assets/icons/vote.svg?react";
+import { Posts } from "../../services/api/posts";
 
 const PostPage: React.FC = () => {
   const navi = useNavigate();
@@ -16,7 +17,7 @@ const PostPage: React.FC = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [category, setCategory] = useState("카테고리");
-  const [voting, setVoting] = useState<string>("");
+  const [voting, setVoting] = useState<Posts["voteOption"]>("NORMAL");
   const [imgs, setImgs] = useState<File[]>([]);
 
   const [voteSt, setVoteSt] = useState<string>(
@@ -35,7 +36,7 @@ const PostPage: React.FC = () => {
 
   // 찬반 옵션 체크 (찬반 or 일반)
   const votingHandler = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setVoting(e.target.checked ? "SUPPORT" : "");
+    setVoting(e.target.checked ? "YES_NO" : "NORMAL");
     setVoteSt(
       e.target.checked
         ? "border rounded-full py-1 px-2 w-32 border-dark-blue"
@@ -133,7 +134,7 @@ const PostPage: React.FC = () => {
           <input
             id="vote"
             type="checkbox"
-            checked={voting === "SUPPORT"}
+            checked={voting === "YES_NO"}
             onChange={votingHandler}
             className="appearance-none"
           />
