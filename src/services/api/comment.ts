@@ -13,7 +13,7 @@ export interface Comment {
 export const addComment = async (
   postId: number,
   comment: string,
-  type: string
+  type: "AI" | "USER"
 ) => {
   try {
     await instance.post(`/api/comment/${postId}`, {
