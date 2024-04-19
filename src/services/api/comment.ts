@@ -7,9 +7,14 @@ export interface Comment {
   content: string;
   likeCount: number;
   createdTime: string;
+  commentType?: "AI" | "USER";
 }
 
-export const addComment = async (postId: number, comment: string, type: string) => {
+export const addComment = async (
+  postId: number,
+  comment: string,
+  type: string
+) => {
   try {
     await instance.post(`/api/comment/${postId}`, {
       content: comment,
@@ -50,18 +55,18 @@ export const getChatGpt = async (prompt: string) => {
 export const postLikeComment = async (commentId: number) => {
   try {
     await instance.post(`/api/comment/${commentId}/like`);
-  } catch (err){
+  } catch (err) {
     console.log(`댓글 좋아요 실패: err`);
   }
-}
+};
 
 export const delLikeComment = async (commentId: number) => {
   try {
     await instance.delete(`/api/comment/${commentId}/like`);
-  } catch (err){
+  } catch (err) {
     console.log(`댓글 좋아요 취소 실패: err`);
   }
-}
+};
 
 export const getLiked = async (commentId: number) => {
   try {
@@ -70,4 +75,4 @@ export const getLiked = async (commentId: number) => {
   } catch (err) {
     console.log(err);
   }
-}
+};

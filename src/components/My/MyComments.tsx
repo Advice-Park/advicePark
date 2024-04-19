@@ -11,7 +11,11 @@ const MyComments: React.FC = () => {
 
   useEffect(() => {
     getMyComments().then((res) => {
-      res ? setMyComments(res) : console.log("내가 쓴 훈수댓글이 없습니다");
+      if (res) {
+        setMyComments(res.filter((comment) => comment.commentType === "USER"));
+      } else {
+        console.log("내가 쓴 훈수댓글이 없습니다");
+      }
     });
   }, []);
 
