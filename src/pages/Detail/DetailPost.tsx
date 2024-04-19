@@ -36,6 +36,18 @@ const DetailPost: React.FC = () => {
         const { data } = await instance.get(`/api/post/${postId}`);
         setDetailPost(data.result);
         setFavoriteCount(data.result.favoriteCount);
+        // 게시글 정보를 가져온 후 작성자 정보를 가져오도록 변경
+        if (data.result.userId) {
+          getUserInfoWithId(data.result.userId).then((userData) => {
+            setDetailPost({
+              ...data.result,
+              name: userData.name,
+              image: userData.image,
+            });
+            console.log("getUserInfoWithId-name", userData.name);
+            console.log("data.result.userId", data.result.userId);
+          });
+        }
       } catch (err) {
         alert("글 상세 정보를 불러올 수 없습니다.");
       }
@@ -43,19 +55,17 @@ const DetailPost: React.FC = () => {
 
     getDetailPost();
 
-    console.log("detailPost", detailPost);
-    console.log("detailPost 유저아이디", detailPost?.userId);
-    if (detailPost?.userId) {
-      // 글 정보의 유저아이디로 작성자 정보 불러오기
-      getUserInfoWithId(detailPost?.userId).then((data) => {
-        setDetailPost({
-          ...detailPost,
-          name: data.name,
-          image: data.image,
-        });
-        console.log("getUserInfoWithId: data.name", data.name);
-      });
-    }
+    // if (detailPost?.userId) {
+    //   // 글 정보의 유저아이디로 작성자 정보 불러오기
+    //   getUserInfoWithId(detailPost?.userId).then((data) => {
+    //     setDetailPost({
+    //       ...detailPost,
+    //       name: data.name,
+    //       image: data.image,
+    //     });
+    //     console.log("getUserInfoWithId: data.name", data.name);
+    //   });
+    // }
 
     const getFavoriteData = async () => {
       const isFavorite = await getIsFavorite(parseInt(postId || ""));
