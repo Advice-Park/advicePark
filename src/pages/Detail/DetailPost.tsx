@@ -135,7 +135,7 @@ const DetailPost: React.FC = () => {
           </li>
         </ul>
 
-        <div>{detailPost?.voteOption}</div>
+        <div>{detailPost?.postVoteOption}</div>
 
         {/* 작성자에게만 삭제버튼 노출 */}
         {auth.userId === detailPost?.userId && (

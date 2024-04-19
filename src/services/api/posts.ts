@@ -11,7 +11,7 @@ export interface Posts {
   favoriteCount: number;
   createdTime: string;
   imageUrls: string[];
-  voteOption: "YES_NO" | "NORMAL";
+  postVoteOption: "YES_NO" | "NORMAL";
   name: string;
   image: string;
 }

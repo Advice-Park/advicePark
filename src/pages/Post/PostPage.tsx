@@ -17,7 +17,7 @@ const PostPage: React.FC = () => {
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
   const [category, setCategory] = useState("카테고리");
-  const [voting, setVoting] = useState<Posts["voteOption"]>("NORMAL");
+  const [voting, setVoting] = useState<Posts["postVoteOption"]>("NORMAL");
   const [imgs, setImgs] = useState<File[]>([]);
 
   const [voteSt, setVoteSt] = useState<string>(
