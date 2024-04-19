@@ -95,8 +95,12 @@ const CommentList = ({ postId }: CommentProps) => {
           <div className="flex gap-3 pb-2">
             <img className="w-8 h-8" src={ideaIcon} />
             <div>
-              <p className="font-bold leading-5">{post.userId}</p>
-              <p className="text-xs"><FormattingTime createdTime={post.createdTime} /></p>
+              <p className="font-bold leading-5">
+                {post.commentType === "USER" ? post.userId : "AI"}
+              </p>
+              <p className="text-xs">
+                <FormattingTime createdTime={post.createdTime} />
+              </p>
             </div>
           </div>
           <div className="flex gap-3">
@@ -112,7 +116,7 @@ const CommentList = ({ postId }: CommentProps) => {
               {likeCount[post.commentId]}
             </div>
           </div>
-          {auth.userId === post.userId && (
+          {auth.userId === post.userId && post.commentType === "USER" && (
             <button
               className="ml-10 text-xs mt-2"
               onClick={() => deleteComment(postId, post.commentId)}
