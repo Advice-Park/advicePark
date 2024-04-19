@@ -96,7 +96,7 @@ const CommentList = ({ postId }: CommentProps) => {
             <img className="w-8 h-8" src={ideaIcon} />
             <div>
               <p className="font-bold leading-5">
-                {post.commentType === "USER" ? post.userId : "AI"}
+                {post.commentType === "AI" ? "AI" : post.userId}
               </p>
               <p className="text-xs">
                 <FormattingTime createdTime={post.createdTime} />

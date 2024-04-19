@@ -7,7 +7,7 @@ export interface Comment {
   content: string;
   likeCount: number;
   createdTime: string;
-  commentType?: "AI" | "USER";
+  commentType: "AI" | "USER";
 }
 
 export const addComment = async (
