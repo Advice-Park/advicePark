@@ -43,6 +43,8 @@ const DetailPost: React.FC = () => {
 
     getDetailPost();
 
+    console.log("detailPost", detailPost);
+    console.log("detailPost 유저아이디", detailPost?.userId);
     if (detailPost?.userId) {
       // 글 정보의 유저아이디로 작성자 정보 불러오기
       getUserInfoWithId(detailPost?.userId).then((data) => {
