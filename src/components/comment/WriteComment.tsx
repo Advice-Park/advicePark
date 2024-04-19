@@ -11,7 +11,7 @@ const WriteComment = ({ postId, getCommentData }: CommentProps) => {
 
   const addCommentHandler = async () => {
     try {
-      await addComment(postId, comment);
+      await addComment(postId, comment, "USER");
       setComment(""); // 댓글 입력란 초기화
       getCommentData(); // 댓글 갱신
     } catch (error) {

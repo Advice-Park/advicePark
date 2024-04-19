@@ -9,10 +9,11 @@ export interface Comment {
   createdTime: string;
 }
 
-export const addComment = async (postId: number, comment: string) => {
+export const addComment = async (postId: number, comment: string, type: string) => {
   try {
     await instance.post(`/api/comment/${postId}`, {
       content: comment,
+      commentType: type,
     });
   } catch (err) {
     console.log(err);

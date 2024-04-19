@@ -86,10 +86,10 @@ const PostPage: React.FC = () => {
       navi(`/posts/${res.data.result.postId}`);
 
       // ChatGPT 요청 API
-      getChatGpt(contents).then((resGPT) => {
+      getChatGpt(contents).then((resGPT: any) => {
         if (resGPT) {
           // 글작성 응답으로 받은 postId 활용
-          addComment(res.data.result.postId, resGPT);
+          addComment(res.data.result.postId, resGPT, "AI");
         }
       });
     } catch (e: any) {
