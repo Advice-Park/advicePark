@@ -59,7 +59,13 @@ const PostFooter: React.FC<SetImgsProps> = ({ setImgs }) => {
             {[...Array(4)].map((_, i) => (
               <PostImg
                 key={i}
-                prevImg={i < prevImgs.length ? prevImgs[i] : <ImgIcon className="w-16 h-16 m-2"/>}
+                prevImg={
+                  i < prevImgs.length ? (
+                    prevImgs[i]
+                  ) : (
+                    <ImgIcon className="w-16 h-16 m-2" />
+                  )
+                }
               />
             ))}
           </div>

@@ -66,7 +66,7 @@ const PostsPage: React.FC = () => {
           key={post.postId}
           onClick={() => navi(`/posts/${post.postId}`)}
         >
-          <li>{post.voteOption}</li>
+          <li>{post.postVoteOption}</li>
           <li className="font-bold">{post.title}</li>
           <li className="text-sm text-gray-500">{post.contents}</li>
           <li>

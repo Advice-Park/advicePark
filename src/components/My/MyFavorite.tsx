@@ -26,7 +26,7 @@ const MyFavorite: React.FC = () => {
             key={posts.post.postId}
             onClick={() => navi(`/posts/${posts.post.postId}`)}
           >
-            <li>{posts.post.voteOption}</li>
+            <li>{posts.post.postVoteOption}</li>
             <li className="font-bold">{posts.post.title}</li>
             <li className="flex justify-between max-w-60 text-xs">
               <span>{posts.post.imageUrls.length > 0 ? <CameraIcon /> : ""}</span>

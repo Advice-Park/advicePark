@@ -135,7 +135,7 @@ const Carousel = () => {
                   <li className="font-bold">{post.title}</li>
                   <li>{post.contents}</li>
                   <li>{post.imageUrls.length > 0 ? <CameraIcon /> : ""}</li>
-                  <li>{post.voteOption}</li>
+                  <li>{post.postVoteOption}</li>
                 </ul>
               </li>
             );

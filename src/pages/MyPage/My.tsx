@@ -42,7 +42,7 @@ const My: React.FC = () => {
           <ul className="flex justify-between">
             <li>{post.contents}</li>
             <li>{post.imageUrls.length > 0 ? <CameraIcon /> : ""}</li>
-            <li>{post.voteOption}</li>
+            <li>{post.postVoteOption}</li>
             <li className="flex">
               <VeiwIcon /> {post.viewCount}
             </li>
