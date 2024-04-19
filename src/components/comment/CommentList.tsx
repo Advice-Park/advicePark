@@ -13,6 +13,7 @@ import ideaIcon from "/iconImgs/idea-icon.png";
 import LikeIcon from "../../assets/icons/like.svg?react";
 import WriteComment from "./WriteComment";
 import FormattingTime from "../format/FormattingTime";
+import { getUserInfoWithId } from "../../services/api/user";
 
 type CommentProps = {
   postId: number;
@@ -21,6 +22,7 @@ type CommentProps = {
 const CommentList = ({ postId }: CommentProps) => {
   const auth = useRecoilValue(authState);
 
+  const [userName, setUserName] = useState("");
   const [comments, setComments] = useState<Comment[]>([]);
   const [likeComment, setLikeComment] = useState<{ [key: number]: boolean }>(
     {}
@@ -42,6 +44,10 @@ const CommentList = ({ postId }: CommentProps) => {
       }
       setLikeComment(myLikedComments);
       setLikeCount(commentLikeCount);
+
+      getUserInfoWithId(commentsData.userId).then((userData) => {
+        setUserName(userData.name);
+      });
     }
   };
 
@@ -96,7 +102,7 @@ const CommentList = ({ postId }: CommentProps) => {
             <img className="w-8 h-8" src={ideaIcon} />
             <div>
               <p className="font-bold leading-5">
-                {post.commentType === "AI" ? "AI" : post.userId}
+                {post.commentType === "AI" ? "AI" : userName || post.userId}
               </p>
               <p className="text-xs">
                 <FormattingTime createdTime={post.createdTime} />
