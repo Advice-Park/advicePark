@@ -58,7 +58,9 @@ const DetailPost: React.FC = () => {
       setFavorite(isFavorite);
     };
 
-    getFavoriteData();
+    if (isLogin) {
+      getFavoriteData();
+    }
   }, []);
 
   const favoriteHandler = async () => {
@@ -87,13 +89,13 @@ const DetailPost: React.FC = () => {
   return (
     <>
       <div className="w-full flex flex-col p-8 gap-5 bg-white">
-        <div>
+        <div className="flex items-center gap-3">
           {/* 작성자 정보 */}
-          <img src={detailPost?.image} className="w-xs h-xs rounded-full" />
-          작성자 {detailPost?.name}
-        </div>
-        <div className="text-xs text-gray-500">
-          <FormattingTime createdTime={detailPost?.createdTime || ""} />
+          <img src={detailPost?.image} className="w-10 h-10 rounded-full" />
+          <div className="text-xs text-gray-600">
+            <p className="text-sm font-bold">{detailPost?.name}</p>
+            <FormattingTime createdTime={detailPost?.createdTime || ""} />
+          </div>
         </div>
 
         {/* 제목 */}

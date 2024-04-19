@@ -15,7 +15,7 @@ const FormattingTime = ({ createdTime }: DataProps) => {
     setCreatedDate(formattingTime);
   }, [createdTime]);
 
-  return <span className="text-xs text-gray-500">{createdDate}</span>;
+  return <span className="text-xs text-gray-400">{createdDate}</span>;
 };
 
 export default FormattingTime;
