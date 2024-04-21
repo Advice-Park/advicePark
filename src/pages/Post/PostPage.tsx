@@ -10,8 +10,8 @@ import { Posts } from "../../services/api/posts";
 const PostPage: React.FC = () => {
   const navi = useNavigate();
 
-  const WriteCallback = (x: string) => {
-    setCategory(x);
+  const WriteCallback = (cat: string) => {
+    setCategory(cat);
   };
 
   const [title, setTitle] = useState("");
@@ -52,7 +52,7 @@ const PostPage: React.FC = () => {
     formData.append("title", title);
     formData.append("contents", contents);
     formData.append("category", selectCat);
-    formData.append("votingEnabled", voting);
+    formData.append("postVoteOption", voting);
 
     for (let i = 0; i < imgs.length; i++) {
       formData.append("imageFiles", imgs[i]);
