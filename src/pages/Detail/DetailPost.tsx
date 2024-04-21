@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { instance } from "../../services/instance";
 import {
   Posts,
@@ -18,6 +18,7 @@ import FormattingTime from "../../components/format/FormattingTime";
 
 const DetailPost: React.FC = () => {
   const { postId } = useParams();
+  const navi = useNavigate();
 
   // 로그인 확인
   const auth = useRecoilValue(authState);
@@ -81,6 +82,7 @@ const DetailPost: React.FC = () => {
   const deletePost = async () => {
     try {
       await instance.delete(`/api/post/${postId}`);
+      navi("/posts");
     } catch (e) {
       alert("글 삭제 에러");
     }
