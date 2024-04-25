@@ -6,8 +6,8 @@ import { Comment } from "../../services/api/comment";
 
 const Search: React.FC = () => {
   const [search, setSearch] = useState<string>("");
-  const [postData, setPostData] = useState<Posts[]>();
-  const [commentData, setCommentData] = useState<Comment[]>();
+  const [postData, setPostData] = useState<Posts[]>([]);
+  const [commentData, setCommentData] = useState<Comment[]>([]);
 
   const inputHandler = (e: ChangeEvent<HTMLInputElement>) => {
     setSearch(e.target.value);
@@ -45,7 +45,7 @@ const Search: React.FC = () => {
         <h2>검색하기</h2>
         <span></span>
       </div>
-      <div className="flex justify-center items-center gap-2 px-8 py-3 bg-white">
+      <div className="flex justify-center items-center gap-2 px-8 py-3 drop-shadow bg-white">
         <SearchIcon className="absolute mr-64" />
         <input
           required
@@ -57,21 +57,46 @@ const Search: React.FC = () => {
         />
         <button onClick={searchHandler}>검색</button>
       </div>
-      <div>
+      <div className="h-screen pt-3 bg-white">
         {postData?.length === 0 && commentData?.length === 0 ? (
-          <span>검색결과가 없습니다.</span>
+          <p className="pt-8 text-center">검색결과가 없습니다.</p>
         ) : (
-          postData?.map((post) => (
-            <div key={post.postId}>
-              <p>{post.title}</p>
-              <p>{post.contents}</p>
+          <>
+            <div className="mb-8">
+              {postData?.length > 0 && <h3 className="h2-primary">질문글</h3>}
+              {postData?.map((post) => (
+                <div
+                  key={post.postId}
+                  className="py-3 px-8 border-b"
+                  onClick={() =>
+                    (window.location.href = `/posts/${post.postId}`)
+                  }
+                >
+                  <p className="font-bold text-lg">{post.title}</p>
+                  <p className="text-gray-400">{post.contents}</p>
+                </div>
+              ))}
             </div>
-          )) &&
-          commentData?.map((post) => (
-            <div key={post.postId}>
-              <p>{post.content}</p>
+            <div>
+              {commentData?.length > 0 && (
+                <h3 className="h2-primary">훈수댓글</h3>
+              )}
+              {commentData?.map((comment) => (
+                <div
+                  key={comment.commentId}
+                  className="py-3 px-8 border-b"
+                  onClick={() =>
+                    (window.location.href = `/posts/${comment.postId}`)
+                  }
+                >
+                  <span className="font-bold">
+                    {comment.commentType === "AI" ? "AI" : comment.userId} :
+                  </span>
+                  <p>{comment.content}</p>
+                </div>
+              ))}
             </div>
-          ))
+          </>
         )}
       </div>
     </div>
