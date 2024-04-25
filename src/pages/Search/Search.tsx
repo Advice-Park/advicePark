@@ -62,40 +62,42 @@ const Search: React.FC = () => {
           <p className="pt-8 text-center">검색결과가 없습니다.</p>
         ) : (
           <>
-            <div className="mb-8">
-              {postData?.length > 0 && <h3 className="h2-primary">질문글</h3>}
-              {postData?.map((post) => (
-                <div
-                  key={post.postId}
-                  className="py-3 px-8 border-b"
-                  onClick={() =>
-                    (window.location.href = `/posts/${post.postId}`)
-                  }
-                >
-                  <p className="font-bold text-lg">{post.title}</p>
-                  <p className="text-gray-400">{post.contents}</p>
-                </div>
-              ))}
-            </div>
-            <div>
-              {commentData?.length > 0 && (
+            {postData?.length > 0 && (
+              <div className="mb-5">
+                <h3 className="h2-primary">질문글</h3>
+                {postData?.map((post) => (
+                  <div
+                    key={post.postId}
+                    className="py-3 px-8 border-b"
+                    onClick={() =>
+                      (window.location.href = `/posts/${post.postId}`)
+                    }
+                  >
+                    <p className="font-bold text-lg">{post.title}</p>
+                    <p className="text-gray-400">{post.contents}</p>
+                  </div>
+                ))}
+              </div>
+            )}
+            {commentData?.length > 0 && (
+              <div>
                 <h3 className="h2-primary">훈수댓글</h3>
-              )}
-              {commentData?.map((comment) => (
-                <div
-                  key={comment.commentId}
-                  className="py-3 px-8 border-b"
-                  onClick={() =>
-                    (window.location.href = `/posts/${comment.postId}`)
-                  }
-                >
-                  <span className="font-bold">
-                    {comment.commentType === "AI" ? "AI" : comment.userId} :
-                  </span>
-                  <p>{comment.content}</p>
-                </div>
-              ))}
-            </div>
+                {commentData?.map((comment) => (
+                  <div
+                    key={comment.commentId}
+                    className="py-3 px-8 border-b"
+                    onClick={() =>
+                      (window.location.href = `/posts/${comment.postId}`)
+                    }
+                  >
+                    <span className="font-bold">
+                      {comment.commentType === "AI" ? "AI" : comment.userId} :
+                    </span>
+                    <p>{comment.content}</p>
+                  </div>
+                ))}
+              </div>
+            )}
           </>
         )}
       </div>
