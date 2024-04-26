@@ -34,22 +34,22 @@ const CommentList = ({ postId }: CommentProps) => {
     if (commentsData) {
       setComments(commentsData);
 
-      // 댓글의 좋아요 기록 및 좋아요 수
+      // 댓글 좋아요 기록 및 좋아요 수
       const myLikedComments: { [key: number]: boolean } = {};
       const commentLikeCount: { [key: number]: number } = {};
       for (const comment of commentsData) {
         const liked = await getLiked(comment.commentId);
         myLikedComments[comment.commentId] = liked;
         commentLikeCount[comment.commentId] = comment.likeCount;
+
+        getUserInfoWithId(comment.userId).then((userData) => {
+          if (userData) {
+            setUserName(userData.name);
+          }
+        });
       }
       setLikeComment(myLikedComments);
       setLikeCount(commentLikeCount);
-
-      getUserInfoWithId(commentsData.userId).then((userData) => {
-        if (userData) {
-          setUserName(userData.name);
-        }
-      });
     }
   };
 
@@ -103,12 +103,9 @@ const CommentList = ({ postId }: CommentProps) => {
           <div className="flex gap-3 pb-2">
             <img className="w-8 h-8" src={ideaIcon} />
             <div>
+              {/* 작성자 이름 */}
               <p className="font-bold leading-5">
-                {post.commentType === "AI"
-                  ? "AI"
-                  : userName
-                  ? userName
-                  : post.userId}
+                {post.commentType === "AI" ? "AI" : userName}
               </p>
               <p className="text-xs">
                 <FormattingTime createdTime={post.createdTime} />
