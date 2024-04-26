@@ -38,24 +38,22 @@ const CategoryModal: React.FC<Props> = ({ open, close, parentFunction }) => {
     };
   }, [modalRef, isActive]);
 
-  const [category, setCategory] = useState("카테고리");
   const Categories = ["일상(잡담)", "연애", "운동", "음식", "기타"];
 
   const categoryHandler = (index: number) => {
     setIsActive(index);
-    setCategory(Categories[index]);
-    parentFunction(category);
+    parentFunction(Categories[index]);
   };
 
   return open ? (
     <>
       <div
         onClick={close}
-        className="fixed top-0 w-full h-full bg-black opacity-30"
+        className="fixed top-0 max-w-md w-full h-full bg-black opacity-30"
       />
       <div
         ref={modalRef}
-        className="z-3 fixed bottom-0 w-full h-md py-8 shadow bg-white"
+        className="z-3 fixed bottom-0 max-w-md w-full h-md py-8 shadow bg-white"
       >
         <div className="flex">
           <div className="flex flex-col w-full h-full">
@@ -65,7 +63,7 @@ const CategoryModal: React.FC<Props> = ({ open, close, parentFunction }) => {
                 key={idx}
                 // isFirst={idx === 0}
                 // isClicked={isActive}
-                className="w-full px-5 p-3 cursor-pointer hover:text-bold"
+                className="w-full px-5 p-3 cursor-pointer hover:font-bold"
               >
                 {item}
               </div>
