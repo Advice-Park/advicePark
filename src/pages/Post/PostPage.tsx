@@ -123,7 +123,7 @@ const PostPage: React.FC = () => {
       <div className="relative w-full px-8 py-3">
         <div className="flex flex-col gap-1">
           <p onClick={categoryOpen} className="m-auto cursor-pointer">
-            {category}
+            {category} {isCategoryModalOpen ? "▵" : "▿"}
           </p>
           <label className={voteSt} htmlFor="vote">
             <span className="flex gap-1 justify-evenly text-sm items-center">
