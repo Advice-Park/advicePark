@@ -22,7 +22,7 @@ type CommentProps = {
 const CommentList = ({ postId }: CommentProps) => {
   const auth = useRecoilValue(authState);
 
-  const [userName, setUserName] = useState("");
+  const [userName, setUserName] = useState<{ [key: number]: string }>({});
   const [comments, setComments] = useState<Comment[]>([]);
   const [likeComment, setLikeComment] = useState<{ [key: number]: boolean }>(
     {}
@@ -37,21 +37,28 @@ const CommentList = ({ postId }: CommentProps) => {
       // 댓글 좋아요 기록 및 좋아요 수
       const myLikedComments: { [key: number]: boolean } = {};
       const commentLikeCount: { [key: number]: number } = {};
-      for (const comment of commentsData) {
+
+      const commentProm = commentsData.map(async (comment: Comment) => {
         const liked = await getLiked(comment.commentId);
         myLikedComments[comment.commentId] = liked;
         commentLikeCount[comment.commentId] = comment.likeCount;
 
-        getUserInfoWithId(comment.userId).then((userData) => {
-          if (userData) {
-            setUserName(userData.name);
-          }
-        });
-        console.log(getUserInfoWithId(comment.userId));
-      }
-      console.log(userName);
-      setLikeComment(myLikedComments);
-      setLikeCount(commentLikeCount);
+        // userId로 작성자 정보 받기
+        const userData = await getUserInfoWithId(comment.userId);
+        if (userData) {
+          setUserName((prevUserNames) => ({
+            ...prevUserNames,
+            [comment.userId]: userData.name,
+          }));
+        }
+        return comment;
+      });
+
+      Promise.all(commentProm).then((commentsWithUserNames) => {
+        setComments(commentsWithUserNames);
+        setLikeComment(myLikedComments);
+        setLikeCount(commentLikeCount);
+      });
     }
   };
 
@@ -107,7 +114,7 @@ const CommentList = ({ postId }: CommentProps) => {
             <div>
               {/* 작성자 이름 */}
               <p className="font-bold leading-5">
-                {post.commentType === "AI" ? "AI" : userName}
+                {post.commentType === "AI" ? "AI" : userName[post.userId]}
               </p>
               <p className="text-xs">
                 <FormattingTime createdTime={post.createdTime} />
