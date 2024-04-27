@@ -47,7 +47,9 @@ const CommentList = ({ postId }: CommentProps) => {
             setUserName(userData.name);
           }
         });
+        console.log(getUserInfoWithId(comment.userId));
       }
+      console.log(userName);
       setLikeComment(myLikedComments);
       setLikeCount(commentLikeCount);
     }
