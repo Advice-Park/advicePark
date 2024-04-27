@@ -11,6 +11,8 @@ const PostsPage: React.FC = () => {
   const navi = useNavigate();
   const [posts, setPosts] = useState<Posts[]>([]);
   const [filteredPosts, setFilteredPosts] = useState<Posts[]>([]);
+  // 카테고리 선택한 상태인지 관리
+  const [filteredState, setFilteredState] = useState(false);
 
   useEffect(() => {
     getPosts().then((res) => {
@@ -26,10 +28,12 @@ const PostsPage: React.FC = () => {
   const categoryHandler = (category: string) => {
     const newFilteredPosts = posts.filter((post) => post.category === category);
     setFilteredPosts(newFilteredPosts);
+    setFilteredState(true);
   };
 
   const categoryResetHandler = () => {
     setFilteredPosts(posts);
+    setFilteredState(false);
   };
 
   return (
@@ -37,7 +41,7 @@ const PostsPage: React.FC = () => {
       <h2 className="text-lg font-bold text-center py-3 border-b bg-white">
         훈수게시판
       </h2>
-      <ul className="flex gap-6 px-8 py-3 bg-white">
+      <ul className="flex gap-6 px-8 py-3 bg-white drop-shadow">
         <li onClick={categoryResetHandler} className="cursor-pointer">
           전체
         </li>
@@ -62,16 +66,25 @@ const PostsPage: React.FC = () => {
       </ul>
       {filteredPosts.map((post) => (
         <ul
-          className="py-5 px-8 border-b cursor-pointer"
+          className="py-5 px-8 border-b bg-white cursor-pointer"
           key={post.postId}
           onClick={() => navi(`/posts/${post.postId}`)}
         >
-          <li>{post.postVoteOption}</li>
+          <li className="flex gap-3 text-sm">
+            {filteredState ? null : (
+              <span className="rounded-full px-2 p-1 mb-1 text-white bg-light-blue">
+                <FormattingCat category={post.category} />
+              </span>
+            )}
+
+            {post.postVoteOption === "YES_NO" ? (
+              <span className="rounded-full py-1 text-mid-blue">
+                찬반💥
+              </span>
+            ) : null}
+          </li>
           <li className="font-bold">{post.title}</li>
           <li className="text-sm text-gray-500">{post.contents}</li>
-          <li>
-            <FormattingCat category={post.category} />
-          </li>
           <li>{post.imageUrls.length > 0 ? <CameraIcon /> : ""}</li>
           <li className="flex justify-between max-w-60 text-xs">
             <span className="flex gap-1">
