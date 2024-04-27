@@ -14,22 +14,26 @@ const Search: React.FC = () => {
   };
 
   const searchHandler = async () => {
-    try {
-      const pRes = await instance.get("/api/search/post", {
-        params: {
-          keyword: search,
-        },
-      });
-      const cRes = await instance.get("/api/search/comment", {
-        params: {
-          keyword: search,
-        },
-      });
-      setPostData(pRes.data);
-      setCommentData(cRes.data);
-      setSearch("");
-    } catch (e) {
-      console.log(e);
+    if (search.length === 0) {
+      alert("검색어를 입력해 주세요");
+    } else {
+      try {
+        const pRes = await instance.get("/api/search/post", {
+          params: {
+            keyword: search,
+          },
+        });
+        const cRes = await instance.get("/api/search/comment", {
+          params: {
+            keyword: search,
+          },
+        });
+        setPostData(pRes.data);
+        setCommentData(cRes.data);
+        setSearch("");
+      } catch (e) {
+        console.log(e);
+      }
     }
   };
 
