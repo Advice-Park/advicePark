@@ -87,13 +87,13 @@ const PostsPage: React.FC = () => {
           </li>
           <li>{post.imageUrls.length > 0 ? <CameraIcon /> : ""}</li>
           <li className="flex justify-between max-w-60 text-xs">
-            <span className="flex gap-1">
+            <span className="flex gap-1 w-7 items-center">
               <LikeIcon /> {post.favoriteCount}
             </span>
-            <span className="flex gap-1">
+            <span className="flex gap-1 w-9 items-center">
               <VeiwIcon /> {post.viewCount}
             </span>
-            <span className="flex gap-1">
+            <span className="flex gap-1 w-7 items-center">
               <CommentIcon /> {post.commentCount}
             </span>
           </li>
