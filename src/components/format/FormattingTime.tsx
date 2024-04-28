@@ -9,16 +9,24 @@ const FormattingTime = ({ createdTime }: DataProps) => {
 
   useEffect(() => {
     const utcDate = new Date(createdTime);
-    const year = utcDate.getFullYear();
-    const month = utcDate.getMonth() + 1;
-    const day = utcDate.getDate();
-    const hour = utcDate.getHours();
-    const minute = utcDate.getMinutes();
+    const koreaDate = utcDate.toLocaleString("ko-KR", {
+      timeZone: "Asia/Seoul",
+      year: "numeric",
+      hour12: true,
+      hour: "numeric",
+      minute: "numeric",
+      month: "numeric",
+      day: "numeric",
+    });
 
-    const formattedDate = `${year}. ${month}. ${day} `;
-    const formattedTime = `${hour}:${minute}`;
+    // 날짜 뒤의 마침표 제거(마지막에 있는 마침표 제거)
+    const lastDotIndex = koreaDate.lastIndexOf(".");
+    const formattedDate =
+      lastDotIndex !== -1
+        ? koreaDate.slice(0, lastDotIndex) + koreaDate.slice(lastDotIndex + 1)
+        : koreaDate;
 
-    setCreatedDate(`${formattedDate}오전 ${formattedTime}`);
+    setCreatedDate(formattedDate);
   }, [createdTime]);
 
   return <span className="text-xs text-gray-400">{createdDate}</span>;
