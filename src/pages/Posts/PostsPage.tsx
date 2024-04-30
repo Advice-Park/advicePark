@@ -88,13 +88,13 @@ const PostsPage: React.FC = () => {
             {post.contents}
           </li>
           <li className="flex justify-between max-w-60 text-xs">
-            <span className="flex gap-1 items-center">
+            <span className="icon-layout">
               <LikeIcon /> {post.favoriteCount}
             </span>
-            <span className="flex gap-1 items-center">
+            <span className="icon-layout">
               <VeiwIcon /> {post.viewCount}
             </span>
-            <span className="flex gap-1 items-center">
+            <span className="icon-layout">
               <CommentIcon /> {post.commentCount}
             </span>
           </li>
