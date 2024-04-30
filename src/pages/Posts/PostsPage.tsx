@@ -81,19 +81,20 @@ const PostsPage: React.FC = () => {
               <span className="rounded-full py-1 text-mid-blue">찬반💥</span>
             ) : null}
           </li>
-          <li className="font-bold">{post.title}</li>
+          <li className="font-bold flex justify-between mb-1">
+            {post.title} {post.imageUrls.length > 0 ? <CameraIcon /> : ""}
+          </li>
           <li className="text-sm text-gray-500 inline-block overflow-hidden leading-4 max-h-8 text-wrap">
             {post.contents}
           </li>
-          <li>{post.imageUrls.length > 0 ? <CameraIcon /> : ""}</li>
           <li className="flex justify-between max-w-60 text-xs">
-            <span className="flex gap-1 w-7 items-center">
+            <span className="flex gap-1 items-center">
               <LikeIcon /> {post.favoriteCount}
             </span>
-            <span className="flex gap-1 w-9 items-center">
+            <span className="flex gap-1 items-center">
               <VeiwIcon /> {post.viewCount}
             </span>
-            <span className="flex gap-1 w-7 items-center">
+            <span className="flex gap-1 items-center">
               <CommentIcon /> {post.commentCount}
             </span>
           </li>
