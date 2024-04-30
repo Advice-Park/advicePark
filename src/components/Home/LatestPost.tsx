@@ -95,7 +95,7 @@ const Carousel = () => {
   };
 
   return (
-    <div className="flex align-center justify-center w-full">
+    <div className="flex align-center justify-center w-full mt-2">
       <div
         className="group relative w-full p-xs overflow-hidden"
         onTouchStart={handleTouchStart}
@@ -123,19 +123,30 @@ const Carousel = () => {
             return (
               <li key={key} className="flex-none object-contain p-1 w-40">
                 <ul
-                  className="flex flex-col items-start shrink-0 p-3 h-40 rounded-xl overflow-hidden bg-white cursor-pointer"
+                  className="flex flex-col items-start shrink-0 p-3 h-40 rounded-xl overflow-hidden bg-white cursor-pointer drop-shadow-md"
                   key={post.postId}
                   onClick={() =>
                     (window.location.href = `/posts/${post.postId}`)
                   }
                 >
-                  <li className="rounded-full px-3 p-1 mb-1 text-white bg-light-blue">
-                    <FormattingCat category={post.category} />
+                  <li className="flex gap-1 items-center mb-1">
+                    <span className="rounded-full px-3 p-1 text-white bg-light-blue text-sm">
+                      <FormattingCat category={post.category} />
+                    </span>
+                    {post.postVoteOption === "YES_NO" ? (
+                      <span className="rounded-full text-mid-blue text-sm">
+                        찬반💥
+                      </span>
+                    ) : null}
                   </li>
-                  <li className="font-bold">{post.title}</li>
-                  <li>{post.contents}</li>
-                  <li>{post.imageUrls.length > 0 ? <CameraIcon /> : ""}</li>
-                  <li>{post.postVoteOption}</li>
+
+                  <li className="w-full font-bold flex justify-between">
+                    <span className="w-2/3 flex-grow truncate mb-1">{post.title}</span>
+                    {post.imageUrls.length > 0 ? <CameraIcon /> : ""}
+                  </li>
+                  <li className="text-md text-gray-500 inline-block overflow-hidden leading-4 h-16 text-wrap">
+                    {post.contents}
+                  </li>
                 </ul>
               </li>
             );

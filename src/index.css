@@ -15,4 +15,7 @@
   .h3-primary {
     @apply ml-5 mt-1 font-bold;
   }
+  .icon-layout {
+    @apply flex gap-1 items-center;
+  }
 }

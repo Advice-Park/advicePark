@@ -99,7 +99,7 @@ const HotPost = () => {
   };
 
   return (
-    <div className="flex align-center justify-center w-full">
+    <div className="flex align-center justify-center w-full mt-2">
       <div
         className="group relative w-full p-xs overflow-hidden"
         onTouchStart={handleTouchStart}
@@ -109,14 +109,14 @@ const HotPost = () => {
         <button
           type="button"
           onClick={() => moveHandler(-1)}
-          className="z-10 group-hover:block absolute top-1/2 rounded-lg py-1 px-2 bg-gray-200 left-0 hidden cursor-pointer"
+          className="z-10 group-hover:block absolute top-1/2 -translate-y-2/4 rounded-lg py-1 px-2 bg-gray-200 left-0 hidden cursor-pointer"
         >
           ←
         </button>
         <button
           type="button"
           onClick={() => moveHandler(1)}
-          className="z-10 group-hover:block absolute top-1/2 rounded-lg py-1 px-2 bg-gray-200 right-0 hidden cursor-pointer"
+          className="z-10 group-hover:block absolute top-1/2 -translate-y-2/4 rounded-lg py-1 px-2 bg-gray-200 right-0 hidden cursor-pointer"
         >
           →
         </button>
@@ -125,34 +125,49 @@ const HotPost = () => {
             const key = `${post}-${idx}`;
 
             return (
-              <li key={key} className="flex-none object-contain px-5 w-full">
+              <li
+                key={key}
+                className="flex-none h-44 object-contain px-5 w-full"
+              >
                 <ul
-                  className="flex flex-col items-start shrink-0 p-3 h-40 rounded-xl overflow-hidden bg-white cursor-pointer"
+                  className="flex flex-col justify-between items-start shrink-0 p-3 h-40 rounded-xl overflow-hidden bg-white cursor-pointer drop-shadow-md"
                   key={post.postId}
                   onClick={() =>
                     (window.location.href = `/posts/${post.postId}`)
                   }
                 >
-                  <li className="rounded-full px-3 p-1 mb-1 text-white bg-light-blue text-sm">
-                    <FormattingCat category={post.category} />
+                  <li className="flex gap-1 items-center mb-1">
+                    <span className="rounded-full px-3 p-1 text-white bg-light-blue text-sm">
+                      <FormattingCat category={post.category} />
+                    </span>
+                    {post.postVoteOption === "YES_NO" ? (
+                      <span className="rounded-full text-mid-blue text-sm">
+                        찬반💥
+                      </span>
+                    ) : null}
                   </li>
-                  <li className="font-bold">{post.title}</li>
-                  <li>{post.contents}</li>
-                  <li>{post.imageUrls.length > 0 ? <CameraIcon /> : ""}</li>
-                  <li>{post.postVoteOption}</li>
-                  <ul className="flex gap-3">
+
+                  <li className="w-full font-bold flex justify-between">
+                    {post.title}
+                    {post.imageUrls.length > 0 ? <CameraIcon /> : ""}
+                  </li>
+                  <li className="text-sm text-gray-500 inline-block overflow-hidden leading-4 h-8 text-wrap">
+                    {post.contents}
+                  </li>
+
+                  <ul className="w-full flex gap-5 pt-2 border-t">
                     {/* 글 즐겨찾기 */}
-                    <li className="flex">
+                    <li className="icon-layout">
                       <LikeIcon /> {post.favoriteCount}
                     </li>
 
                     {/* 댓글수 */}
-                    <li className="flex">
+                    <li className="icon-layout">
                       <CommentIcon /> {post.commentCount}
                     </li>
 
                     {/* 조회수 */}
-                    <li className="flex">
+                    <li className="icon-layout">
                       <VeiwIcon /> {post.viewCount}
                     </li>
                   </ul>
