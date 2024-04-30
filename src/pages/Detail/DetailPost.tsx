@@ -107,7 +107,7 @@ const DetailPost: React.FC = () => {
           {/* 작성자에게만 삭제버튼 노출 */}
           {auth.userId === detailPost?.userId && (
             <button
-              className="py-2 px-4 m-auto rounded-lg shadow-md text-black bg-white hover:bg-gray-300"
+              className="p-1 rounded-lg text-black bg-white hover:bg-gray-300"
               // onClick={handleLogin}
               onClick={deletePost}
             >
