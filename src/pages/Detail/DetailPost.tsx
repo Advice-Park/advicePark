@@ -102,8 +102,18 @@ const DetailPost: React.FC = () => {
         </div>
 
         {/* 제목 */}
-        <div className="w-full text-2xl font-bold pb-5 border-b">
+        <div className="w-full flex justify-between text-2xl font-bold pb-5 border-b">
           {detailPost?.title}
+          {/* 작성자에게만 삭제버튼 노출 */}
+          {auth.userId === detailPost?.userId && (
+            <button
+              className="py-2 px-4 m-auto rounded-lg shadow-md text-black bg-white hover:bg-gray-300"
+              // onClick={handleLogin}
+              onClick={deletePost}
+            >
+              <DelIcon />
+            </button>
+          )}
         </div>
         {/* 내용 */}
         <div>{detailPost?.contents}</div>
@@ -139,17 +149,6 @@ const DetailPost: React.FC = () => {
         </ul>
 
         <div>{detailPost?.postVoteOption}</div>
-
-        {/* 작성자에게만 삭제버튼 노출 */}
-        {auth.userId === detailPost?.userId && (
-          <button
-            className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-gray-400"
-            // onClick={handleLogin}
-            onClick={deletePost}
-          >
-            <DelIcon />
-          </button>
-        )}
       </div>
       <div>
         <CommentList postId={parseInt(postId || "0")} />
