@@ -11,6 +11,7 @@ import CommentList from "../../components/comment/CommentList";
 import LikeIcon from "../../assets/icons/like.svg?react";
 import VeiwIcon from "../../assets/icons/eye.svg?react";
 import CommentIcon from "../../assets/icons/comment.svg?react";
+import DelIcon from "../../assets/icons/trash.svg?react";
 import { useRecoilValue } from "recoil";
 import { authState } from "../../contexts/state";
 import { getUserInfoWithId } from "../../services/api/user";
@@ -142,11 +143,11 @@ const DetailPost: React.FC = () => {
         {/* 작성자에게만 삭제버튼 노출 */}
         {auth.userId === detailPost?.userId && (
           <button
-            className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
+            className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-gray-400"
             // onClick={handleLogin}
             onClick={deletePost}
           >
-            삭제
+            <DelIcon />
           </button>
         )}
       </div>
