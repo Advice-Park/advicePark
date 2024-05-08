@@ -3,6 +3,7 @@ import HotPost from "../../components/Home/HotPost";
 import { useRecoilValue } from "recoil";
 import { authState } from "../../contexts/state";
 import LatestPost from "../../components/Home/LatestPost";
+import Gallery from "../../components/Home/Gallery";
 
 const Home: React.FC = () => {
   //recoil 사용 선언
@@ -21,6 +22,9 @@ const Home: React.FC = () => {
 
         <h2 className="h2-primary mt-5">HOT 질문글</h2>
         <HotPost />
+
+        <h2 className="h2-primary mt-5">갤러리</h2>
+        <Gallery />
       </div>
     </div>
   );
