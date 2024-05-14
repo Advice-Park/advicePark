@@ -15,13 +15,19 @@ const Gallery: React.FC = () => {
   }, []);
 
   return (
-    <div className="m-5 bg-white flex">
+    <div className="m-5 p-3 bg-white rounded-lg flex">
       {posts.map((post) => (
         <>
           {post.imageUrls.length > 0 && (
-            <div key={post.postId} className="w-1/6 m-5">
+            <div key={post.postId} className="w-1/6 m-2 p-2 border rounded">
               {post.imageUrls.map((imageUrl, index) => (
-                <img key={index} src={imageUrl} alt={`Post Images ${index}`} />
+                <div>
+                  <img
+                    key={index}
+                    src={imageUrl}
+                    alt={`Post Images ${index}`}
+                  />
+                </div>
               ))}
             </div>
           )}
