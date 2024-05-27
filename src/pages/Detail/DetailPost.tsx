@@ -16,6 +16,7 @@ import { useRecoilValue } from "recoil";
 import { authState } from "../../contexts/state";
 import { getUserInfoWithId } from "../../services/api/user";
 import FormattingTime from "../../components/format/FormattingTime";
+import Vote from "../../components/vote/Vote";
 
 const DetailPost: React.FC = () => {
   const { postId } = useParams();
@@ -130,6 +131,9 @@ const DetailPost: React.FC = () => {
           ))}
         </ul>
 
+        {/* 찬반 투표 창 */}
+        <div>{detailPost?.postVoteOption === "YES_NO" && <Vote />}</div>
+
         <ul className="flex gap-3 flex-row-reverse">
           {/* 글 즐겨찾기 */}
           <li onClick={favoriteHandler} className="flex">
@@ -147,8 +151,6 @@ const DetailPost: React.FC = () => {
             <VeiwIcon /> {detailPost?.viewCount}
           </li>
         </ul>
-
-        <div>{detailPost?.postVoteOption}</div>
       </div>
       <div>
         <CommentList postId={parseInt(postId || "0")} />
