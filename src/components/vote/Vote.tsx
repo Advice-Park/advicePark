@@ -57,14 +57,14 @@ const Vote: React.FC = () => {
     }
   };
   return (
-    <div>
+    <div className="w-full border-t pt-5">
       <div className="w-full h-8 p-1 border rounded-lg flex">
-        <div className="h-screen">{proCountWidth}</div>
-        <div>{conCountWidth}</div>
+        <div className={`w-[${proCountWidth}%]`}>{proCountWidth}</div>
+        <div className={`w-[${conCountWidth}%]`}>{conCountWidth}</div>
       </div>
       <p className="flex justify-between">
-        <span onClick={voteProHandler}>찬</span>
-        <span onClick={voteConHandler}>반</span>
+        <span onClick={voteProHandler}>찬성</span>
+        <span onClick={voteConHandler}>반대</span>
       </p>
     </div>
   );
