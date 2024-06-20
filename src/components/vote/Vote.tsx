@@ -18,6 +18,7 @@ const Vote: React.FC = () => {
   const [conInputValue, setConInputValue] = useState<boolean>();
 
   const voteProHandler = () => {
+    console.log("Pro", proInputValue, proCount, proCountWidth);
     if (auth.isLoggedIn) {
       if (conInputValue === true && proInputValue === false) {
         return alert("찬성/반대는 동시에 선택될 수 없습니다.");
@@ -38,6 +39,7 @@ const Vote: React.FC = () => {
   };
 
   const voteConHandler = () => {
+    console.log("Con", conInputValue, conCount, conCountWidth);
     if (auth.isLoggedIn) {
       if (proInputValue === true && conInputValue === false) {
         return alert("찬성/반대는 동시에 선택될 수 없습니다.");
@@ -56,11 +58,31 @@ const Vote: React.FC = () => {
       alert("로그인 후 이용해 주세요");
     }
   };
+
+  const bigVote: number = 68;
+  const smallVote: number = 40;
+
   return (
-    <div className="w-full border-t pt-5">
-      <div className="w-full h-8 p-1 border rounded-lg flex">
-        <div className={`w-[${proCountWidth}%]`}>{proCountWidth}</div>
-        <div className={`w-[${conCountWidth}%]`}>{conCountWidth}</div>
+    <div className="w-full pt-2">
+      <div className="w-full h-8 p-1 border rounded-lg flex justify-between">
+        <div
+          className={
+            proCountWidth > 50
+              ? `w-${bigVote} h-${bigVote} bg-green-800`
+              : `w-${smallVote} h-${smallVote} bg-green-800`
+          }
+        >
+          {proCountWidth}
+        </div>
+        <div
+          className={
+            conCountWidth > 50
+              ? ` w-${bigVote} h-${bigVote} bg-orange-800`
+              : `w-${smallVote} h-${smallVote} bg-orange-800`
+          }
+        >
+          {conCountWidth}
+        </div>
       </div>
       <p className="flex justify-between">
         <span onClick={voteProHandler}>찬성</span>
