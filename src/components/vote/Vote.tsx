@@ -59,8 +59,9 @@ const Vote: React.FC = () => {
     }
   };
 
-  const bigVote: number = 68;
-  const smallVote: number = 40;
+  // 찬반 투표 진행상황에 따른 사이즈
+  const bigVote: number = 20;
+  const smallVote: number = 10;
 
   return (
     <div className="w-full pt-2">
