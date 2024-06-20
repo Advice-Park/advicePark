@@ -14,12 +14,12 @@ const Vote: React.FC = () => {
   const proCountWidth: number = isNaN(proPer) ? 50 : proPer;
   const conCountWidth: number = isNaN(conPer) ? 50 : conPer;
 
-  const [proInputValue, setProInputValue] = useState<boolean>();
-  const [conInputValue, setConInputValue] = useState<boolean>();
+  const [proInputValue, setProInputValue] = useState<boolean>(false);
+  const [conInputValue, setConInputValue] = useState<boolean>(false);
 
   const voteProHandler = () => {
     console.log("Pro", proInputValue, proCount, proCountWidth);
-    if (auth.isLoggedIn) {
+    // if (auth.isLoggedIn) {
       if (conInputValue === true && proInputValue === false) {
         return alert("찬성/반대는 동시에 선택될 수 없습니다.");
       }
@@ -33,14 +33,14 @@ const Vote: React.FC = () => {
         setProInputValue(false);
         setProCount(proCount - 1);
       }
-    } else {
-      alert("로그인 후 이용해 주세요");
-    }
+    // } else {
+    //   alert("로그인 후 이용해 주세요");
+    // }
   };
 
   const voteConHandler = () => {
     console.log("Con", conInputValue, conCount, conCountWidth);
-    if (auth.isLoggedIn) {
+    // if (auth.isLoggedIn) {
       if (proInputValue === true && conInputValue === false) {
         return alert("찬성/반대는 동시에 선택될 수 없습니다.");
       }
@@ -54,9 +54,9 @@ const Vote: React.FC = () => {
         setConInputValue(false);
         setConCount(conCount - 1);
       }
-    } else {
-      alert("로그인 후 이용해 주세요");
-    }
+    // } else {
+    //   alert("로그인 후 이용해 주세요");
+    // }
   };
 
   // 찬반 투표 진행상황에 따른 사이즈
