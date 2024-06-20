@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { useRecoilValue } from "recoil";
-import { authState } from "../../contexts/state";
+// import { useRecoilValue } from "recoil";
+// import { authState } from "../../contexts/state";
 
 const Vote: React.FC = () => {
-  const auth = useRecoilValue(authState);
+  // const auth = useRecoilValue(authState);
 
   const [proCount, setProCount] = useState<number>(0);
   const [conCount, setConCount] = useState<number>(0);
