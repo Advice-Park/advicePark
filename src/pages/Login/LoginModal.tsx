@@ -53,7 +53,7 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
     // URL에서 토큰을 추출하여 인증 상태 확인
     const urlParams = new URLSearchParams(window.location.search);
     const access_token = urlParams.get("access_token");
-    console.log("로그인 모달", access_token);
+    // console.log("로그인 모달", access_token); // 로그인 상태확인
     if (access_token) {
       // 유저 정보 저장
       getUserInfo().then((res) => {
@@ -69,11 +69,11 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
   }, [setAuth, setModalOpen]);
 
   return (
-    <div
-      ref={modalRef}
-      className="w-full h-screen fixed top-0 left-0 bg-neutral-700 bg-opacity-70"
-    >
-      <div className="flex flex-col items-center z-100 w-72 h-60 p-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-dark-blue rounded-lg shadow-2 shadow-transparent-black text-white">
+    <div className="w-full h-screen fixed top-0 left-0 bg-neutral-700 bg-opacity-70">
+      <div
+        ref={modalRef}
+        className="flex flex-col items-center z-100 w-72 h-60 p-5 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-dark-blue rounded-lg shadow-2 shadow-transparent-black text-white"
+      >
         <h2 className="text-2xl">박훈수</h2>
         <button
           className="flex justify-center items-center py-2 pl-2 px-4 mt-16 rounded-lg shadow-md text-black bg-white hover:bg-light-blue hover:text-white"
