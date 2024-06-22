@@ -95,10 +95,10 @@ const Vote: React.FC = () => {
 
       <p className="flex justify-between">
         <span onClick={voteProHandler}>
-          <b className="text-green-700">찬성</b> {proCountWidth}
+          <b className="text-green-700">찬성</b> <span className="text-gray-400">{proCountWidth}</span>
         </span>
         <span onClick={voteConHandler}>
-          {conCountWidth} <b className="text-orange-700">반대</b>
+          <span className="text-gray-400">{conCountWidth}</span> <b className="text-orange-700">반대</b>
         </span>
       </p>
     </div>
