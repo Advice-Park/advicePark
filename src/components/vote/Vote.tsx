@@ -65,6 +65,26 @@ const Vote: React.FC = () => {
 
   return (
     <div className="w-full pt-2">
+      <p className="flex justify-between">
+        {/* 찬성 버튼 */}
+        <span
+          onClick={voteProHandler}
+          className={
+            proInputValue ? "text-green-700 font-bold" : "text-gray-500"
+          }
+        >
+          찬성 {proCountWidth}
+        </span>
+
+        {/* 반대 버튼 */}
+        <span
+          onClick={voteConHandler}
+          className={conInputValue ? "text-red-700 font-bold" : "text-gray-500"}
+        >
+          {conCountWidth} 반대
+        </span>
+      </p>
+
       <div className="w-full p-1 border rounded-lg flex justify-between">
         {/* 찬성 */}
         <div>
@@ -75,7 +95,9 @@ const Vote: React.FC = () => {
                 : `w-${smallVote} h-${smallVote} bg-green-700`
             }
           >
-            {proCountWidth > 50 ? "WIN" : ""}
+            <span className="text-white">
+              {proCountWidth > 50 ? "WIN" : ""}
+            </span>
           </div>
         </div>
 
@@ -88,19 +110,12 @@ const Vote: React.FC = () => {
                 : `w-${smallVote} h-${smallVote} bg-orange-700`
             }
           >
-            {conCountWidth > 50 ? "WIN" : ""}
+            <span className="text-white">
+              {conCountWidth > 50 ? "WIN" : ""}
+            </span>
           </div>
         </div>
       </div>
-
-      <p className="flex justify-between">
-        <span onClick={voteProHandler}>
-          <b className="text-green-700">찬성</b> <span className="text-gray-400">{proCountWidth}</span>
-        </span>
-        <span onClick={voteConHandler}>
-          <span className="text-gray-400">{conCountWidth}</span> <b className="text-orange-700">반대</b>
-        </span>
-      </p>
     </div>
   );
 };
