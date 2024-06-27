@@ -8,8 +8,9 @@ const App: React.FC = () => {
     <>
       <div className="w-full flex justify-between h-screen mx-auto bg-slate-400">
         {/* ---큰화면용 이미지--- */}
-        <div className="md:flex hidden flex-col justify-center h-screen">
-          왼쪽 이미지
+        <div className="md:flex hidden flex-col justify-end h-screen">
+          <img className="w-1/2" src="img/green-dinosaur.png" alt="mainImg" />
+          <img className="" src="img/beach.png" alt="beach" />
         </div>
 
         {/* ---웹앱 창--- */}
