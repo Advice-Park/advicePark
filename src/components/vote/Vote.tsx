@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
-import { deleteSupport, getVote, postSupport } from "../../services/api/vote";
+import {
+  deleteOppose,
+  deleteSupport,
+  getVote,
+  postOppose,
+  postSupport,
+} from "../../services/api/vote";
 // import { useRecoilValue } from "recoil";
 // import { authState } from "../../contexts/state";
 
@@ -63,11 +69,13 @@ const Vote = ({ postId }: VoteProps) => {
     }
 
     if (proInputValue === false && conInputValue === false) {
+      postOppose(postId);
       setConInputValue(true);
       setConCount(conCount + 1);
     }
 
     if (proInputValue === false && conInputValue === true) {
+      deleteOppose(postId);
       setConInputValue(false);
       setConCount(conCount - 1);
     }
