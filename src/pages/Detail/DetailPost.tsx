@@ -150,7 +150,7 @@ const DetailPost: React.FC = () => {
         </ul>
 
         {/* 찬반 투표 창 */}
-        <div>{detailPost?.postVoteOption === "YES_NO" && <Vote />}</div>
+        <div>{detailPost?.postVoteOption === "YES_NO" && <Vote postId={parseInt(postId || "0")} />}</div>
       </div>
       <div>
         <CommentList postId={parseInt(postId || "0")} />

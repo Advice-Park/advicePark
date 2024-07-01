@@ -1,8 +1,13 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
+import { deleteSupport, getVote, postSupport } from "../../services/api/vote";
 // import { useRecoilValue } from "recoil";
 // import { authState } from "../../contexts/state";
 
-const Vote: React.FC = () => {
+type VoteProps = {
+  postId: number;
+};
+
+const Vote = ({ postId }: VoteProps) => {
   // const auth = useRecoilValue(authState);
 
   const [proCount, setProCount] = useState<number>(0);
@@ -17,6 +22,16 @@ const Vote: React.FC = () => {
   const [proInputValue, setProInputValue] = useState<boolean>(false);
   const [conInputValue, setConInputValue] = useState<boolean>(false);
 
+  useEffect(() => {
+    getVote(postId).then((res) => {
+      if (res === "SUPPORT") {
+        setProInputValue(true);
+      } else {
+        setConInputValue(true);
+      }
+    });
+  }, []);
+
   const voteProHandler = () => {
     console.log("Pro", proInputValue, proCount, proCountWidth);
     // if (auth.isLoggedIn) {
@@ -25,11 +40,13 @@ const Vote: React.FC = () => {
     }
 
     if (conInputValue === false && proInputValue === false) {
+      postSupport(postId);
       setProInputValue(true);
       setProCount(proCount + 1);
     }
 
     if (conInputValue === false && proInputValue === true) {
+      deleteSupport(postId);
       setProInputValue(false);
       setProCount(proCount - 1);
     }
