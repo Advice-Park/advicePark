@@ -1,37 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { getPosts, Posts } from "../../services/api/posts";
+import { instance } from "../../services/instance";
 
+interface Image {
+  imageId: number;
+  postId: number;
+  storedImagePath: string;
+}
 const Gallery: React.FC = () => {
-  const [posts, setPosts] = useState<Posts[]>([]);
+  const [images, setImages] = useState<Image[]>([]);
 
   useEffect(() => {
-    getPosts().then((res) => {
-      if (res && res.length > 0) {
-        setPosts(res);
-      } else {
-        console.log("글이 없습니다");
-      }
+    const getImages = async () => {
+      const res = await instance.get("/api/image");
+      return res.data.result;
+    };
+    getImages().then((res) => {
+      setImages(res);
     });
   }, []);
 
   return (
-    <div className="m-5 p-3 bg-white rounded-lg flex flex-wrap">
-      {posts.map((post) => (
-        <>
-          {post.imageUrls.length > 0 && (
-            <div key={post.postId} className="flex">
-              {post.imageUrls.map((imageUrl, index) => (
-                <div className="w-20 m-2 p-2 border rounded">
-                  <img
-                    key={index}
-                    src={imageUrl}
-                    alt={`Post Images ${index}`}
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-        </>
+    <div className="m-5 p-4 bg-white rounded-lg flex flex-wrap justify-around">
+      {images.map((img) => (
+        <div
+          key={img.imageId}
+          className="w-20 m-1 p-2 border rounded cursor-pointer"
+          onClick={() => (window.location.href = `/posts/${img.postId}`)}
+        >
+          <img src={img.storedImagePath} alt={`postImg ${img.imageId}`} />
+        </div>
       ))}
     </div>
   );
