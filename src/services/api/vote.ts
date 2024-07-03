@@ -18,7 +18,7 @@ export const deleteSupport = async (postId: number) => {
 
 export const getVote = async (postId: number) => {
   try {
-    const res = await instance.get(`/api/vote/${postId}`);
+    const res = await instance.get(`/api/vote/${postId}/user`);
     return res.data.result as "SUPPORT" | "OPPOSE";
   } catch (err) {
     console.log(err);
