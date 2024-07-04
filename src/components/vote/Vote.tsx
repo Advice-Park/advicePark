@@ -32,8 +32,11 @@ const Vote = ({ postId }: VoteProps) => {
     getVote(postId).then((res) => {
       if (res === "SUPPORT") {
         setProInputValue(true);
-      } else {
+      } else if (res === "OPPOSE") {
         setConInputValue(true);
+      } else {
+        setProInputValue(false);
+        setConInputValue(false);
       }
     });
   }, []);
