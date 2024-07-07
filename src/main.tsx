@@ -12,6 +12,7 @@ import PostsPage from "./pages/Posts/PostsPage.tsx";
 import My from "./pages/MyPage/My.tsx";
 import DetailPost from "./pages/Detail/DetailPost.tsx";
 import Search from "./pages/Search/Search.tsx";
+import PrivateRoute from "./components/route/PrivateRoute.tsx";
 
 const router = createBrowserRouter([
   {
@@ -20,11 +21,16 @@ const router = createBrowserRouter([
     errorElement: <NotFound />,
     children: [
       { index: true, path: "/", element: <Home /> },
-      { path: "/post", element: <PostPage /> },
       { path: "/posts", element: <PostsPage /> },
       { path: "/posts/:postId", element: <DetailPost /> },
       { path: "/search", element: <Search /> },
-      { path: "/my", element: <My /> },
+      {
+        element: <PrivateRoute />,
+        children: [
+          { path: "/post", element: <PostPage /> },
+          { path: "/my", element: <My /> },
+        ],
+      },
     ],
   },
 ]);
