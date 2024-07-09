@@ -32,7 +32,7 @@ export const getVote = async (postId: number) => {
 
 export const getVoteCounts = async (postId: number) => {
   try {
-    const res = await instance.get(`/api/vote/${postId}/counts`);
+    const res = await instance.get(`/api/vote/${postId}/count`);
     return res.data.result as VoteCounts;
   } catch (err) {
     console.log(err);
