@@ -3,6 +3,7 @@ import {
   deleteOppose,
   deleteSupport,
   getVote,
+  getVoteCounts,
   postOppose,
   postSupport,
 } from "../../services/api/vote";
@@ -29,6 +30,13 @@ const Vote = ({ postId }: VoteProps) => {
   const [conInputValue, setConInputValue] = useState<boolean>(false);
 
   useEffect(() => {
+    getVoteCounts(postId).then((res) => {
+      if (res) {
+        setProCount(res.supportCount);
+        setConCount(res.opposeCount);
+      }
+    });
+
     getVote(postId).then((res) => {
       if (res === "SUPPORT") {
         setProInputValue(true);
