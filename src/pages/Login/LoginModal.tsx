@@ -65,7 +65,7 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
             image: res.image,
           });
         }
-        console.log("유저정보", res);
+        console.log("getUserInfo 유저정보", res);
       });
       // 쿠키 설정
       document.cookie = `token=${access_token}; path=/`;
