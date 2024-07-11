@@ -30,6 +30,8 @@ const Navbar: React.FC = () => {
 
   useEffect(() => {
     console.log("로그인 모달", access_token);
+    console.log("로그인 상태 auth.isLoggedIn",auth.isLoggedIn);
+
 
     // 이미 로그인되어 있는지 확인
     if (cookies.token) {

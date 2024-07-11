@@ -10,6 +10,7 @@ const PrivateRoute: React.FC = () => {
   const location = useLocation();
 
   if (!auth.isLoggedIn) {
+    console.log("PrivateRoute auth.isLoggedIn",auth.isLoggedIn);
     alert("로그인이 필요합니다.");
     return <Navigate to="/" state={{ from: location }} />; // from에 현재 URL을 저장하여 리다렉트에 사용
   }
