@@ -10,7 +10,6 @@ import BoardIcon from "../../assets/icons/postsBoard.svg?react";
 import { getUserInfo } from "../../services/api/user";
 
 const Navbar: React.FC = () => {
-  //recoil 사용 선언
   const setAuth = useSetRecoilState(authState);
   const auth = useRecoilValue(authState);
 
@@ -19,7 +18,6 @@ const Navbar: React.FC = () => {
 
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
 
-  // 모달창 열기
   const showModal = () => {
     setModalOpen(true);
   };
@@ -29,7 +27,6 @@ const Navbar: React.FC = () => {
   const access_token = params.get("access_token");
 
   useEffect(() => {
-    console.log("로그인 모달", access_token);
     console.log("로그인 상태 auth.isLoggedIn",auth.isLoggedIn);
 
 
@@ -37,52 +34,48 @@ const Navbar: React.FC = () => {
     if (cookies.token) {
       // 유저 정보 저장
       getUserInfo().then((res) => {
-        setAuth({
-          isLoggedIn: true,
-          userId: res?.userId,
-          name: res?.name,
-          image: res?.image,
-        });
+        if (res) {
+          setAuth({
+            isLoggedIn: true,
+            userId: res.userId,
+            name: res.name,
+            image: res.image,
+          });
+        }
       });
       return;
     }
 
     // 로그인 성공 시에만 새로고침
     if (access_token) {
-      setCookie("token", access_token);
+      setCookie("token", access_token, { path: "/" });
       console.log(cookies.token);
 
-      // 유저 정보 저장
       getUserInfo().then((res) => {
-        setAuth({
-          isLoggedIn: true,
-          userId: res?.userId,
-          name: res?.name,
-          image: res?.image,
-        });
+        if (res) {
+          setAuth({
+            isLoggedIn: true,
+            userId: res.userId,
+            name: res.name,
+            image: res.image,
+          });
+        }
       });
 
-      // 새로고침
       window.location.reload();
 
       return;
     }
   }, []);
 
-  // 로그아웃
   const handleLogout = () => {
     setAuth({ isLoggedIn: false, userId: 0, name: "비회원", image: "" });
     removeCookie("token", { path: "/" });
-    location.href = "https://advice-park.vercel.app/";
+    location.href = "/";
   };
 
-  // 로그인 상태 변화 시 새로고침
-  useEffect(() => {
-    // window.location.reload();
-  }, [setAuth]);
-
   const navHandler = (menu: string) => {
-    location.href = `https://advice-park.vercel.app/${menu}`;
+    location.href = `/${menu}`;
   };
 
   return (

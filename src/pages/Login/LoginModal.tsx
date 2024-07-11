@@ -57,13 +57,17 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
     if (access_token) {
       // 유저 정보 저장
       getUserInfo().then((res) => {
-        setAuth({
-          isLoggedIn: true,
-          userId: res?.userId,
-          name: res?.name,
-          image: res?.image,
-        });
+        if (res) {
+          setAuth({
+            isLoggedIn: true,
+            userId: res.userId,
+            name: res.name,
+            image: res.image,
+          });
+        }
       });
+      // 쿠키 설정
+      document.cookie = `token=${access_token}; path=/`;
       setModalOpen(false);
     }
   }, [setAuth, setModalOpen]);
