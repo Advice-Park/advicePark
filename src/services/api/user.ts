@@ -10,6 +10,7 @@ export const getUserInfo = async () => {
     try {
         const res = await instance.get("/api/auth/currentUserInfo");
         const userInfo: UserInfo = res.data.result;
+        console.log(userInfo);
         return userInfo;
     } catch (err) {
         console.log("userInfo 불러오기 에러 :", err);
