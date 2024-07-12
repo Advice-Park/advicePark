@@ -56,17 +56,23 @@ const LoginModal = ({ setModalOpen, setAuth }: AuthProps) => {
     console.log("로그인 모달", access_token);
     if (access_token) {
       // 유저 정보 저장
-      getUserInfo().then((res) => {
-        if (res) {
-          setAuth({
-            isLoggedIn: true,
-            userId: res.userId,
-            name: res.name,
-            image: res.image,
-          });
-        }
-        console.log("getUserInfo 유저정보", res);
-      });
+      getUserInfo()
+        .then((res) => {
+          if (res) {
+            setAuth({
+              isLoggedIn: true,
+              userId: res.userId,
+              name: res.name,
+              image: res.image,
+            });
+          } else {
+            console.log("getUserInfo 유저정보를 가져오지 못했습니다.");
+          }
+          console.log("getUserInfo 유저정보", res);
+        })
+        .catch((err) => {
+          console.log("getUserInfo 호출 중 에러 발생:", err);
+        });
       // 쿠키 설정
       document.cookie = `token=${access_token}; path=/`;
       setModalOpen(false);
