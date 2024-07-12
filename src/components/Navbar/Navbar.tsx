@@ -29,7 +29,6 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     console.log("로그인 상태 auth.isLoggedIn",auth.isLoggedIn);
 
-
     // 이미 로그인되어 있는지 확인
     if (cookies.token) {
       // 유저 정보 저장
@@ -59,7 +58,13 @@ const Navbar: React.FC = () => {
             name: res.name,
             image: res.image,
           });
+        } else {
+          console.log("nav getUserInfo 유저정보를 가져오지 못했습니다.");
         }
+        console.log("nav getUserInfo 유저정보", res);
+      })
+      .catch((err) => {
+        console.log("nav getUserInfo 호출 중 에러 발생:", err);
       });
 
       window.location.reload();
