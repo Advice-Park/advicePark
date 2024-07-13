@@ -108,7 +108,7 @@ const Navbar: React.FC = () => {
                 </li>
               </ul>
               <button
-                className="py-2 px-4 rounded-lg shadow-md text-black bg-green-300 hover:bg-lime-300"
+                className="btn bg-light-blue hover:bg-white"
                 onClick={handleLogout}
               >
                 로그아웃
@@ -116,7 +116,7 @@ const Navbar: React.FC = () => {
             </>
           ) : (
             <button
-              className="py-2 px-4 rounded-lg shadow-md text-black bg-white hover:bg-green-300"
+              className="btn bg-white hover:text-light-blue"
               onClick={showModal}
             >
               로그인
