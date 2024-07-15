@@ -123,7 +123,7 @@ const Navbar: React.FC = () => {
             </button>
           )}
           {modalOpen && (
-            <LoginModal setModalOpen={setModalOpen} setAuth={setAuth} />
+            <LoginModal setModalOpen={setModalOpen} />
           )}
         </nav>
       </div>
