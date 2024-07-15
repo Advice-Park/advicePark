@@ -1,4 +1,3 @@
-// import React from 'react'
 import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
@@ -36,11 +35,8 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  //  Recoil 상태관리
   <RecoilRoot>
-    {/* 리액트 쿠키  */}
     <CookiesProvider>
-      {/* 리액트 router */}
       <RouterProvider router={router} />
     </CookiesProvider>
   </RecoilRoot>
