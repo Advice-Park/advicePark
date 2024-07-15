@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import googleIcon from "/iconImgs/google-icon.png";
 import { getUserInfo } from "../../services/api/user";
-import { useRecoilState } from "recoil";
+import { useSetRecoilState } from "recoil";
 import { authState } from "../../contexts/state";
 
 type AuthProps = {
@@ -13,7 +13,7 @@ const LoginModal = ({ setModalOpen }: AuthProps) => {
     setModalOpen(false);
   };
 
-  const [_auth, setAuth] = useRecoilState(authState);
+  const setAuth = useSetRecoilState(authState);
 
   // 모달 외부 클릭 시 닫기
   const modalRef = useRef<HTMLDivElement>(null);
