@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 import { authState } from "../../contexts/state";
-import { useRecoilValue, useSetRecoilState } from "recoil";
 import LoginModal from "../../pages/Login/LoginModal";
 import SearchIcon from "../../assets/icons/search.svg?react";
 import MyPageIcon from "../../assets/icons/myPage.svg?react";
 import WriteIcon from "../../assets/icons/write.svg?react";
 import BoardIcon from "../../assets/icons/postsBoard.svg?react";
 import { getUserInfo } from "../../services/api/user";
+import { useRecoilState } from "recoil";
 
 const Navbar: React.FC = () => {
-  const setAuth = useSetRecoilState(authState);
-  const auth = useRecoilValue(authState);
+  const [auth, setAuth] = useRecoilState(authState);
 
   // 로그인 모달
   const [modalOpen, setModalOpen] = useState(false);
@@ -27,21 +26,28 @@ const Navbar: React.FC = () => {
   const access_token = params.get("access_token");
 
   useEffect(() => {
-    console.log("로그인 상태 auth.isLoggedIn",auth.isLoggedIn);
+    console.log("로그인 상태 auth.isLoggedIn", auth.isLoggedIn);
 
     // 이미 로그인되어 있는지 확인
     if (cookies.token) {
       // 유저 정보 저장
-      getUserInfo().then((res) => {
-        if (res) {
-          setAuth({
-            isLoggedIn: true,
-            userId: res.userId,
-            name: res.name,
-            image: res.image,
-          });
-        }
-      });
+      getUserInfo()
+        .then((res) => {
+          if (res) {
+            setAuth({
+              isLoggedIn: true,
+              userId: res.userId,
+              name: res.name,
+              image: res.image,
+            });
+          } else {
+            console.log("nav 확인 유저정보를 가져오지 못했습니다.");
+          }
+          console.log("nav 확인 유저정보", auth);
+        })
+        .catch((err) => {
+          console.log("nav 확인 호출 중 에러 발생:", err);
+        });
       return;
     }
 
@@ -50,22 +56,23 @@ const Navbar: React.FC = () => {
       setCookie("token", access_token, { path: "/" });
       console.log(cookies.token);
 
-      getUserInfo().then((res) => {
-        if (res) {
-          setAuth({
-            isLoggedIn: true,
-            userId: res.userId,
-            name: res.name,
-            image: res.image,
-          });
-        } else {
-          console.log("nav getUserInfo 유저정보를 가져오지 못했습니다.");
-        }
-        console.log("nav getUserInfo 유저정보", res);
-      })
-      .catch((err) => {
-        console.log("nav getUserInfo 호출 중 에러 발생:", err);
-      });
+      getUserInfo()
+        .then((res) => {
+          if (res) {
+            setAuth({
+              isLoggedIn: true,
+              userId: res.userId,
+              name: res.name,
+              image: res.image,
+            });
+          } else {
+            console.log("nav getUserInfo 유저정보를 가져오지 못했습니다.");
+          }
+          console.log("nav getUserInfo 유저정보", res);
+        })
+        .catch((err) => {
+          console.log("nav getUserInfo 호출 중 에러 발생:", err);
+        });
 
       window.location.reload();
 
@@ -122,9 +129,7 @@ const Navbar: React.FC = () => {
               로그인
             </button>
           )}
-          {modalOpen && (
-            <LoginModal setModalOpen={setModalOpen} />
-          )}
+          {modalOpen && <LoginModal setModalOpen={setModalOpen} />}
         </nav>
       </div>
     </header>
