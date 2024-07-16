@@ -43,7 +43,6 @@ const Navbar: React.FC = () => {
           } else {
             console.log("nav 확인 유저정보를 가져오지 못했습니다.");
           }
-          console.log("nav 확인 유저정보", auth);
         })
         .catch((err) => {
           console.log("nav 확인 호출 중 에러 발생:", err);
@@ -79,6 +78,10 @@ const Navbar: React.FC = () => {
       return;
     }
   }, []);
+
+  useEffect(() => {
+    console.log("nav 확인 유저정보", auth);
+  }, [auth]);
 
   const handleLogout = () => {
     setAuth({ isLoggedIn: false, userId: 0, name: "비회원", image: "" });
