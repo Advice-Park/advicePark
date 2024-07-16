@@ -9,6 +9,8 @@ const Home: React.FC = () => {
   //recoil 사용 선언
   const auth = useRecoilValue(authState);
 
+  console.log(auth);
+
   return (
     <div>
       <div className="w-full p-5 bg-dark-blue text-white rounded-br-full">
