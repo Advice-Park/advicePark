@@ -29,51 +29,56 @@ const Navbar: React.FC = () => {
     console.log("로그인 상태 auth.isLoggedIn", auth.isLoggedIn);
 
     // 이미 로그인되어 있는지 확인
-    if (cookies.token) {
-      // 유저 정보 저장
-      getUserInfo()
-        .then((res) => {
-          if (res) {
-            setAuth({
-              isLoggedIn: true,
-              userId: res.userId,
-              name: res.name,
-              image: res.image,
-            });
-          } else {
-            console.log("nav 확인 유저정보를 가져오지 못했습니다.");
-          }
-        })
-        .catch((err) => {
-          console.log("nav 확인 호출 중 에러 발생:", err);
-        });
-      return;
-    }
+    // if (cookies.token) {
+    //   // 유저 정보 저장
+    //   getUserInfo()
+    //     .then((res) => {
+    //       if (res) {
+    //         setAuth({
+    //           isLoggedIn: true,
+    //           userId: res.userId,
+    //           name: res.name,
+    //           image: res.image,
+    //         });
+    //       } else {
+    //         console.log("nav 확인 유저정보를 가져오지 못했습니다.");
+    //       }
+    //     })
+    //     .catch((err) => {
+    //       console.log("nav 확인 호출 중 에러 발생:", err);
+    //     });
+    //   return;
+    // }
 
     // 로그인 성공 시에만 새로고침
     if (access_token) {
       setCookie("token", access_token, { path: "/" });
       console.log(cookies.token);
 
-      getUserInfo()
-        .then((res) => {
-          if (res) {
-            setAuth({
-              isLoggedIn: true,
-              userId: res.userId,
-              name: res.name,
-              image: res.image,
-            });
-          } else {
-            console.log("nav getUserInfo 유저정보를 가져오지 못했습니다.");
-          }
-          console.log("nav getUserInfo 유저정보", res);
-        })
-        .catch((err) => {
-          console.log("nav getUserInfo 호출 중 에러 발생:", err);
-        });
+      if (cookies.token) {
+        console.log("토큰이 있습니다. 유저 정보를 가져옵니다.");
+        getUserInfo()
+          .then((res) => {
+            if (res) {
+              setAuth({
+                isLoggedIn: true,
+                userId: res.userId,
+                name: res.name,
+                image: res.image,
+              });
+              console.log("유저 정보", res);
+            } else {
+              console.log("유저 정보를 가져오지 못했습니다.");
+            }
+          })
+          .catch((err) => {
+            console.log("에러 발생:", err);
+          });
+      } else {
+        console.log("토큰이 없습니다.");
+      }
 
-      window.location.reload();
+      // window.location.reload();
 
       return;
     }
